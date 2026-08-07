@@ -26,4 +26,4 @@ Ajouter un outil IA = ajouter un dossier 20.0x, jamais recréer un Vault sépar�
 ## Source de vérité
 - MEMORY.md (injectée chaque tour) reste LEAN : règles + profil + UN pointeur ici.
 - Toute la connaissance projet (archi Ulysse, Freebuff) vit DANS ce Vault, pas dans MEMORY.md.
-- Récap complet Ulysse (nonindexé ici) : C:\Users\kuchu\Desktop\Projet Ulysse\recapitulatif.md
+- Récap complet Ulysse : voir [[10.01 Ulysse/ARCHI]] (version indexée, source de vérité).
