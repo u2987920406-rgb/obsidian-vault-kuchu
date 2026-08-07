@@ -10,7 +10,7 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   Archi détaillée : [[10.01 Ulysse/ARCHI]].
 
 ## 11 Ressources
-- [[11 Ressources/Freebuff2API]] — Fallback provider perso si NuPortal free saturé.
+- [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, validé e2e).
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP.

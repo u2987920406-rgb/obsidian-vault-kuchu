@@ -7,5 +7,6 @@
 - MEMORY.md réécrite lean (règles + profil + pointeur coffre).
   Note : verrou de dérive memory() session-local (instance parallèle) ;
   résolu à la prochaine session (fichier lean sur disque adopté proprement).
-- Freebuff2API : note détaillée introuvable sur disque → emplacement réservé dans
-  [[../../11 Ressources/Freebuff2API]].
+- Freebuff comme *modèle* abandonné : le proxy Freebuff2API n'a jamais été buildé
+  (Go absent) ni activé. La ressource Freebuff vivante est [[11 Ressources/freeB]]
+  (Freebuff comme *outil d'exécution* via MCP, validé e2e).

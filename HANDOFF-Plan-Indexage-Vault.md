@@ -57,7 +57,7 @@ Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.
        — lire si sujet Hermès/Ulysse/Freebuff"
 - Contenu DÉPLACÉ hors MEMORY vers le Vault :
     * Archi détaillée Ulysse (ports 8645/8644/9119, auth Portal, 6 rôles, perms)
-    * Note Freebuff2API (fallback perso si provider free Nous saturé)
+    * Note freeB (pont MCP Freebuff ↔ Hermès, ressource vivante) — voir [[11 Ressources/freeB]]
 - Le VAULT est un repo Git PRIVÉ. .gitignore exclut .obsidian/.
 
 ================================================================
