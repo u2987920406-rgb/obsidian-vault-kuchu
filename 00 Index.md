@@ -28,4 +28,10 @@ Ajouter un outil IA = ajouter un dossier 20.0x, jamais recréer un Vault sépar�
 - Toute la connaissance projet (archi Ulysse, Freebuff) vit DANS ce Vault, pas dans MEMORY.md.
 - Récap complet Ulysse : voir [[10.01 Ulysse/ARCHI]] (version indexée, source de vérité).
 
- Test raccourci Ctrl+Alt+S — 2026-08-07Yes.
+## Automatisation Git (backup Vault)
+- Plugin « Obsidian Git » (Vinzent) installé. Repo privé GitHub : obsidian-vault-kuchu (branche master).
+- Pull automatique au démarrage d'Obsidian (récupère l'état distant).
+- Push manuel via raccourci **Ctrl+Alt+S** (Commit-and-sync : commit + pull + push groupé).
+- Aucun push automatique à intervalle : on pousse quand on veut, en une fois.
+- Identité commit : kuchubb / u2987920406@gmail.com. Token PAT géré par le Gestionnaire de credentials Windows.
+- Règle : avant de quitter, Ctrl+Alt+S pour figer le travail sur GitHub (survit au PC).
