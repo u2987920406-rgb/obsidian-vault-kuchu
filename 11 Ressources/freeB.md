@@ -31,19 +31,19 @@ Dépôt GitHub : https://github.com/u2987920406-rgb/freeB
 Hermès expose les outils `freebuff_*` (préfixe ajouté automatiquement). Par défaut,
 **11 outils seulement** sont exposés (voir « Allègement » plus bas) :
 
-| Outil | Usage | Quand l'utiliser |
-|---|---|---|
-| `freebuff_ask` | Porte universelle — pose une question libre à Freebuff (tout ce qui n'a pas d'outil dédié) | Question ouverte, ou pour appeler un des 22 outils non exposés (ex. « fais-moi un plan de release ») |
-| `freebuff_code` | Génère du **code** (fichier source + tests) | Écrire/modifier un module, un script, des tests |
-| `freebuff_plan` | Planifie une **architecture** (composants, data model, API, sécurité…) | Avant de coder un système non trivial |
-| `freebuff_vault` | Écrit/lit une note dans le vault Obsidian du projet | Documentation, mémoire du projet |
-| `freebuff_search` | Recherche dans le vault | Retrouver une note |
-| `freebuff_stats` | Statistiques du vault | Audit de contenu |
-| `freebuff_export` | Exporte des notes | Sortie hors vault |
-| `freebuff_graph` | Graphe Mermaid des liens entre notes | Visualiser la structure |
-| `freebuff_link` | Crée un backlink `[[wikilink]]` | Relier deux notes |
-| `freebuff_timeline` | Frise chronologique Mermaid | Historique du projet |
-| `freebuff_refresh` | Recharge la config vault sans restart | Après changement de templates |
+| Outil               | Usage                                                                                      | Quand l'utiliser                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `freebuff_ask`      | Porte universelle — pose une question libre à Freebuff (tout ce qui n'a pas d'outil dédié) | Question ouverte, ou pour appeler un des 22 outils non exposés (ex. « fais-moi un plan de release ») |
+| `freebuff_code`     | Génère du **code** (fichier source + tests)                                                | Écrire/modifier un module, un script, des tests                                                      |
+| `freebuff_plan`     | Planifie une **architecture** (composants, data model, API, sécurité…)                     | Avant de coder un système non trivial                                                                |
+| `freebuff_vault`    | Écrit/lit une note dans le vault Obsidian du projet                                        | Documentation, mémoire du projet                                                                     |
+| `freebuff_search`   | Recherche dans le vault                                                                    | Retrouver une note                                                                                   |
+| `freebuff_stats`    | Statistiques du vault                                                                      | Audit de contenu                                                                                     |
+| `freebuff_export`   | Exporte des notes                                                                          | Sortie hors vault                                                                                    |
+| `freebuff_graph`    | Graphe Mermaid des liens entre notes                                                       | Visualiser la structure                                                                              |
+| `freebuff_link`     | Crée un backlink `[[wikilink]]`                                                            | Relier deux notes                                                                                    |
+| `freebuff_timeline` | Frise chronologique Mermaid                                                                | Historique du projet                                                                                 |
+| `freebuff_refresh`  | Recharge la config vault sans restart                                                      | Après changement de templates                                                                        |
 
 > `freebuff_ask` est **toujours** exposé : c'est la porte vers les 22 outils cachés.
 
@@ -132,5 +132,12 @@ fait le vrai travail.
 
 ## Liens
 
-- Vault détaillé du projet : `C:\Users\kuchu\Desktop\freeB\vault\` (`.agents/07-session.md`
-  pour l'état vivant, `Lessons/` pour les pièges).
+- Vault détaillé du projet : `C:\Users\kuchu\Desktop\freeB\vault\`
+  - `Freebuff-Competences.md` — **vue consolidée** des 14 tools + 11 agents + 3 mécanismes
+    d'orchestration de Buffy/Freebuff (dédoublonnée des 4 fichiers `Freebuff-*.md` du 01/08).
+  - `Freebuff-Reference-API.md` — **référence params** des tools/agents (pour appeler freeB
+    en connaissance de cause).
+  - `.agents/07-session.md` — état vivant de la session.
+- Ces deux fichiers sont **indexés par Hermès** : quand on invoque freeB, le modèle peut s'y
+  référer sans les charger intégralement (résumé + sections ciblées). Ils remplacent les 4
+  fichiers redondants de `C:\Users\kuchu\Desktop\freebuff competance\` (à conserver comme archive).
