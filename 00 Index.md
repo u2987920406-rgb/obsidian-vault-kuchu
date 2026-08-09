@@ -21,6 +21,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 
 ## 30 Journal
 - [[30 Journal/2026-08-07]] — Journal de séance (entrée / sortie de travail).
+- [[30 Journal/2026-08-10]] — le rail : quatre défauts, dont un que le design
+  ne pouvait pas voir
 - [[30 Journal/2026-08-09]] — Terminal branché, deux passes de design, socle
   des garde-fous d'écriture. Cinq défauts et ce qu'ils apprennent.
 
