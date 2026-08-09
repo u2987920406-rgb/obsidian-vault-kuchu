@@ -8,6 +8,9 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[10.01 Ulysse]] — Masque web UI visuel posé sur Hermès. Installateur .bat
   from-scratch pour utilisateurs non-tech (fournissent leur clé Nous).
   Archi détaillée : [[10.01 Ulysse/ARCHI]].
+  **État courant : [[10.01 Ulysse/ETAT-2026-08-09]]** — jalon 4, dépôt déplacé
+  sur le Bureau, Terminal branché (`hermes --tui` derrière `/api/pty`), socle
+  des garde-fous d'écriture posé.
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, validé e2e).
@@ -18,6 +21,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 
 ## 30 Journal
 - [[30 Journal/2026-08-07]] — Journal de séance (entrée / sortie de travail).
+- [[30 Journal/2026-08-09]] — Terminal branché, deux passes de design, socle
+  des garde-fous d'écriture. Cinq défauts et ce qu'ils apprennent.
 
 ## Règle d'or
 1 Vault unique. Racine = index partagé. Outils = locataires 20.x.
