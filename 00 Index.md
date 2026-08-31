@@ -14,6 +14,9 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, validé e2e).
+- [[11 Ressources/raf-bmax — Fiche opérationnelle]] — Le serveur homelab :
+  accès (Discord d'abord, SSH en secours), stack Docker, surveillance,
+  Hermès, procédures headless. À lire quand quelque chose ne va pas.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP.
