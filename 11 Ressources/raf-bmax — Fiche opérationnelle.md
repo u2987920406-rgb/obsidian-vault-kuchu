@@ -83,7 +83,8 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 
 - **Portainer** — https://raf-bmax.tail14baaa.ts.net/
 - **Uptime Kuma** — https://raf-bmax.tail14baaa.ts.net:8443/
-- **Obsidian** — https://raf-bmax.tail14baaa.ts.net:10000/ (auth `raf`)
+
+Port 10000 libre (ex-Obsidian, décommissionné le 2026-08-31).
 
 **Non exposés** (les 3 ports HTTPS de Tailscale Serve sont pris) — tunnel SSH :
 
@@ -126,13 +127,14 @@ l'historique mais l'alerte ne part pas — elle passerait par Internet.
 ## 7. Vault Obsidian
 
 Le vault vit sur le BMAX dans `~/vault` — c'est le clone du dépôt GitHub
-**obsidian-vault-kuchu** (branche `master`, public). **Obsidian tourne dans
-un conteneur**, servi par navigateur : rien à installer sur tes appareils.
-Hermes lit et écrit le même dossier.
+**obsidian-vault-kuchu** (branche `master`). Hermes lit et écrit directement
+ce dossier en fichiers, sans passer par une app.
 
-**Accès :** https://raf-bmax.tail14baaa.ts.net:10000/ (auth HTTP `raf`)
-Fonctionne depuis le téléphone, un simple lien suffit.
-Dans Obsidian, ouvrir le vault `/config/vault`.
+**Consultation visuelle :** Obsidian tourne en **snap natif** sur bmax
+(`obsidianmd`, installé le 2026-08-31), utilisé seulement en session desktop
+ponctuelle (1-2x/mois). Plus de conteneur, plus d'accès distant par
+navigateur — l'ancien setup Docker (port 10000) a été décommissionné.
+L'app Obsidian sur Android n'est reliée à aucun vault.
 
 **Structure (tes conventions) :** `00 Index.md` à la racine (index partagé,
 à lire en premier), `10 Projets/`, `11 Ressources/`, `20 Outils/` (un
@@ -142,13 +144,8 @@ date).
 **Règle d'or :** un seul vault. Ajouter un outil IA = ajouter un `20.0x`,
 jamais recréer un vault séparé.
 
-**Git :** le clone a `origin` vers GitHub, identité git configurée. Le
-`push` nécessitera un accès en écriture (le clone HTTPS public ne le permet
-pas) — à mettre en place quand tu voudras l'automatiser.
-
-**Sécurité :** l'image Obsidian embarque un terminal avec `sudo` sans mot de
-passe — neutralisé par `DISABLE_SUDO=true`, interface protégée par
-`CUSTOM_USER`/`PASSWORD`. Ne pas retirer ces réglages.
+**Git :** `origin` pointe vers GitHub en SSH (`git@github-vault:...`),
+identité git configurée, push fonctionnel.
 
 **Depuis Discord :**
 
