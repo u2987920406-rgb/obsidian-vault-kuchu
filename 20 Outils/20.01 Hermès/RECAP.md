@@ -7,3 +7,4 @@ Voir [[../../00 Index]] pour la carte. Détail projet Ulysse dans [[../../10 Pro
 - MEMORY.md reste lean : règles + profil + pointeur Vault. Tout le détail
   projet vit dans ce Vault, pas dans MEMORY.md.
 - Garde-fou : 1 Vault unique, outils = locataires 20.x (jamais 3 homes à la racine).
+- Décharge mémoire LEAN → Vault : voir [[DECHARGE-MEMOIRE]] (règle hybride, quoi/comment).
