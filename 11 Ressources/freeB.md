@@ -60,7 +60,7 @@ confirmation, va jusqu'au bout du livrable »*. Résultat : Freebuff va au bout 
 pause, et le pont récupère le code.
 
 **Comment lui parler (bonnes pratiques) :**
-- **Sois explicite et complet.** Freebuff (DeepSeek V4 Flash) n'est pas ton interlocuteur
+- **Sois explicite et complet.** Freebuff (GLM 5.3 Flash) n'est pas ton interlocuteur
   de discussion : donne le périmètre, les contraintes (langage, tests, persistance),
   et dis « sois exhaustif, livre le fichier complet ».
 - **Un seul livrable par appel `code`.** Pour un gros système, passe par `plan` d'abord,
@@ -77,7 +77,7 @@ pause, et le pont récupère le code.
 
 | Besoin | Outil | Pourquoi |
 |---|---|---|
-| **Coder** un module, des tests, un script | `freebuff_code` | C'est son cœur de métier (DeepSeek V4 Flash exécute, Hermès orchestre) |
+| **Coder** un module, des tests, un script | `freebuff_code` | C'est son cœur de métier (GLM 5.3 Flash exécute, Hermès orchestre) |
 | **Concevoir** une architecture avant de coder | `freebuff_plan` | Plan structuré, sans les pauses de clarification |
 | **Raisonner / poser une question technique** | `freebuff_ask` | Réponse texte fiable, mais ce n'est pas un moteur de reasoning profond |
 | **Chatter / discuter** | ❌ pas adapté | Freebuff est un exécuteur de code, pas un compagnon de conversation. Pour le dialogue, reste sur Hermès (hy3:free) |
@@ -116,9 +116,9 @@ fait le vrai travail.
 
 ## Installé et validé sur cette machine (2026-08-08)
 
-- Clone : `C:\Users\kuchu\Desktop\freeB`
-- Serveur `freebuff` enregistré dans `~/.hermes/config.yaml` (`mcp_servers.freebuff`,
+- `~/projets/freeB` (clone git) — serveur `freebuff` enregistré dans `~/.hermes/config.yaml` (`mcp_servers.freebuff`,
   `enabled: true`) → **11 outils MCP vivants dans Hermès** (et non 33).
+- Freebuff CLI (npm `freebuff`, v0.0.165) connecté au compte **u2987920406@gmail.com** (nom « Royalchesse ») le 2026-09-02.
 - Tests : `freebuff-mcp-server` 156 verts (143 + 13 canari) ; `hermes-bridge` 58 verts
   (55 unitaires + 3 e2e RÉELS délégués à Claude Code Opus 5).
 - Tous les commits de la session sont **poussés sur GitHub** (`origin/master`).
@@ -167,9 +167,48 @@ corrigé ci-dessus.
   livrable de `~/.hermes/hermes-dashboard/` vers `~/projets/hermes-dashboard/` (règle « rien
   dans le home »). Voir [[10.02 Hermes Dashboard/Création]].
 
+## Retour d'expérience — collaboration Hermès × Freebuff (REX 2026-09-02)
+
+Test réel autonome effectué (cron #freebuff-test, 02/09) sur le dashboard Hermès et
+confirmé par Raf. Bilan honnête + principes de collaboration à respecter.
+
+### Bilan du test réel
+- **`freebuff_code`** : ✅ fluide. Généré un Fibonacci, écrit sur disque, **vérifié par
+  exécution réelle** (tous les cas passent). C'est le mode le plus fiable : tâche
+  complète et isolée.
+- **`freebuff_ask`** : ✅ fluide. Réponse technique complète (worker pools Go, comparatif
+  + anti-patterns).
+- **`freebuff_review`** : ⚠️ non exposé dans les 11 → contourné via `freebuff_ask`.
+  La review obtenue était **de très bonne qualité** (docstring manquante, complexité
+  O(n²) repérée, 3 améliorations). La friction vient de la **découverte des outils**,
+  pas de la qualité du modèle.
+
+### Constats
+1. **La qualité de Freebuff est bonne** quand on l'appelle sur une tâche précise.
+2. **Le vrai coût est la découverte des outils** : savoir ce qui est exposé AVANT de
+   déléguer évite le contournement.
+3. **Freebuff produit, Hermès valide** : exécuter/vérifier le livrable côté Hermès est
+   la bonne pratique — Freebuff ne doit pas être cru sur parole.
+
+### Principes de collaboration (décision Raf)
+- **Hermès = orchestrateur** : raisonne, décide ce qu'il faut faire, découpe la tâche.
+- **Freebuff = code complexe uniquement** (génération, intégration backend).
+- **Retours libérés TRÈS concis, directs, binaires** — sans verbose, sans explication
+  superflue. Freebuff parle à Hermès, **pas à Raf** ; Raf n'a pas besoin d'extra.
+- **Un seul livrable par appel**, tâches isolées et vérifiables une par une.
+- **Une seule session Freebuff à la fois** (contrainte de l'outil, gratuit + pubs →
+  usage ralenti/limitié).
+
+### Comment améliorer le process (à appliquer)
+1. Vérifier le catalogue exposé (`_DEFAULT_EXPOSED`) avant de déléguer.
+2. Déléguer des **briques isolées** (lecture state.db, un endpoint, un composant UI),
+   pas « tout le dashboard d'un coup ».
+3. **Vérifier chaque livrable** côté Hermès avant intégration.
+4. Ne pas sur-utiliser : Freebuff est gratuit mais limité — réserver au code complexe.
+
 ## Liens
 
-- Vault détaillé du projet : `C:\Users\kuchu\Desktop\freeB\vault\`
+- Vault détaillé du projet : `~/vault` (chemin historique `C:\Users\kuchu\Desktop\freeB\vault\` obsolète — machine passée sur Linux)
   - `Freebuff-Competences.md` — **vue consolidée** des 14 tools + 11 agents + 3 mécanismes
     d'orchestration de Buffy/Freebuff (dédoublonnée des 4 fichiers `Freebuff-*.md` du 01/08).
   - `Freebuff-Reference-API.md` — **référence params** des tools/agents (pour appeler freeB
