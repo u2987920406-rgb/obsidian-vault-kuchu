@@ -28,7 +28,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   Hermès, procédures headless. À lire quand quelque chose ne va pas.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
-- [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP.
+- [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
+  [[20.01 Hermès/SKILLS|index des skills]].
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal

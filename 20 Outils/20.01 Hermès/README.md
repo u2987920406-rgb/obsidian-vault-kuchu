@@ -11,6 +11,7 @@
 | **`SOUL.md`** | Le cadre | Comment Hermès travaille + les règles intouchables (valeurs, non-négociables) |
 | **`USER.md`** | Qui est Raf | Profil, préférences, style de collaboration |
 | **`MEMORY.md`** | L'environnement | Projets, machine, outils, services (index vers le détail) |
+| **`SKILLS.md`** | L'inventaire | Toutes les skills installées, par catégorie + workflow recommandé |
 
 ## Récupération d'état (nouvelle machine)
 
