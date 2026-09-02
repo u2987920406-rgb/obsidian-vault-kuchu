@@ -1,7 +1,8 @@
 # freeB (pont MCP Freebuff ↔ Hermès)
 
 RÔLE : ressource réutilisable — un pont MCP prêt à l'emploi entre Hermès Agent et
-Freebuff (IA de code cloud, modèle **deepseek/deepseek-v4-flash**). Sert à faire
+Freebuff (IA de code cloud, modèle **z-ai/glm-5.3-flash** — GLM 5.3 Flash de Z.ai).
+Sert à faire
 exécuter du code par Freebuff depuis Hermès, en séparant l'orchestration (Hermès,
 modèle faible) de l'exécution (Freebuff, modèle fort cloud).
 
@@ -16,7 +17,7 @@ Dépôt GitHub : https://github.com/u2987920406-rgb/freeB
    (avec la ligne de conduite imposée, voir plus bas) et pilote la **CLI Freebuff**
    en headless : il tape le prompt dans un tmux et lit la réponse dans le store disque
    (`~/.config/manicode/.../chat-messages.json` + `log.jsonl`).
-3. **Freebuff** (DeepSeek V4 Flash) génère le code et l'écrit **sur disque** (fichier
+3. **Freebuff** (GLM 5.3 Flash) génère le code et l'écrit **sur disque** (fichier
    `.py` dans le répertoire de projet). Le pont relit ce fichier et le renvoie dans la
    réponse MCP — c'est ça la « réponse utile », pas le texte de chat.
 
@@ -129,6 +130,27 @@ fait le vrai travail.
   machine-wide) — laissé à 0 par défaut. Une seule instance Freebuff à la fois.
 - Freebuff écrit le livrable **sur disque**, pas dans le chat : `freebuff_code` renvoie le
   fichier généré, pas le résumé de l'assistant.
+
+## Correction 2026-09-02 : collecte des fichiers générés
+
+**Bug :** le serveur MCP tourne avec `cwd = ~/.hermes` (home d'Hermes) →
+`FREEBUFF_PROJECT_DIR` pointait sur `~/.hermes`, et `_collect_generated_files`
+ramassait **tout le home d'Hermes** (cron/, kanban.db, run-state.json...) comme
+« fichiers générés » → réponse MCP polluée de 500 Ko de bruit, aucun code réel.
+
+**Fix :** dans `freebuff_driver.py` —
+- `INTERNAL_ARTIFACTS` (dossiers internes) + `INTERNAL_ARTIFACT_FILES` (kanban.db,
+  run-state.json, *-wal/-shm/-lock, ticker_*, état) filtrés.
+- `CODE_EXTENSIONS` : on ne collecte que les livrables texte source (.rs/.py/.js/…).
+- Filtrage sur les parties **relatives** au project_dir (pas absolues, sinon le
+  project_dir lui-même — ex. `~/.hermes` — matcherait et éliminerait tout).
+
+**Validé :** 144 tests serveur verts + test manuel du filtre. Relance effective
+du dashboard via `freebuff_code` (le code a bien été écrit sur disque).
+
+**Reste connu :** timeout MCP de **300 s** trop court pour les grosses générations —
+Freebuff continue en arrière-plan après le timeout et écrit les fichiers, mais la
+réponse MCP remonte une erreur de timeout. À allonger ou rendre l'appel async.
 
 ## Liens
 
