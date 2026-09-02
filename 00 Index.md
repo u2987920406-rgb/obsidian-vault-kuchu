@@ -15,6 +15,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   `~/projets/hermes-dashboard`, https://github.com/u2987920406-rgb/hermes-dashboard).
   v0.1 : données mockées, 6 endpoints API, port 8091. Généré par Freebuff.
   Création : [[10.02 Hermes Dashboard/Création]].
+- [[10.03 Astroprisma]] — App web compagnon (Vite+React+TS, PWA) pour le JdR
+  solo ASTROPRISMA. Repo `Astroprisma_app_EMERGENT`, branche
+  `claude/app-status-fmj9ow`. Harnais de jeu automatisé (`npm run test:harness`),
+  0 bug après fixes. Résumé : [[10.03 Astroprisma/Projet]].
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, validé e2e).
@@ -27,6 +31,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
+- [[30 Journal/2026-09-02]] — Astroprisma : harnais de jeu automatisé, 2 bugs
+  réparés, 0 bug au re-test.
 - [[30 Journal/2026-08-07]] — Journal de séance (entrée / sortie de travail).
 - [[30 Journal/2026-08-10]] — le rail : quatre défauts, dont un que le design
   ne pouvait pas voir
