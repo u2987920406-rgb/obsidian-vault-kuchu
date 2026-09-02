@@ -152,6 +152,26 @@ du dashboard via `freebuff_code` (le code a bien été écrit sur disque).
 Freebuff continue en arrière-plan après le timeout et écrit les fichiers, mais la
 réponse MCP remonte une erreur de timeout. À allonger ou rendre l'appel async.
 
+## Correction 2026-09-02 (2e passe) : routage + pollution résiduelle
+
+**Bug de routage (course) :** en enchaînant deux appels MCP rapprochés (`ask` puis
+`plan`), le driver lisait « le dernier message AI » du store — qui pouvait être la
+réponse du tour PRÉCÉDENT si le nouveau n'était pas encore flushé. Résultat :
+`freebuff_plan` renvoyait la réponse de `ask` (mauvais livrable, sans erreur).
+
+**Fix :** `ask()` snapshot `baseline_ai = count_ai_messages(store)` AVANT d'envoyer
+le prompt, et `_await_response` lit le message AI à cet index (`ai_index=baseline_ai`)
+au lieu du dernier. Si le nouveau message n'est pas écrit, il renvoie `""` et la
+boucle de flush continue d'attendre — impossible de renvoyer une réponse périmée.
+
+**Pollution résiduelle :** le filtre `INTERNAL_ARTIFACTS` ne couvrait pas `gateway/`
+→ `gateway/discord_nonconversational_messages.json` (artefact Hermes, écrit en continu
+par le gateway Discord) était collecté comme « fichier généré ». Fix : ajout de
+`gateway`, `mcp`, `webhooks`, `state`, `auth` au filtre.
+
+**Validé :** 144 tests verts + test isolé du filtre + re-test réel du plan (le plan
+cache-service est bien renvoyé, plus la réponse du tour précédent).
+
 ## Utilisation réelle validée (2026-09-02)
 
 Premier livrable de bout en bout produit par le pont : le **dashboard Hermes** en Rust
