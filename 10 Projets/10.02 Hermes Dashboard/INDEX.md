@@ -3,10 +3,12 @@
 Dashboard web de pilotage Hermes, en **Rust**.
 
 ## État courant
-**Jalon : v0.1 fonctionnel (2026-09-02)** — dashboard généré par **Freebuff** via le pont MCP, compilé et testé en réel.
+**Jalon : v0.1 fonctionnel (2026-09-02)** — dashboard généré par **Freebuff** via le pont MCP, compilé et testé en réel, accessible sur le tailnet.
+
+- Historique complet de la création : **[[10.02 Hermes Dashboard/Création]]**
 
 ## Dépôt
-`~/projets/hermes-dashboard` (git, committé)
+`~/projets/hermes-dashboard` — remote : https://github.com/u2987920406-rgb/hermes-dashboard (`origin/master`)
 
 ## Stack
 - Rust 2021, **axum 0.7** + tokio + serde/serde_json

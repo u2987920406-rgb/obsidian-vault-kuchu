@@ -152,6 +152,21 @@ du dashboard via `freebuff_code` (le code a bien été écrit sur disque).
 Freebuff continue en arrière-plan après le timeout et écrit les fichiers, mais la
 réponse MCP remonte une erreur de timeout. À allonger ou rendre l'appel async.
 
+## Utilisation réelle validée (2026-09-02)
+
+Premier livrable de bout en bout produit par le pont : le **dashboard Hermes** en Rust
+(depuis le salon Discord #freebuff-test). `freebuff_code` a généré un projet complet
+(`Cargo.toml` + `main.rs`, 525 lignes, axum) écrit sur disque, récupéré via le filtre
+corrigé ci-dessus.
+
+- Modèle effectif utilisé : **`z-ai/glm-5.3-flash`** (config `~/.config/manicode/settings.json`
+  → `freebuffModel`) — la note historique « deepseek/deepseek-v4-flash » est obsolète.
+- Freebuff écrit un **projet multi-fichiers** sur disque, pas un seul `.py` : le driver
+  collecte tout le dossier projet (code source + config), pas seulement le fichier du prompt.
+- Le projet généré est enregistré ailleurs que le cwd du serveur : il a fallu déplacer le
+  livrable de `~/.hermes/hermes-dashboard/` vers `~/projets/hermes-dashboard/` (règle « rien
+  dans le home »). Voir [[10.02 Hermes Dashboard/Création]].
+
 ## Liens
 
 - Vault détaillé du projet : `C:\Users\kuchu\Desktop\freeB\vault\`

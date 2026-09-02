@@ -11,9 +11,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   **État courant : [[10.01 Ulysse/ETAT-2026-08-09]]** — jalon 4, dépôt déplacé
   sur le Bureau, Terminal branché (`hermes --tui` derrière `/api/pty`), socle
   des garde-fous d'écriture posé.
-- [[10.02 Hermes Dashboard]] — Dashboard de pilotage Hermes en Rust (axum,
-  `~/projets/hermes-dashboard`). v0.1 : données mockées, 6 endpoints API,
-  port 8091. Généré par Freebuff via le pont MCP.
+- [[10.02 Hermes Dashboard/INDEX]] — Dashboard de pilotage Hermes en Rust (axum,
+  `~/projets/hermes-dashboard`, https://github.com/u2987920406-rgb/hermes-dashboard).
+  v0.1 : données mockées, 6 endpoints API, port 8091. Généré par Freebuff.
+  Création : [[10.02 Hermes Dashboard/Création]].
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, validé e2e).
