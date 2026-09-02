@@ -10,7 +10,7 @@
 
 | Skill | Rôle | Quand l'utiliser |
 |---|---|---|
-| **`workflow-complet`** | Workflow conception→code : méthode Raf (8 étapes) + exécution Matt Pocock + critères d'acceptation | Démarrer une nouvelle app/projet from scratch |
+| **`la-methode`** | La Méthode : conception→code (8 étapes Raf) + exécution Matt Pocock + critères d'acceptation | Démarrer une nouvelle app/projet from scratch |
 | **`reasoning-verification-patterns`** | Vérifier un fait externe avec un outil avant de répondre | Toute question factuelle (sport, actu, récompenses) |
 | **`transfert-projet`** | Basculer une discussion vers un salon projet dédié | Quand un sujet mérite son salon (Projets) |
 
@@ -39,5 +39,5 @@
 
 ## Workflow recommandé (from scratch)
 
-Pour un nouveau projet, utiliser la skill **`workflow-complet`** : elle enchaîne
+Pour un nouveau projet, utiliser la skill **`la-methode`** : elle enchaîne
 conception (méthode Raf) → pont (spec/tickets/AC) → exécution (Matt Pocock) → clôture.
