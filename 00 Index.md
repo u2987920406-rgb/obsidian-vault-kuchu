@@ -23,6 +23,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
   défaut + `ask` porte universelle, validé e2e).
+- [[11 Ressources/Gestion email — Process]] — Process & technique de tri/purge
+  d'une boîte Gmail via Himalaya CLI (meta, pas de données de mail).
 - [[11 Ressources/raf-bmax — Fiche opérationnelle]] — Le serveur homelab :
   accès (Discord d'abord, SSH en secours), stack Docker, surveillance,
   Hermès, procédures headless. À lire quand quelque chose ne va pas.
