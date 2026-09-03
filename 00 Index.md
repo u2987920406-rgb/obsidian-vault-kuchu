@@ -19,6 +19,9 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   solo ASTROPRISMA. Repo `Astroprisma_app_EMERGENT`, branche
   `claude/app-status-fmj9ow`. Harnais de jeu automatisé (`npm run test:harness`),
   0 bug après fixes. Résumé : [[10.03 Astroprisma/Projet]].
+- [[10.04 Kitsune to Yōkai]] — Run-and-gun arcade Android, feeling Pocky and
+  Rocky. Brainstorming (étape 1) clôturé : [[10.04 Kitsune to Yōkai/Brainstorming]].
+  Prochaine étape : PRD.
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
