@@ -4,7 +4,7 @@ Run-and-gun arcade Android, feeling Pocky and Rocky. Étape 2 (PRD) — 2026-09-
 
 ## Contexte
 
-- Run-and-gun arcade en **scrolling vertical** (montée), un seul perso jouable : le kitsune (renard).
+- Run-and-gun arcade en **scrolling vertical** (le décor défile vers le bas, on avance vers le haut), un seul perso jouable : le kitsune (renard), écran **paysage**.
 - Feelings cibles Pocky and Rocky : tir multi-directionnel, vagues d'ennemis, mini-boss à patterns.
 
 ## Objectifs

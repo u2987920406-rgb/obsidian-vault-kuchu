@@ -10,7 +10,7 @@
 
 | Skill | Rôle | Quand l'utiliser |
 |---|---|---|
-| **`la-methode`** | La Méthode : conception→code (8 étapes Raf) + exécution Matt Pocock + critères d'acceptation | Démarrer une nouvelle app/projet from scratch |
+| **`la-methode`** | La Méthode : conception→code (8 étapes Raf) + exécution Matt Pocock + critères d'acceptation + **casting d'agents** | Démarrer une nouvelle app/projet from scratch |
 | **`reasoning-verification-patterns`** | Vérifier un fait externe avec un outil avant de répondre | Toute question factuelle (sport, actu, récompenses) |
 | **`transfert-projet`** | Basculer une discussion vers un salon projet dédié | Quand un sujet mérite son salon (Projets) |
 
