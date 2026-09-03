@@ -21,22 +21,23 @@ Run-and-gun arcade Android, feeling Pocky and Rocky. Étape 2 (PRD) — 2026-09-
 - Moteur : **Godot** (2D)
 - Cible : **Android**, livrable **APK installable**
 - Orientation : **paysage**
-- Contrôles tactiles : **joystick virtuel gauche** (bouger + viser 8 directions) + **bouton tir droite**
+- Contrôles tactiles : **joystick virtuel gauche** (déplacement seul) + **bouton tir droite**. **Tir auto-aim semi-automatique** : part vers l'ennemi le plus proche dans un cône devant le kitsune, snap 8 directions (décision recul → permet de tirer en esquivant, fidèle au feeling) .
 
 ## Fonctionnalités (MVP)
 
 ### Gameplay
-- **Tir 8 directions**, visé au stick
+- **Tir 8 directions**, **auto-aim** vers la cible la plus proche dans le cône avant (snap 8 directions).
 - **2 armes** :
   - **Boule de feu** : tir rapide, droit, portée longue, dégâts moyens (mitrailleuse, appui maintenu pour spammer)
-  - **Éventail magique** : tir lent, large (éventail de projectiles), portée courte, dégâts forts (shotgun), **power-up à ramasser, 20 tirs puis se consomme**
-- **Power-up** : l'éventail **tombe des kappa (tank) et du mini-boss**, et se récupère au ramassage. Coffres = v2.
+  - **Éventail magique** : tir lent, large (éventail de projectiles), portée courte, dégâts forts (shotgun), **power-up à ramasser, 30 tirs puis se consomme** (voir décisions de recul)
+- **Power-up** : l'éventail **tombe des kappa (tank) et du mini-boss**, et se récupère au ramassage. **Pas d'empilement** : ramasser déjà actif = refus + 25 pts (« éventail plein »). Coffres = v2.
 - **Score** : compteur de points par ennemi tué, affiché en haut + à la fin de partie.
 
 ### Niveau 1
 - **1 niveau** en ~**5 sections-vagues**, montée en difficulté, mini-boss au sommet.
-- **3 vies**. Touché = perd l'éventail (si actif) + invincibilité courte + respawn au checkpoint. Game over → restart.
-- Mini-boss : **oni géant**, pattern en boucle **charge → saut → rafale**.
+- **3 vies**. **Découplage de punition** : au contact, on perd **une vie** (respawn) OU on perd l'éventail, pas les deux ; si l'éventail est conservé, réserve réduite -1/3.
+- **Checkpoints entre sections** (jamais au milieu d'une vague). Respawn : filet d'éventail (kappa de secours si sans éventail) + 1,5 s d'invincibilité.
+- Mini-boss : **oni géant**, **saut visant la position du joueur** ; sous 50% PV → enrage (charge → rafale immédiate). Télégraphié mais conditionnel (anti par-cœur).
 
 ### Ennemis (3)
 - **Kappa** (tortue) : lent, avance droit, tanky. Drops l'éventail.
