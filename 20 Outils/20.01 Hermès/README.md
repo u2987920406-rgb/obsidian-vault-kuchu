@@ -12,6 +12,7 @@
 | **`USER.md`** | Qui est Raf | Profil, préférences, style de collaboration |
 | **`MEMORY.md`** | L'environnement | Projets, machine, outils, services (index vers le détail) |
 | **`SKILLS.md`** | L'inventaire | Toutes les skills installées, par catégorie + workflow recommandé |
+| **`CRONS.md`** | Les tâches planifiées | État des crons + désactivations avec le pourquoi |
 
 ## Récupération d'état (nouvelle machine)
 

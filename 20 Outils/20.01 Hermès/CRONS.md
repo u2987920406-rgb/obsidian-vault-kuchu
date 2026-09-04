@@ -1,0 +1,26 @@
+# Hermès — Crons (état & désactivations)
+
+> Registre des tâches planifiées (crons) d'Hermès et de leurs désactivations.
+> **Règle :** à chaque désactivation d'un cron, noter ici le **pourquoi** (basique).
+> Mis à jour le 2026-09-04.
+
+## Crons actifs
+
+| Cron | Horaire | Rôle | Dernier run |
+|---|---|---|---|
+| `vault-backup` | 23h00 | Backup du Vault sur GitHub | 02/09 23h01 OK |
+| `rapport-vault-quotidien` | 02h00 | Résumé du Vault dans #rapports | 03/09 02h00 OK |
+| `Veille IA quotidienne` | 09h00 | Veille IA | 03/09 19h14 OK |
+| `Vider corbeille Gmail` | 02/10 09h00 | Purge corbeille email-triage | — |
+
+## Désactivations (avec pourquoi)
+
+| Cron | Désactivé le | Pourquoi | Réactivé le |
+|---|---|---|---|
+| `vault-backup` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
+| `rapport-vault-quotidien` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
+
+> **Note :** la raison exacte de la désactivation initiale de `vault-backup` et
+> `rapport-vault-quotidien` n'est pas tracée (probablement une pause via le
+> dashboard). Réactivés le 04/09. À l'avenir, noter le pourquoi ici dès qu'un
+> cron est désactivé.
