@@ -20,8 +20,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   `claude/app-status-fmj9ow`. Harnais de jeu automatisé (`npm run test:harness`),
   0 bug après fixes. Résumé : [[10.03 Astroprisma/Projet]].
 - [[10.04 Kitsune to Yōkai]] — Run-and-gun arcade Android, feeling Pocky and
-  Rocky. Brainstorming (étape 1) + PRD (étape 2) : [[10.04 Kitsune to Yōkai/Brainstorming]],
-  [[10.04 Kitsune to Yōkai/PRD]]. Prochaine étape : Guide-lines.
+  Rocky. **MVP complet codé + APK buildé** (2026-09-04). Docs : [[10.04 Kitsune to Yōkai/Brainstorming]],
+  [[10.04 Kitsune to Yōkai/PRD]], [[10.04 Kitsune to Yōkai/Guide-lines]],
+  [[10.04 Kitsune to Yōkai/Plan]], [[10.04 Kitsune to Yōkai/Décisions-recul-design]].
+  Reste : test device Raf.
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
@@ -38,6 +40,7 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
+- [[30 Journal/2026-09-04]] — Kitsune to Yōkai : MVP complet codé + APK buildé (session autonome).
 - [[30 Journal/2026-09-02]] — Astroprisma : harnais de jeu automatisé, 2 bugs
   réparés, 0 bug au re-test.
 - [[30 Journal/2026-08-07]] — Journal de séance (entrée / sortie de travail).
