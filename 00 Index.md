@@ -24,6 +24,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   [[10.04 Kitsune to Yōkai/PRD]], [[10.04 Kitsune to Yōkai/Guide-lines]],
   [[10.04 Kitsune to Yōkai/Plan]], [[10.04 Kitsune to Yōkai/Décisions-recul-design]].
   Reste : test device Raf.
+- [[10.05 Gestion Budget]] — App PWA mobile-first de gestion de budget
+  autoentrepreneur. Objectif : en un coup d'œil, savoir si l'activité couvre les
+  charges et combien se verser. PRD (étape 2) : [[10.05 Gestion Budget/PRD]].
+  Prochaine étape : Guide-lines.
 
 ## 11 Ressources
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
