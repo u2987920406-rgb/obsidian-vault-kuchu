@@ -70,7 +70,7 @@ Aucun paquet désinstallé, GNOME est toujours sur le disque.
 **Méthode de secours — en SSH :**
 
     systemctl is-active docker tailscaled
-    systemctl --user is-active hermes-gateway hermes-dashboard hermes-healthcheck.timer
+    systemctl --user is-active hermes-gateway hermes-dashboard hermes-healthcheck.timer gestion-budget.service
     docker ps
     tailscale status
 
@@ -83,6 +83,7 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 
 - **Portainer** — https://raf-bmax.tail14baaa.ts.net/
 - **Uptime Kuma** — https://raf-bmax.tail14baaa.ts.net:8443/
+- **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
 
 Port 10000 libre (ex-Obsidian, décommissionné le 2026-08-31).
 
