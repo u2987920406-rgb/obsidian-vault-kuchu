@@ -12,11 +12,13 @@
 | `rapport-vault-quotidien` | 02h00 | Résumé du Vault dans #rapports | 03/09 02h00 OK |
 | `Veille IA quotidienne` | 09h00 | Veille IA | 03/09 19h14 OK |
 | `Vider corbeille Gmail` | 02/10 09h00 | Purge corbeille email-triage | — |
-| `qa-agent-ulysse-poll` | toutes les 30 min | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire). Monitor : ne réveille l'agent que si l'état des issues change | 05/09 15h14 OK (RIEN) |
+| `qa-agent-ulysse-poll` | toutes les 30 min | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire). Monitor : ne réveille l'agent que si l'état des issues change. cmd_test : `test_tactile.py` ajouté en tête de chaîne (issue #122, 05/09) | 05/09 15h14 OK (RIEN) · 05/09 15h53 OK (#122 → PR #124, clapet vert) |
 
 ## Désactivations (avec pourquoi)
 
 | Cron | Désactivé le | Pourquoi | Réactivé le |
+|---|---|---|---|
+| `qa-agent-ulysse-poll` | 05/09 16h12 | Pause demandée par Raf (« Stop la loop, pour le moment, je te dirai quand relancer ») pendant le test de bout en bout — PR #123 ouverte, clapet non terminé | — |
 |---|---|---|---|
 | `vault-backup` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
 | `rapport-vault-quotidien` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
