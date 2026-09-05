@@ -38,7 +38,8 @@ Toute fonctionnalité doit servir cet objectif.
 - Vue d'ensemble instantanée.
 
 ### CA (Chiffre d'affaires)
-- **CA minimum saisi à la main** par Raf, l'app calcule le suivi automatiquement.
+- **CA minimum = somme automatique des charges fixes.** Raf saisit les charges
+  fixes (loyer, maison, CFE, crédit) et l'app additionne pour définir le CA minimum.
 - **Indicateur « objectif atteint »** : l'app signale quand le CA du mois couvre
   les charges / le CA minimum.
 - Deux vues : **par mois** et **par jour** (cumulé).
@@ -82,5 +83,5 @@ Toute fonctionnalité doit servir cet objectif.
 - Multi-utilisateurs / comptes.
 - Mode hors-ligne.
 - Opérations d'épargne (dépôts/retraits) — juste le suivi.
-- Calcul automatique du CA minimum (saisi à la main).
+- Saisie manuelle du CA minimum (calculé automatiquement depuis les charges fixes).
 - Impôts autres que l'URSSAF.
