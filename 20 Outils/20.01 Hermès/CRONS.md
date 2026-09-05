@@ -2,7 +2,7 @@
 
 > Registre des tâches planifiées (crons) d'Hermès et de leurs désactivations.
 > **Règle :** à chaque désactivation d'un cron, noter ici le **pourquoi** (basique).
-> Mis à jour le 2026-09-04.
+> Mis à jour le 2026-09-05.
 
 ## Crons actifs
 
@@ -12,6 +12,7 @@
 | `rapport-vault-quotidien` | 02h00 | Résumé du Vault dans #rapports | 03/09 02h00 OK |
 | `Veille IA quotidienne` | 09h00 | Veille IA | 03/09 19h14 OK |
 | `Vider corbeille Gmail` | 02/10 09h00 | Purge corbeille email-triage | — |
+| `qa-agent-ulysse-poll` | toutes les 30 min | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire). Monitor : ne réveille l'agent que si l'état des issues change | 05/09 15h14 OK (RIEN) |
 
 ## Désactivations (avec pourquoi)
 
