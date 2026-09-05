@@ -18,8 +18,7 @@
 
 | Cron | Désactivé le | Pourquoi | Réactivé le |
 |---|---|---|---|
-| `qa-agent-ulysse-poll` | 05/09 16h12 | Pause demandée par Raf (« Stop la loop, pour le moment, je te dirai quand relancer ») pendant le test de bout en bout — PR #123 ouverte, clapet non terminé | — |
-|---|---|---|---|
+| `qa-agent-ulysse-poll` | 05/09 16h12 | Pause demandée par Raf (« Stop la loop, pour le moment, je te dirai quand relancer ») pendant le test de bout en bout — PR #124 ouverte (clean), clapet non clôturé, rien de mergé | — |
 | `vault-backup` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
 | `rapport-vault-quotidien` | (avant 04/09) | Plus d'utilité (raison à confirmer) | 04/09 |
 
