@@ -20,10 +20,11 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   `claude/app-status-fmj9ow`. Harnais de jeu automatisé (`npm run test:harness`),
   0 bug après fixes. Résumé : [[10.03 Astroprisma/Projet]].
 - [[10.04 Kitsune to Yōkai]] — Run-and-gun arcade Android, feeling Pocky and
-  Rocky. **MVP complet codé + APK buildé** (2026-09-04). Docs : [[10.04 Kitsune to Yōkai/Brainstorming]],
+  Rocky. **v1 DÉCLARÉE** (2026-09-05) : MVP jouable en navigateur, boucle
+  complète menu→boss→victoire. Docs : [[10.04 Kitsune to Yōkai/Brainstorming]],
   [[10.04 Kitsune to Yōkai/PRD]], [[10.04 Kitsune to Yōkai/Guide-lines]],
-  [[10.04 Kitsune to Yōkai/Plan]], [[10.04 Kitsune to Yōkai/Décisions-recul-design]].
-  Reste : test device Raf.
+  [[10.04 Kitsune to Yōkai/Plan]], [[10.04 Kitsune to Yōkai/Bilan-v1]].
+  Backlog v2 : harmonisation sprite/décor, sprites top-down, contenu.
 - [[10.05 Gestion Budget]] — App PWA mobile-first de gestion de budget
   autoentrepreneur. Objectif : en un coup d'œil, savoir si l'activité couvre les
   charges et combien se verser. PRD (étape 2) : [[10.05 Gestion Budget/PRD]].
@@ -44,6 +45,7 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
+- [[30 Journal/2026-09-05]] — Kitsune to Yōkai : v1 déclarée (passe globale, débogage visuel, process capture vision).
 - [[30 Journal/2026-09-04]] — Kitsune to Yōkai : MVP complet codé + APK buildé (session autonome).
 - [[30 Journal/2026-09-02]] — Astroprisma : harnais de jeu automatisé, 2 bugs
   réparés, 0 bug au re-test.

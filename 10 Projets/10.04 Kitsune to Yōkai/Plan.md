@@ -52,3 +52,9 @@
 ## Critère de v1
 
 Tous les jalons cochés + passe globale sans régression → v1. Le backlog (coffres, niveaux/boss multiples, difficulté réglable, combo/upgrades) devient la v2.
+
+## État (2026-09-05)
+
+- **v1 DÉCLARÉE** — passe globale validée par Raf. Bilan : [[10.04 Kitsune to Yōkai/Bilan-v1]].
+- Étape 6 (revérification globale) : **faite** (tests E2E 10/10 + 5/5 + 15/15, capture vision, passe Raf).
+- Backlog v2 formalisé dans le Bilan-v1.
