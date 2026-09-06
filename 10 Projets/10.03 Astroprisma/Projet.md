@@ -82,6 +82,11 @@ Script `app/scripts/playtest-harness.ts`, lancé via **`npm run test:harness`**
 Identité de commit sur ce repo : **AstroPrismaXHermes
 <AstroPrismaXHermes@users.noreply.github.com>** (posée au niveau repo uniquement).
 
+## Règle de travail (Raf, 2026-09-06)
+À **chaque ajout de fonctionnalité** : tester la fonctionnalité en conditions
+réelles (e2e Playwright / navigateur) ET vérifier que la tâche est remplie —
+pas seulement typecheck/build/tests unitaires. Dire franchement si non testé.
+
 ## Commandes utiles
 - Dev : `cd app && npm run dev`
 - Build statique : `npm run build` → `app/dist/` (hébergeable n'importe où)
