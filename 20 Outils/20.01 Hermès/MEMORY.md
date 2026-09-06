@@ -1,7 +1,7 @@
 # Hermès — MEMORY (environnement & projets)
 
 > Index/pointeur — source de vérité pour l'environnement et les projets de Raf.
-> Le détail vit dans les notes liées (pas de doublon ici). Mis à jour le 2026-09-02.
+> Le détail vit dans les notes liées (pas de doublon ici). Mis à jour le 2026-09-06.
 > Le natif (`~/.hermes/memories/MEMORY.md`) contient les 10 commandements + ce pointeur.
 
 ## Machine & infrastructure
@@ -13,7 +13,8 @@
 - [[10.01 Ulysse]] — Masque web UI sur Hermès. Repo `LyssU_googlelike`, port 8090,
   tailnet. Salon #ulysse.
 - [[10.02 Hermes Dashboard]] — Dashboard de pilotage Hermès en Rust (axum), port 8091,
-  données mockées v0.1. Salon #hermes-dashboard.
+  données mockées v0.1. Exposé via tailnet port 10000 (auth BASIC). Salon #pilotage-hermes.
+  Refonte UX en attente.
 - [[10.03 Astroprisma]] — App web compagnon (Vite+React+TS, PWA) pour le JdR solo.
   Repo `Astroprisma_app_EMERGENT`. Salon #astroprimsa.
 - MangoOS (MangoAI) — App Tauri, backend Rust, front TS. `~/projets/mangoai`.
@@ -30,7 +31,12 @@
 - Serveur Discord « Hermes server » : #général (discussion seule), #alertes,
   #livrable-projet/#rapports, salons Projets. Rôle Hermes a MANAGE_MESSAGES.
 - Crons actifs : vault-backup (23h), boucle-ulysse (15min), rapport-vault-quotidien (2h).
-- Modèles & coûts : Ollama Pro 18€/mois (abonnement). deepseek-v4-flash / glm-5.3-flash.
+  Tous non épinglés à un modèle (suivent le modèle global courant) — règle Raf 2026-09-05.
+- Modèles & coûts : Ollama Pro 18€/mois (abonnement flat). Modèle principal : deepseek-v4-flash.
+  Cerveau code cabinet : kimi-k3. Solar Pro 4 :free (via Nous Portal) pour essais (promo gratuit
+  jusqu'au 7/09).
+- Plugins Hermes : rtk-rewrite, skill-retrieval, planning-with-files → TOUS disabled (désactivés
+  6/09 — regressaient qualité/coins tokens ; réactivables en test isolé si besoin).
 
 ## Commandements
 - Les 10 commandements (règles intouchables) : [[20.01 Hermès/COMMANDEMENTS]]
