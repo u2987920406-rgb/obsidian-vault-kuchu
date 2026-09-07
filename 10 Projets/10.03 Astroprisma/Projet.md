@@ -87,6 +87,14 @@ Identité de commit sur ce repo : **AstroPrismaXHermes
 réelles (e2e Playwright / navigateur) ET vérifier que la tâche est remplie —
 pas seulement typecheck/build/tests unitaires. Dire franchement si non testé.
 
+## Mandat refonte complète (Raf, 2026-09-06)
+Refonte du jeu en **boucle automatique** : audit complet (toutes les règles
+`data/*.json` = source de vérité, rien à inventer) puis implémentation de
+chaque parcours **start→end point**, TDD vert + e2e + audit non-régression,
+et **COMMIT+PUSH entre chaque fonctionnalité** (branche
+`claude/app-status-fmj9ow`, identité AstroPrismaXHermes). Pilotage :
+`docs/revue/PILOTAGE.md` + `docs/revue/PLAN-REVUE-2026-09-06.md`.
+
 ## Commandes utiles
 - Dev : `cd app && npm run dev`
 - Build statique : `npm run build` → `app/dist/` (hébergeable n'importe où)
