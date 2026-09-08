@@ -48,6 +48,7 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
+- [[30 Journal/2026-09-08]] — HTML-as-Plan intégré à La Méthode, validé sur Ulysse (template skill + étape 6bis, rendu jsdom vérifié).
 - [[30 Journal/2026-09-05]] — Kitsune to Yōkai : v1 déclarée (passe globale, débogage visuel, process capture vision).
 - [[30 Journal/2026-09-04]] — Kitsune to Yōkai : MVP complet codé + APK buildé (session autonome).
 - [[30 Journal/2026-09-02]] — Astroprisma : harnais de jeu automatisé, 2 bugs
