@@ -31,6 +31,9 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   Prochaine étape : Guide-lines.
 
 ## 11 Ressources
+- [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
+  & processus (La Méthode, Cabinet, QA loop, Boucle rétro, HTML-as-Plan, sandbox,
+  Rust). À lire avant de se demander « où en est notre écosystème ? ».
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
   défaut + `ask` porte universelle, validé e2e).
 - [[11 Ressources/Gestion email — Process]] — Process & technique de tri/purge
