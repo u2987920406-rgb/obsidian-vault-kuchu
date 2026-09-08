@@ -95,6 +95,13 @@ et **COMMIT+PUSH entre chaque fonctionnalité** (branche
 `claude/app-status-fmj9ow`, identité AstroPrismaXHermes). Pilotage :
 `docs/revue/PILOTAGE.md` + `docs/revue/PLAN-REVUE-2026-09-06.md`.
 
+## Refonte UI/UX — La Méthode (Raf, 2026-09-08)
+Refonte UI/UX du jeu via **La Méthode** (skill `la-methode`) : Phase 1
+conception (brainstorming → PRD → guidelines → plan jalonné) puis exécution
+(tickets, TDD, review). **Le QA agent fait partie de la méthode** : chaque
+écran/jalon livré passe par subagent QA + tests + e2e avant validation
+humaine. Validation finale = toujours Raf.
+
 ## Commandes utiles
 - Dev : `cd app && npm run dev`
 - Build statique : `npm run build` → `app/dist/` (hébergeable n'importe où)
