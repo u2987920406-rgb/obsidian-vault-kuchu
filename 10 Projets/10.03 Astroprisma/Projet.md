@@ -112,8 +112,9 @@ humaine. Validation finale = toujours Raf.
 - **Jalon 1 — Fondations UI : livré** (issues #12-#18 fermées, commits
   `6bf22ff`→`10f065e`). QA ×2 : audit → 4 écarts corrigés → re-audit PASS.
   Fix responsive mobile (header wrap, dock safe-area) → `9a2a989`.
-- **Porte J1→J2 : 6/7** — reste la validation humaine de Raf sur mobile
-  (header + dock sans dézoomer).
+- **Porte J1→J2 : 7/7 — FRANCHIE** (Raf a validé sur mobile, 2026-09-08 21h :
+  « Je valide top ✨ »). Jalon 2 lancé : **J2-T0 i18n FR/EN** (issue #19)
+  d'abord, puis map/cycles.
 - **Nouvelle exigence (Raf, 2026-09-08)** : jeu **entièrement en français**,
   toggle langue FR/EN dans Réglages → **J2-T0** (issue #19), posé en tête du
   Jalon 2 pour que tous les écrans à venir naissent bilingues. Inscrit dans
