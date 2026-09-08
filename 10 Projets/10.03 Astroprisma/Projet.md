@@ -114,6 +114,10 @@ humaine. Validation finale = toujours Raf.
   Fix responsive mobile (header wrap, dock safe-area) → `9a2a989`.
 - **Porte J1→J2 : 6/7** — reste la validation humaine de Raf sur mobile
   (header + dock sans dézoomer).
+- **Nouvelle exigence (Raf, 2026-09-08)** : jeu **entièrement en français**,
+  toggle langue FR/EN dans Réglages → **J2-T0** (issue #19), posé en tête du
+  Jalon 2 pour que tous les écrans à venir naissent bilingues. Inscrit dans
+  les guidelines + plan.html.
 
 ### Convention porte inter-jalon (inscrite dans La Méthode, 2026-09-08)
 7 critères obligatoires avant de passer au jalon suivant :
