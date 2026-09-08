@@ -102,6 +102,27 @@ conception (brainstorming → PRD → guidelines → plan jalonné) puis exécut
 écran/jalon livré passe par subagent QA + tests + e2e avant validation
 humaine. Validation finale = toujours Raf.
 
+### État d'avancement (2026-09-08)
+- **Phase 1 close** : maquette validée (20/20 AC QA + visuel Raf), PRD
+  (`docs/PRD.md`), guidelines (`docs/GUIDELINES.md`), plan jalonné
+  (`docs/PLAN-JALONS.md`), relecture croisée, revérification globale,
+  `plan.html` interactif (`docs/ui/plan.html`).
+- **Phase 2 close** : spec Jalon 1 (`docs/spec-jalon1.md`) + tickets
+  GitHub #12-#18.
+- **Jalon 1 — Fondations UI : livré** (issues #12-#18 fermées, commits
+  `6bf22ff`→`10f065e`). QA ×2 : audit → 4 écarts corrigés → re-audit PASS.
+  Fix responsive mobile (header wrap, dock safe-area) → `9a2a989`.
+- **Porte J1→J2 : 6/7** — reste la validation humaine de Raf sur mobile
+  (header + dock sans dézoomer).
+
+### Convention porte inter-jalon (inscrite dans La Méthode, 2026-09-08)
+7 critères obligatoires avant de passer au jalon suivant :
+1. Tickets fermés (AC vérifiées) · 2. Suites vertes (unit+TDD+e2e build prod)
+· 3. QA agent PASS · 4. Zéro régression · 5. plan.html à jour (jalon coché +
+preuves) · 6. Commit/push propre · 7. Validation humaine Raf.
+**Règle : 7/7 = porte franchie. 6/7 = livré mais porte NON franchie.**
++ plan.html mis à jour à chaque jalon (règle inscrite dans la méthode).
+
 ## Commandes utiles
 - Dev : `cd app && npm run dev`
 - Build statique : `npm run build` → `app/dist/` (hébergeable n'importe où)
