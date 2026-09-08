@@ -101,6 +101,16 @@ nouveau projet suit la fiche op (sections 11-12 : profile, salon p-NOM).
 
 - **Clapet Hermès** : tout verdict/merge passe par une vérification Hermès sur le
   code réel, jamais le seul mot d'un agent.
+- **Deux clapets distincts (à ne pas confondre)** :
+  - **#1 Exactitude** (vérité) : vérifier sur disque / par exécution, jamais le
+    texte de réponse. **Rigide, sans souplesse.** Exemples vécus (08/09) : QA LLM
+    hallucine une ligne (`req.body` disait ligne 57, code réel `if len>800`) ;
+    « BLOCKER de compilation » infirmé par le build vert.
+  - **#2 Autorisation** (risque) : stop avant l'irréversible, **gradué** :
+    - Réversible et local (note, test, rapport) → agir sans demander.
+    - Modifie infra / repo de prod (hook git, config serveur, push) → demander.
+    - Irréversible / destructif (force-push, suppression, secrets) → toujours stop.
+  - Détail : skill `clapet-anti-retour`.
 - **Feu vert humain (Raf) pour** : commit/push, merge, modifications Vault/salons/
   secrets, déploiement.
 - **Vérifier sur disque / en exécutant**, jamais le texte de réponse.
