@@ -3,7 +3,7 @@
 > **Fichier généré** par `npm run gen:parcours`. Ne pas éditer à la main.
 > Source de vérité : `data/*.json` (le livre). Aucune route inventée.
 
-**Start points recensés : 237** · **choix : 258**
+**Start points recensés : 243** · **choix : 294**
 
 ## Matrice de couverture
 
@@ -15,6 +15,7 @@
 | Planète | 72 | 49 | 5 | 1 | 0 | 1 | 0 | 0 | 10 | 11 | 3 | 0 | 0 | 0 | 0 | 18 |
 | Colonies & activités | 9 | 0 | 0 | 0 | 3 | 2 | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 6 | 0 | 0 |
 | Faction | 60 | 0 | 36 | 3 | 2 | 9 | 3 | 0 | 17 | 9 | 10 | 2 | 1 | 0 | 0 | 0 |
+| Cybersphere | 6 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 18 | 6 | 0 | 0 | 0 | 6 | 6 | 0 |
 
 ## 1. Anneau intérieur (d6=2 → parité → d6)
 
