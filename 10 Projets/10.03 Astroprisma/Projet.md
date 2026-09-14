@@ -20,7 +20,8 @@ serveur.
 - **Branche active** : `claude/app-status-fmj9ow` (la plus aboutie)
 - Autres branches : `main` (quasi vide, 1 commit README), `V1` (auto-commits,
   histoire SANS ancêtre commun avec la branche active)
-- Dernier travail : fixes générateurs + harnais de test (voir plus bas)
+- Dernier travail : refonte UI/UX via La Méthode — Jalon 1 + Jalon 2 livrés,
+  correctifs UX et pont combat spatial (voir « État d'avancement »).
 
 ## Stack technique
 - Frontend : **Vite + React 19 + TypeScript + Tailwind 4 + Zustand**, PWA
@@ -102,7 +103,7 @@ conception (brainstorming → PRD → guidelines → plan jalonné) puis exécut
 écran/jalon livré passe par subagent QA + tests + e2e avant validation
 humaine. Validation finale = toujours Raf.
 
-### État d'avancement (2026-09-08)
+### État d'avancement (2026-09-14)
 - **Phase 1 close** : maquette validée (20/20 AC QA + visuel Raf), PRD
   (`docs/PRD.md`), guidelines (`docs/GUIDELINES.md`), plan jalonné
   (`docs/PLAN-JALONS.md`), relecture croisée, revérification globale,
@@ -113,8 +114,25 @@ humaine. Validation finale = toujours Raf.
   `6bf22ff`→`10f065e`). QA ×2 : audit → 4 écarts corrigés → re-audit PASS.
   Fix responsive mobile (header wrap, dock safe-area) → `9a2a989`.
 - **Porte J1→J2 : 7/7 — FRANCHIE** (Raf a validé sur mobile, 2026-09-08 21h :
-  « Je valide top ✨ »). Jalon 2 lancé : **J2-T0 i18n FR/EN** (issue #19)
-  d'abord, puis map/cycles.
+  « Je valide top ✨ »).
+- **Jalon 2 — Map & cycles : livré, QA VALIDABLE** (2026-09-09). J2-T0 i18n
+  FR/EN (issue #19 fermée) ; carte 100 % FR ; cycle du livre (soin MEDIC,
+  −1 Fuel, salaires) ; règle p.27 (hex hostile reste inexploré tant que le
+  combat n'est pas résolu) ; traduction FR du livre (~2 200 chaînes joueur :
+  origins, crew, enemies, factions, encounters/events, worlds, starships).
+  **Re-QA #3 (`deleg_d4ecdf90`) : VALIDABLE** — modules vaisseau 32/32 FR,
+  pont hostile→combat spatial 3/3 + 1 scénario faction, e2e 4/4. Rapport
+  `audit-jalon1/proofs/qa-i18n3-RAPPORT-JALON2.md` (commit `b72fd97`, docs
+  `c2f524f`). **Reste la validation humaine de Raf pour la porte J2→J3.**
+- **Correctifs UX + bug combat (2026-09-14, commit `1b9cd77`)** : le combat de
+  **vaisseau** ouvrait le combat personnage (détection depuis le livre
+  `vaisseau`/`chasseurs` + pont titre EN → vaisseau du catalogue) ; cases
+  grisées expliquées (liseré cyan pointillé + raison) ; **roue de réglages**
+  unique (thème/infobulles/langue) sur tous les écrans ; création de perso avec
+  fil d'étapes + barre collante ; libellés du dialogue d'exploration clarifiés.
+  Vérifié en navigateur (dés imposés → événement Medusa reproductible) :
+  route `space-combat`, Stingray Frontier engagé, tour joué. Détail :
+  [[2026-09-14]].
 - **Nouvelle exigence (Raf, 2026-09-08)** : jeu **entièrement en français**,
   toggle langue FR/EN dans Réglages → **J2-T0** (issue #19), posé en tête du
   Jalon 2 pour que tous les écrans à venir naissent bilingues. Inscrit dans
