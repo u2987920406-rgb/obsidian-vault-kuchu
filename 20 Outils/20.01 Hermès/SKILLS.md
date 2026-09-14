@@ -1,7 +1,7 @@
 # Hermès — Index des Skills
 
 > Inventaire des skills installées sur Hermès. Source de vérité pour savoir ce qu'on
-> peut demander à Hermès. Mis à jour le 2026-09-02.
+> peut demander à Hermès. Mis à jour le 2026-09-08.
 >
 > **Rappel :** on ne tape jamais le nom d'une skill — on décrit l'intention en langage
 > naturel, Hermès charge la skill adaptée.
@@ -10,7 +10,9 @@
 
 | Skill | Rôle | Quand l'utiliser |
 |---|---|---|
-| **`la-methode`** | La Méthode : conception→code (8 étapes Raf) + exécution Matt Pocock + critères d'acceptation + **casting d'agents** | Démarrer une nouvelle app/projet from scratch |
+|| **`la-methode`** | La Méthode : conception→code (8 étapes Raf) + exécution Matt Pocock + critères d'acceptation + **casting d'agents** + **perfect prompt optionnel (brief structuré pour cerveau externe)** | Démarrer une nouvelle app/projet from scratch |
+| **`vision-qa`** | Rôle Vision du cabinet : vérifier le RENDU (capture → verdict binaire) avant d'annoncer | Avant d'annoncer toute modif visuelle (PWA, jeu, dashboard) |
+| **`cabinet-agentique`** v2 | Les 5 rôles du cabinet + règle --global (modèle global courant, jamais épinglé) | Orchestrer, décider qui fait quoi |
 | **`reasoning-verification-patterns`** | Vérifier un fait externe avec un outil avant de répondre | Toute question factuelle (sport, actu, récompenses) |
 | **`transfert-projet`** | Basculer une discussion vers un salon projet dédié | Quand un sujet mérite son salon (Projets) |
 

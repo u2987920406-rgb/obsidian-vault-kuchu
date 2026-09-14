@@ -34,6 +34,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
   & processus (La Méthode, Cabinet, QA loop, Boucle rétro, HTML-as-Plan, sandbox,
   Rust). À lire avant de se demander « où en est notre écosystème ? ».
+- [[11 Ressources/Cabinet agentique — Rôles]] — les 5 rôles du cabinet (Conceiveur,
+  Codeur, Vision, Recherche, Boucle rétro) + mapping cerveau GLM 5.3. Figé 08/09.
 - [[11 Ressources/freeB]] — Pont MCP Freebuff ↔ Hermès (33 outils, 11 exposés par
   défaut + `ask` porte universelle, validé e2e).
 - [[11 Ressources/Gestion email — Process]] — Process & technique de tri/purge
@@ -44,7 +46,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
-  [[20.01 Hermès/SKILLS|index des skills]].
+  [[20.01 Hermès/SKILLS|index des skills]]. Architecture mémoire (couches, décharge,
+  décision RAG, config compression) : [[20.01 Hermès/ARCHITECTURE-MEMOIRE]].
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal

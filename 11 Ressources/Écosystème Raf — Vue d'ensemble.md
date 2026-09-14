@@ -20,18 +20,26 @@ brique plus lisible, plus sûre et plus rapide.**
 Cerveau de tout projet : **8 étapes Raf** (brainstorming → PRD → guidelines →
 relecture → plan jalons → revérification) **fusionnées avec Matt Pocock**
 (to-spec → to-tickets → TDD → implement → review) avec les **critères
-d'acceptation** comme fil rouge.
+d'acceptation** comme fil rouge. Après la revérification, La Méthode propose
+optionnellement une **phase 2bis — Perfect Prompt** (brief d'exécution structuré
+pour le cerveau de code externe), décrite dans la skill `la-methode`. Cette phase
+n'est pas obligatoire — elle ne s'active que lorsqu'on délègue à Freebuff/Kimi ou
+qu'on veut figer les décisions en un artefact exécutable committable.
 - **Où** : skill `la-methode` + Vault (docs par projet).
 - **Pour qui** : toute app/projet from scratch, et tout chantier à cadrer avant de coder.
 - **Comment on l'utilise** : elle produit 4 docs (Brainstorming, PRD, Guidelines,
-  Plan jalonné) + PRD_summary. Le casting d'agents est défini dedans (= Cabinet).
+  Plan jalonné) + PRD_summary, plus **optionnellement un brief d'exécution
+  (perfect prompt)** en phase 2bis si on délègue à un cerveau externe ou qu'on
+  veut figer les décisions en artefact committable. Le casting d'agents est défini
+  dedans (= Cabinet).
 
 ### 2. Le Cabinet agentique (`cabinet-agentique`) — QUI fait quoi
 L'orchestration multi-cerveaux : Hermès (modèle faible) **orchestre et vérifie**,
 les cerveaux forts exécutent (Freebuff GLM pour le gros code, Kimi k2.7 en
 repli, gemma/qwen pour la vision). Règle : vérifier **toujours sur le disque**,
 jamais le texte de réponse d'un agent.
-- **Où** : skill `cabinet-agentique`.
+- **Où** : skill `cabinet-agentique` + [[Cabinet agentique — Rôles]] (5 rôles,
+  mapping GLM 5.3, figé 08/09).
 - **Couplé à** La Méthode (le casting) et au QA (clapet).
 
 ### 3. QA agent loop (`qa-loop`) — LA VÉRIFICATION bug-for-bug

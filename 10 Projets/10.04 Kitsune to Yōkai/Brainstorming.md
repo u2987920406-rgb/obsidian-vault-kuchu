@@ -21,7 +21,7 @@ Run-and-gun arcade Android, feeling Pocky and Rocky. Clôturé le 2026-09-03.
 
 ## Méthode
 
-- la-methode complète (brainstorming → PRD → plan → tickets → TDD)
+- la-methode complète (brainstorming → PRD → guidelines → plan → tickets → TDD → **perfect prompt** si délégation externe).
 - Cabinet agentique : Hermès orchestre, Freebuff GLM 5.3 (repli Kimi k2.7-code) pour le code, gemma4/qwen3.5 pour la vision
 
 ## Prochaine étape
