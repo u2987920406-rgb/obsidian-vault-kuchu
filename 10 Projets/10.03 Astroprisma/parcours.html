@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astroprisma — Parcours</title>
+<style>
+:root{--b1:#fdbb5b;--b2:#f16042;--b3:#d61b5c;--b4:#582d90;
+--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--ink:#e8eaf0;--muted:#9aa3b2;--line:#262b35}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#11131aee;backdrop-filter:blur(6px);
+border-bottom:1px solid var(--line);padding:12px 14px}
+h1{margin:0 0 4px;font-size:17px}
+.meta{color:var(--muted);font-size:12px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.filters button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+border-radius:14px;padding:5px 11px;font-size:12px;cursor:pointer}
+.filters button.on{background:var(--b1);border-color:var(--b1);color:#1a1206;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--panel2);color:var(--muted);font-size:11px;text-transform:uppercase;
+letter-spacing:.4px;position:sticky;top:0}
+tr.hidden{display:none}
+.tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:9px;
+background:var(--panel2);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.manual{color:var(--b1);font-weight:700}
+code{font-size:11px;color:var(--muted)}
+.mono{font-variant-numeric:tabular-nums}
+footer{color:var(--muted);font-size:11px;text-align:center;padding:20px 10px 40px}
+@media(max-width:520px){
+  /* On garde le CHOIX (colonne 4) : c'est le cœur de la demande de Raf.
+     On masque Anneau (1) et Route (6) — l'info reste dans Section/Endpoints. */
+  th:nth-child(1),td:nth-child(1),th:nth-child(6),td:nth-child(6){display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Astroprisma — Parcours : start / end</h1>
+  <div class="meta">237 start points · 258 choix · source : data/*.json</div>
+  <div class="filters" id="f">
+    <button class="on" data-g="__all">Tout</button>
+    <button data-g="innerRing">Anneau intérieur</button><button data-g="middleRing">Anneau intermédiaire</button><button data-g="outerRing">Anneau extérieur</button><button data-g="hostile">Hostile</button><button data-g="neutral">Neutre</button><button data-g="planet">Planète</button><button data-g="settlement">Colonies &amp; activités</button><button data-g="faction">Faction</button>
+  </div>
+</header>
+<table>
+<thead><tr><th>Anneau</th><th>Section</th><th>Start point</th><th>Choix</th><th>Endpoints</th><th>Route</th></tr></thead>
+<tbody id="b">
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Chaleur extrême</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=1</code></td>
+<td>JET VIGOR</td>
+<td>Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Colonnes de feu</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=2</code></td>
+<td>JET GRACE</td>
+<td>Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Incendie à bord</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=3</code></td>
+<td>JET TECH</td>
+<td>Gain, Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vague de radiation solaire</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=4</code></td>
+<td>JET MIND</td>
+<td>Dépense, Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Explosion de la surface solaire</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=5</code></td>
+<td>Encaisser le coup</td>
+<td>Dépense, Réparation</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Explosion de la surface solaire</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=5</code></td>
+<td>Puiser dans les réserves de carburant</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Signal de détresse (Transporteur Birotor)</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=6</code></td>
+<td>Réparer leur vaisseau</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Signal de détresse (Transporteur Birotor)</b><br><code>Exploration d6=2 → innerRing → parité odd → d6=6</code></td>
+<td>Transporter l’équipage vers la Colonie</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Contrebandiers de carburant corsaires à la ferme hélios</b><br><code>Exploration d6=2 → innerRing → parité even → d6=1</code></td>
+<td>Attendre ton tour pour le ravitaillement</td>
+<td>Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Contrebandiers de carburant corsaires à la ferme hélios</b><br><code>Exploration d6=2 → innerRing → parité even → d6=1</code></td>
+<td>Payer le carburant illégal</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Récepteurs d’énergie sphériques</b><br><code>Exploration d6=2 → innerRing → parité even → d6=2</code></td>
+<td>Connect</td>
+<td>Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Fragment de sphère de Dyson inachevée</b><br><code>Exploration d6=2 → innerRing → parité even → d6=3</code></td>
+<td>Puiser dans la réserve d’énergie</td>
+<td>Ravitaillement, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>STATION RED SOL</b><br><code>Exploration d6=2 → innerRing → parité even → d6=4</code></td>
+<td>Ravitailler ton vaisseau</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>STATION RED SOL</b><br><code>Exploration d6=2 → innerRing → parité even → d6=4</code></td>
+<td>Entrer au bar</td>
+<td>Gain, Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Frontière Raie de Medusa embusquée</b><br><code>Exploration d6=2 → innerRing → parité even → d6=5</code></td>
+<td>Combattre l’embuscade rebelle</td>
+<td>Combat spatial, Ravitaillement, Favor, Soin</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Frontière Raie de Medusa embusquée</b><br><code>Exploration d6=2 → innerRing → parité even → d6=5</code></td>
+<td>Se joindre à l’attaque</td>
+<td>Combat spatial, Ravitaillement, Favor</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Ferme solaire en croissant endommagée</b><br><code>Exploration d6=2 → innerRing → parité even → d6=6</code></td>
+<td>JET TECH</td>
+<td>Ravitaillement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="innerRing">
+<td><span class="tag">Anneau intérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Ferme solaire en croissant endommagée</b><br><code>Exploration d6=2 → innerRing → parité even → d6=6</code></td>
+<td>JET MIND</td>
+<td>Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau terraformeur ISF</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=1</code></td>
+<td>Terminer la mission</td>
+<td>Favor, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Incendie du yacht de luxe (Transporteur Shell-4)</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=2</code></td>
+<td>Vendre des BurnPatches</td>
+<td>Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau-colonie en cryo- capsules</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=3</code></td>
+<td>Les réveiller</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau-colonie en cryo- capsules</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=3</code></td>
+<td>Les laisser tranquilles</td>
+<td>Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Survivante du laboratoire cyber</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=4</code></td>
+<td>L’emmener à une Colonie</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau fantôme Titan Tarrasque</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=5</code></td>
+<td>Négocier avec les hors-la-loi</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau fantôme Titan Tarrasque</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=5</code></td>
+<td>Combattre les ennemis</td>
+<td>Combat spatial, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vaisseau-génération Edgecharger W</b><br><code>Exploration d6=2 → middleRing → parité odd → d6=6</code></td>
+<td>Trade</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Avant-poste militaire improvisé WARG (Transporteur Bélouga)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=1</code></td>
+<td>Apporter du soutien</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Avant-poste militaire improvisé WARG (Transporteur Bélouga)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=1</code></td>
+<td>Infiltrer le vaisseau</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Inspection de checkpoint ISF (Edgecharger W)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=2</code></td>
+<td>Tout est en ordre</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Inspection de checkpoint ISF (Edgecharger W)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=2</code></td>
+<td>Révéler la cargaison</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Inspection de checkpoint ISF (Edgecharger W)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=2</code></td>
+<td>Corrompre les soldats</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Inspection de checkpoint ISF (Edgecharger W)</b><br><code>Exploration d6=2 → middleRing → parité even → d6=2</code></td>
+<td>Vaincre les soldats</td>
+<td>Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Stations de recherche de la planète naine</b><br><code>Exploration d6=2 → middleRing → parité even → d6=3</code></td>
+<td>Aider la scientifique</td>
+<td>Combat sol, Gain</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Station médicale de l’Apôtre Synth</b><br><code>Exploration d6=2 → middleRing → parité even → d6=4</code></td>
+<td>Yes</td>
+<td>Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Station médicale de l’Apôtre Synth</b><br><code>Exploration d6=2 → middleRing → parité even → d6=4</code></td>
+<td>No</td>
+<td>Combat sol, Favor</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Station de recherche computationnelle NGHTMR</b><br><code>Exploration d6=2 → middleRing → parité even → d6=5</code></td>
+<td>Les aider à craquer le code</td>
+<td>Favor, Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Station de recherche computationnelle NGHTMR</b><br><code>Exploration d6=2 → middleRing → parité even → d6=5</code></td>
+<td>Les combattre</td>
+<td>Combat sol, Favor</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="middleRing">
+<td><span class="tag">Anneau intermédiaire</span></td>
+<td>Événement d’anneau</td>
+<td><b>Bunker du PROJET ATLAS</b><br><code>Exploration d6=2 → middleRing → parité even → d6=6</code></td>
+<td>Utiliser l’unité de chirurgie</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Essais de l’Intercepteur Epsilon</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=1</code></td>
+<td>Se rendre</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Essais de l’Intercepteur Epsilon</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=1</code></td>
+<td>Attaquer le Pirate spatial</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Contrôle d’identité du Prédateur stellaire</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=2</code></td>
+<td>Acheter ta liberté</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Contrôle d’identité du Prédateur stellaire</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=2</code></td>
+<td>Affronter le Pirate spatial</td>
+<td>Combat sol, Gain</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Contrôle d’identité du Prédateur stellaire</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=2</code></td>
+<td>Sous condition de Faveur (+2 Corsaire)</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Raider Speeder de contrebandier</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=3</code></td>
+<td>Attaquer le vaisseau</td>
+<td>Gain, Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Sniper Delta Blizzard</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=4</code></td>
+<td>Affronter le vaisseau</td>
+<td>Combat spatial, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Sniper Delta Blizzard</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=4</code></td>
+<td>Fuir la rencontre</td>
+<td>Dépense, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vétéran de la Mante Vector-7</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=5</code></td>
+<td>S’échapper par un champ d’astéroïdes</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Vétéran de la Mante Vector-7</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=5</code></td>
+<td>Combattre le vaisseau</td>
+<td>Combat spatial, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Base militaire pirate du Vieux Monde</b><br><code>Exploration d6=2 → outerRing → parité odd → d6=6</code></td>
+<td>Réclamer le Voyageur A-1</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Essaim d’astéroïdes accélérés</b><br><code>Exploration d6=2 → outerRing → parité even → d6=1</code></td>
+<td>JET GRACE</td>
+<td>Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Champ de débris artificiels</b><br><code>Exploration d6=2 → outerRing → parité even → d6=2</code></td>
+<td>Scavenge</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Cellule WARG cachée et Duskwing rebelle</b><br><code>Exploration d6=2 → outerRing → parité even → d6=3</code></td>
+<td>Combattre le vaisseau rebelle</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Cellule WARG cachée et Duskwing rebelle</b><br><code>Exploration d6=2 → outerRing → parité even → d6=3</code></td>
+<td>Sous condition de Faveur (+1 W.A.R.G.)</td>
+<td>Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Course des corsaires dans les astéroïdes</b><br><code>Exploration d6=2 → outerRing → parité even → d6=4</code></td>
+<td>Visiter le bar</td>
+<td>Gain, Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Course des corsaires dans les astéroïdes</b><br><code>Exploration d6=2 → outerRing → parité even → d6=4</code></td>
+<td>Course de vaisseaux</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Station de la Synth Arch dans un champ artificiel</b><br><code>Exploration d6=2 → outerRing → parité even → d6=5</code></td>
+<td>Sous condition de Faveur (+3 Synth Arch)</td>
+<td>Gain, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="outerRing">
+<td><span class="tag">Anneau extérieur</span></td>
+<td>Événement d’anneau</td>
+<td><b>Planque de contrebandiers dans l’océan d’astéroïdes</b><br><code>Exploration d6=2 → outerRing → parité even → d6=6</code></td>
+<td>Piller la cache</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Speeder de contrebandier</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=1</code></td>
+<td>Combat ; gagne 1 Colis de contrebande après les avoir vaincus.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Transporteur Bélouga</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=2</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Transporteur Birotor</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=3</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Mite Orion</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=4</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Transporteur Shell-4</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=5</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Edgecharger W (vaisseau-mère)</b><br><code>Exploration d6=3 → catégorie d6=2 (Outlaws &amp; Looters) → d6=6</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Duskwing</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=1</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Mante Vector-7</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=2</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Delta Blizzard</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=3</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Intercepteur Epsilon</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=4</code></td>
+<td>Combat ; gagne 1 Alcool zéro-G après les avoir vaincus.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Prédateur stellaire</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=5</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Titan Tarrasque</b><br><code>Exploration d6=3 → catégorie d6=3 (Space Pirates) → d6=6</code></td>
+<td>Combat ; la fuite est impossible.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Chasseur As Vector (modifié)</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=1</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Delta Blizzard</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=2</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Mante Vector-7</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=3</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Mite Orion (chasseur de primes)</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=4</code></td>
+<td>Combat ; gagne un Exosquelette de combat après l’avoir vaincu.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Prédateur stellaire</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=5</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Edgecharger W (transporteur)</b><br><code>Exploration d6=3 → catégorie d6=4 (Mercenaries) → d6=6</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Intercepteur Scarabée</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=1</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Twinrotor Hauler</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=2</code></td>
+<td>Combat ; gagne un Tesseract en les vainquant.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Transporteur Bélouga</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=3</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Voyageur A-1</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=4</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Gardien Eclipse</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=5</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>Frontière Raie</b><br><code>Exploration d6=3 → catégorie d6=5 (Spacefarers) → d6=6</code></td>
+<td>Combat.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=1</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=2</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=3</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=4</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=5</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="hostile">
+<td><span class="tag">—</span></td>
+<td>Hostile</td>
+<td><b>?</b><br><code>Exploration d6=3 → catégorie d6=6 (Faction Battles) → d6=6</code></td>
+<td>(combat direct)</td>
+<td>Combat sol</td>
+<td class="mono"><span class="manual">manuel</span></td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Chasseur d’avant-guerre</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=1</code></td>
+<td>Gagne un Carabine à ions et un mod d’arme à distance aléatoire.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Transporteur congelé</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=2</code></td>
+<td>Gagne 2 Trousse de soins.</td>
+<td>Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Vieux vaisseau de forage d’astéroïdes</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=3</code></td>
+<td>Trouve 50 Sérum dans un casier.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Transporteur fissuré</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=4</code></td>
+<td>JET VIGOR — Réussite : détruis la tourelle de défense automatique [+1 XP] ; Échec : perds 2d4 Santé.</td>
+<td>Combat sol, Gain, Jet, Dépense</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Deux intercepteurs écrasés</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=5</code></td>
+<td>Récupère 60 Ferraille.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Vaisseau de contrebande endommagé</b><br><code>Exploration d6=4 → catégorie d6=2 (Derelict Ships) → d6=6</code></td>
+<td>Gagne 2 narcobiotiques aléatoires et une cache secrète avec 100 Sérum.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Artisan armurier (Transporteur Bélouga)</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=1</code></td>
+<td>Tu peux acheter n’importe quelle arme ou mod d’arme.</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Signal de détresse (Transporteur Bélouga)</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=2</code></td>
+<td>JET GRACE — Réussite : récupère leur cargaison perdue ; ils t’offrent 30 Ferraille et 70 Sérum.</td>
+<td>Dépense, Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Marchand de sang itinérant (Transporteur Birotor)</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=3</code></td>
+<td>Tu peux perdre 4 Santé pour gagner 80 Sérum, répétable jusqu’à 5 fois.</td>
+<td>Gain, Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Transporteur de checkpoint (Transporteur Birotor)</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=4</code></td>
+<td>Tu peux acheter n’importe quel objet ou Tenue d’armure.</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Transporteur Shell-4 pillé par des pirates</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=5</code></td>
+<td>Récupère un module de vaisseau Rayons disrupteurs.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Équipage de clones androïdes (Transporteur Shell-4)</b><br><code>Exploration d6=4 → catégorie d6=3 (Cargo Transport) → d6=6</code></td>
+<td>Tu peux acheter n’importe quel cybertech pour son coût en Sérum plus 10 Énergie, au lieu du coût en XP affiché.</td>
+<td>Achat, Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Survivants d’une bataille (Intercepteur Scarabée)</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=1</code></td>
+<td>Tu peux leur donner 100 Sérum ; gagne +1 Faveur Medusa si tu le fais.</td>
+<td>Dépense, Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Révolutionnaires WARG (Mante Vector-7)</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=2</code></td>
+<td>If you know one, you may reveal the location of a WARG Settlement or a Pirate Hideout; gain +1 W.A.R.G. Favor if you do.</td>
+<td>Favor, Marquage</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Vaisseau de réfugiés (Delta Blizzard)</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=3</code></td>
+<td>You may provide 40 Scraps for repairs; they reveal the location of a Sylvanian planet, 2 tiles north.</td>
+<td>Gain, Réparation, Marquage, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Voyageur A-1 infesté</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=4</code></td>
+<td>Élimine 3 Rampants du vide ; l’équipage te récompense avec 100 Sérum et 50 Ferraille.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Mite Orion à la dérive</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=5</code></td>
+<td>Tu peux perdre 5 Carburant pour gagner un DRONE_Coccinelle.</td>
+<td>Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Vaisseau-hôpital ISF (Edgecharger W)</b><br><code>Exploration d6=4 → catégorie d6=4 (Civilian Transport) → d6=6</code></td>
+<td>Tu peux donner 2 Trousses de soins ; gagne +1 Faveur ISF si tu le fais.</td>
+<td>Favor, Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Alerte à ogive vieille de décennies</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=1</code></td>
+<td>Une Lune nucléaire est désormais localisée à 1 tuile au sud-est (aux coordonnées de la colonie lunaire).</td>
+<td>Marquage, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Le Silence</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=2</code></td>
+<td>Tire une Rencontre hostile sur le prochain hex inexploré.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Résonance du vide spatial</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=3</code></td>
+<td>JET TECH — Réussite : sauve les systèmes du vaisseau [+1 XP] ; Échec : perds 8 Coque.</td>
+<td>Dépense, Gain, Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Signal du réseau d’urgence</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=4</code></td>
+<td>Une Colonie Synth à 1 tuile au sud-ouest passe sous contrôle WARG.</td>
+<td>Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Code morse hexadécimal</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=5</code></td>
+<td>JET MIND — Réussite : marque l’emplacement d’une Colonie Medusa, à 2 tuiles au sud-est.</td>
+<td>Jet, Marquage, Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Station de radio pirate</b><br><code>Exploration d6=4 → catégorie d6=5 (Radio Signals) → d6=6</code></td>
+<td>Aucun effet mécanique.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Comète de passage</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=1</code></td>
+<td>Gagne 10 XP et restaure ta Santé et ton Énergie à 20.</td>
+<td>Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Rampant du vide dans la salle des machines</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=2</code></td>
+<td>Attaquer : combats la créature. La laisser se nourrir : elle se téléporte dans l’espace ; perds 4 Carburant.</td>
+<td>Combat sol, Dépense</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Horloge à l’envers</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=3</code></td>
+<td>Tu te réveilles exactement d6 ans plus jeune.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Prophétie du Gardien Eclipse</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=4</code></td>
+<td>No mechanical effect.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Prisme de cristal rose</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=5</code></td>
+<td>Gagne un +1 permanent à une stat de ton choix.</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="neutral">
+<td><span class="tag">—</span></td>
+<td>Neutre</td>
+<td><b>Champ électromagnétique étrange</b><br><code>Exploration d6=4 → catégorie d6=6 (Supranatural Events) → d6=6</code></td>
+<td>Ton vaisseau est téléporté vers l’hex de ton choix.</td>
+<td>Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Mer de dunes</b><br><code>Exploration d6=5 → planète d6=1 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Oasis</b><br><code>Exploration d6=5 → planète d6=1 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Cité souterraine</b><br><code>Exploration d6=5 → planète d6=1 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Camp nomade</b><br><code>Exploration d6=5 → planète d6=1 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Carcasse de ver géant</b><br><code>Exploration d6=5 → planète d6=1 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Raffinerie de minéraux</b><br><code>Exploration d6=5 → planète d6=1 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Enlisement dans les sables mouvants</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=1</code></td>
+<td>Enlisement dans les sables mouvants</td>
+<td>Jet, Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Le Vagabond</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=2</code></td>
+<td>Le Vagabond</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Cauchemar ailé</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=3</code></td>
+<td>Cauchemar ailé</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Pilleurs de joyaux</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=4</code></td>
+<td>Pilleurs de joyaux</td>
+<td>Combat sol, Favor</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Perdu dans le mirage</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=5</code></td>
+<td>Perdu dans le mirage</td>
+<td>Jet, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Gaïenne — Le Temple du désert</b><br><code>Exploration d6=5 → planète d6=1 → rencontre d6=6</code></td>
+<td>Le Temple du désert</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Plateforme pétrolière</b><br><code>Exploration d6=5 → planète d6=2 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Champ d’antennes</b><br><code>Exploration d6=5 → planète d6=2 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Canyon</b><br><code>Exploration d6=5 → planète d6=2 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Mine de fer</b><br><code>Exploration d6=5 → planète d6=2 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Ravin géant</b><br><code>Exploration d6=5 → planète d6=2 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Rover téléguidé</b><br><code>Exploration d6=5 → planète d6=2 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Observatoire Alpha 2</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=1</code></td>
+<td>Observatoire Alpha 2</td>
+<td>Jet, Favor, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Fissure au sol</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=2</code></td>
+<td>Fissure au sol</td>
+<td>Jet, Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Butin de guerre</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=3</code></td>
+<td>Butin de guerre</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Équipe de nuit sans fin</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=4</code></td>
+<td>Équipe de nuit sans fin</td>
+<td>Jet, Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Le Martien</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=5</code></td>
+<td>Le Martien</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Calorienne — Escarmouche au Fort Météore</b><br><code>Exploration d6=5 → planète d6=2 → rencontre d6=6</code></td>
+<td>Escarmouche au Fort Météore</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Station spatiale</b><br><code>Exploration d6=5 → planète d6=3 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Raffinerie de vapeurs</b><br><code>Exploration d6=5 → planète d6=3 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Astéroïde aménagé</b><br><code>Exploration d6=5 → planète d6=3 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Lune terraformée</b><br><code>Exploration d6=5 → planète d6=3 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Mégastructure en anneau</b><br><code>Exploration d6=5 → planète d6=3 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Planque secrète</b><br><code>Exploration d6=5 → planète d6=3 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Dans l’œil de la tempête</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=1</code></td>
+<td>Dans l’œil de la tempête</td>
+<td>Jet, Dépense, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Relais orbital</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=2</code></td>
+<td>Relais orbital</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Distillerie de Sérum</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=3</code></td>
+<td>Distillerie de Sérum</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Mer de vapeurs</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=4</code></td>
+<td>Mer de vapeurs</td>
+<td>Jet, Combat spatial, Dépense, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Le Marchand étrange</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=5</code></td>
+<td>Le Marchand étrange</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Vaporienne — Mort ou vif</b><br><code>Exploration d6=5 → planète d6=3 → rencontre d6=6</code></td>
+<td>Mort ou vif</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Îlots rocheux</b><br><code>Exploration d6=5 → planète d6=4 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Avant-poste de recherche marine</b><br><code>Exploration d6=5 → planète d6=4 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Cité flottante</b><br><code>Exploration d6=5 → planète d6=4 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Installation sous-marine secrète</b><br><code>Exploration d6=5 → planète d6=4 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Archipel</b><br><code>Exploration d6=5 → planète d6=4 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Récif corallien</b><br><code>Exploration d6=5 → planète d6=4 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Vague après vague</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=1</code></td>
+<td>Vague après vague</td>
+<td>Jet, Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Nautilus</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=2</code></td>
+<td>Nautilus</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Installation TEL 22</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=3</code></td>
+<td>Installation TEL 22</td>
+<td>Jet, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — L’échouage</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=4</code></td>
+<td>L’échouage</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Monstre des profondeurs</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=5</code></td>
+<td>Monstre des profondeurs</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Aquarienne — Prison sous-marine</b><br><code>Exploration d6=5 → planète d6=4 → rencontre d6=6</code></td>
+<td>Prison sous-marine</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Grotte de la bête</b><br><code>Exploration d6=5 → planète d6=5 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Branches entrelacées</b><br><code>Exploration d6=5 → planète d6=5 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Chutes d’eau géantes</b><br><code>Exploration d6=5 → planète d6=5 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Savane</b><br><code>Exploration d6=5 → planète d6=5 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Marécages</b><br><code>Exploration d6=5 → planète d6=5 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Temple de pierre</b><br><code>Exploration d6=5 → planète d6=5 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Colonie ravagée</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=1</code></td>
+<td>Colonie ravagée</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — En territoire ennemi</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=2</code></td>
+<td>En territoire ennemi</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Chlorophylle hostile</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=3</code></td>
+<td>Chlorophylle hostile</td>
+<td>Jet, Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — La course-poursuite dans la forêt</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=4</code></td>
+<td>La course-poursuite dans la forêt</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Parkour dans la canopée</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=5</code></td>
+<td>Parkour dans la canopée</td>
+<td>Jet, Gain, Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Sylvanienne — Grotte alien</b><br><code>Exploration d6=5 → planète d6=5 → rencontre d6=6</code></td>
+<td>Grotte alien</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Quartier législatif</b><br><code>Exploration d6=5 → planète d6=6 → site d6=1</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Légions de gratte-ciel</b><br><code>Exploration d6=5 → planète d6=6 → site d6=2</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Ruelles étroites</b><br><code>Exploration d6=5 → planète d6=6 → site d6=3</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Décharge</b><br><code>Exploration d6=5 → planète d6=6 → site d6=4</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Tour polygonale</b><br><code>Exploration d6=5 → planète d6=6 → site d6=5</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Ascenseur spatial</b><br><code>Exploration d6=5 → planète d6=6 → site d6=6</code></td>
+<td>Explorer le site</td>
+<td>Jet</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Parc municipal</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=1</code></td>
+<td>Parc municipal</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Patrouille commerciale ISF</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=2</code></td>
+<td>Patrouille commerciale ISF</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Instinct primaire</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=3</code></td>
+<td>Instinct primaire</td>
+<td>Jet, Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Mech de combat MK-2 SX</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=4</code></td>
+<td>Mech de combat MK-2 SX</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Coincé dans les égouts</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=5</code></td>
+<td>Coincé dans les égouts</td>
+<td>Jet, Combat sol, Gain</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="planet">
+<td><span class="tag">—</span></td>
+<td>Planète</td>
+<td><b>Écuménopolis — Fuite de données</b><br><code>Exploration d6=5 → planète d6=6 → rencontre d6=6</code></td>
+<td>Fuite de données</td>
+<td>Aucun</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Hangar</b><br><code>Exploration d6=1 → Settlement → onglet Hangar</code></td>
+<td>Hangar</td>
+<td>Réparation, Ravitaillement, Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Wiredoc</b><br><code>Exploration d6=1 → Settlement → onglet Wiredoc</code></td>
+<td>Wiredoc</td>
+<td>Soin, Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Trading Hub</b><br><code>Exploration d6=1 → Settlement → onglet Trading Hub</code></td>
+<td>Trading Hub</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Home Pods</b><br><code>Exploration d6=1 → Settlement → onglet Home Pods</code></td>
+<td>Home Pods</td>
+<td>Soin, Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>QG de faction</b><br><code>Exploration d6=1 → Settlement → onglet QG de faction</code></td>
+<td>QG de faction</td>
+<td>Favor, Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Test Flight</b><br><code>Settlement → Activités</code></td>
+<td>Test Flight</td>
+<td>Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Cybersphere</b><br><code>Settlement → Activités</code></td>
+<td>Cybersphere</td>
+<td>Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Scrapyard</b><br><code>Settlement → Activités</code></td>
+<td>Scrapyard</td>
+<td>Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="settlement">
+<td><span class="tag">—</span></td>
+<td>Colonies &amp; activités</td>
+<td><b>Combat Sim</b><br><code>Settlement → Activités</code></td>
+<td>Combat Sim</td>
+<td>Activité</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A WARG rebel outpost on a small asteroid</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=1</code></td>
+<td>A WARG rebel outpost on a small asteroid station invites you into their encampment.</td>
+<td>Gain, Favor, Soin, Marquage</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A modified Snowstorm Delta carrying a WA</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=2</code></td>
+<td>A modified Snowstorm Delta carrying a WARG rebel squadron asks for spare armament.</td>
+<td>Gain, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A battle-scarred Duskwing fighter with d</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=3</code></td>
+<td>A battle-scarred Duskwing fighter with damaged navigation sensors asks for repairs.</td>
+<td>Favor, Soin, Réparation, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A Vector-7 Mantis pilot on an infiltrati</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=4</code></td>
+<td>A Vector-7 Mantis pilot on an infiltration mission proposes to trade ships with you.</td>
+<td>Combat spatial</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A Vector-7 Mantis chased by ISF security</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=5</code></td>
+<td>A Vector-7 Mantis chased by ISF security begs you to take his illegal explosive cargo.</td>
+<td>Combat spatial, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A WARG recon squad's Starpredator is bei</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor ≥ 0 → d6=6</code></td>
+<td>A WARG recon squad's Starpredator is being devoured from within by a Mutated Chimaera hatched from an alien egg in their cargo hold.</td>
+<td>Combat spatial, Gain</td>
+<td class="mono">/space-combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A high-precision radio antenna on a near</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=1</code></td>
+<td>A high-precision radio antenna on a nearby mesoplanet base has located your ship; two Vector Ace Fighters launch to destroy it.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A lone Rebel Fighter fabricating explosi</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=2</code></td>
+<td>A lone Rebel Fighter fabricating explosives on a man-made moon attacks you from a speeder bike.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A Guerrilla Commander who infiltrated yo</b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=3</code></td>
+<td>A Guerrilla Commander who infiltrated your ship at your last stop sets off an explosive aboard and attacks you from the cargo hold.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — Crossing guerrilla-controlled airspace, </b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=4</code></td>
+<td>Crossing guerrilla-controlled airspace, a Vector-7 Mantis and a Duskwing attack you from both flanks.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — Rebels ambush you at an abandoned space </b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=5</code></td>
+<td>Rebels ambush you at an abandoned space station: EMP inhibitors let two Rebel Fighters warp inside your ship; a WARG Major General teleports in when the last Rebel Fighter is defeated.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>W.A.R.G. — A gigantic WARG mothership (a captured, </b><br><code>Exploration d6=6 → d10 faction (W.A.R.G.) → Favor &lt; 0 → d6=6</code></td>
+<td>A gigantic WARG mothership (a captured, re-armored Tarrasque Titan) prepares to attack.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — A Twinrotor Hauler circles helplessly: M</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=1</code></td>
+<td>A Twinrotor Hauler circles helplessly: Medusa hackers infected its navigation and stole its data.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — A veteran ISF Sentinel captaining a Shel</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=2</code></td>
+<td>A veteran ISF Sentinel captaining a Shell-4 Transporter merchant ship invites you to dock and trade.</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — A merchant on a docked Edgecharger W wit</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=3</code></td>
+<td>A merchant on a docked Edgecharger W with a failed engine offers to pay for a delivery.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — A Vector Ace Fighter and a Twinrotor Hau</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=4</code></td>
+<td>A Vector Ace Fighter and a Twinrotor Hauler laying stealth mines before a battle against WARG ask for help, paying in Serum.</td>
+<td>Combat sol, Gain, Dépense</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — An ISF Beluga Transporter with a malfunc</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=5</code></td>
+<td>An ISF Beluga Transporter with a malfunctioning warp engine asks for help; fix it and you keep their teleportation drive.</td>
+<td>Favor, Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — An orbital laboratory station hosting th</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor ≥ 0 → d6=6</code></td>
+<td>An orbital laboratory station hosting three Scientists and two ISF Soldiers; a scientist offers to fully restore your Health and proposes a research project.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — A glass-domed research station's securit</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=1</code></td>
+<td>A glass-domed research station's security recognizes you in the ISF criminal database; two ISF Soldiers corner you in a dead end.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — An ISF checkpoint cargo scan identifies </b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=2</code></td>
+<td>An ISF checkpoint cargo scan identifies your spaceship; the ISF Sentinel inspecting your ship is ordered to attack.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — On a gem-covered small moon you stumble </b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=3</code></td>
+<td>On a gem-covered small moon you stumble on a clandestine clone-labor mining operation; a guard alerts 2 Mercenaries who open fire.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — On a remote frozen colony, two patrollin</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=4</code></td>
+<td>On a remote frozen colony, two patrolling ISF Soldiers pass by while you hide in an abandoned building. ROLL GRACE. Success: they leave after a few minutes and you return to your ship. Failure: the soldiers find your hiding spot.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — The security cameras of a nuclear reacto</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=5</code></td>
+<td>The security cameras of a nuclear reactor station identify you; the ISF Trade Baron overseeing it confronts you himself to claim your bounty.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Intersolar Federation — Pushed into a gravitational well, you fa</b><br><code>Exploration d6=6 → d10 faction (Intersolar Federation) → Favor &lt; 0 → d6=6</code></td>
+<td>Pushed into a gravitational well, you face an ISF-operated Tarrasque Titan mothership tasked with destroying your ship.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — A Medusa-aligned Scientist in a laborato</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=1</code></td>
+<td>A Medusa-aligned Scientist in a laboratory Twinrotor Hauler needs an undamaged Tesseract to study the artifact.</td>
+<td>Combat sol, Favor, Gain, Déplacement</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — An empty Medusa data server station orbi</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=2</code></td>
+<td>An empty Medusa data server station orbits the system's star: a password-locked control room and a large computer room.</td>
+<td>Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — Medusa operatives aboard three Scarab In</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=3</code></td>
+<td>Medusa operatives aboard three Scarab Interceptors extract data from a large space telescope and ask to see your exploration data.</td>
+<td>Favor, Gain</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — A Drone Operator tries to weld new titan</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=4</code></td>
+<td>A Drone Operator tries to weld new titanium panels onto her looter-damaged A-1 Voyager.</td>
+<td>Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — An A-1 Voyager captured from Space Pirat</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=5</code></td>
+<td>An A-1 Voyager captured from Space Pirates by Medusa agents was damaged in a previous battle; the pilot asks for repairs.</td>
+<td>Favor, Réparation</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — A Stingray Frontier fitted with full-imm</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor ≥ 0 → d6=6</code></td>
+<td>A Stingray Frontier fitted with full-immersion virtual reality capsules used by NetHackers to train their mental skills; you may try one.</td>
+<td>Favor, Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — In a preserved Old World drone factory o</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=1</code></td>
+<td>In a preserved Old World drone factory of the defunct VARON-SAITO INDUSTRIES, two hostile Drone Operators scavenging for parts confront you.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — A hacked civilian Scarab Interceptor tar</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=2</code></td>
+<td>A hacked civilian Scarab Interceptor targets you with its own missiles.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — A NetHacker sent by Medusa attacks your </b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=3</code></td>
+<td>A NetHacker sent by Medusa attacks your vision with a cybernetic glitch virus.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — On a rocky centaur under an artificial z</b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=4</code></td>
+<td>On a rocky centaur under an artificial zero-gravity field, a Cyber-Terrorist attacks you.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — The PERSEUS II malware has taken over a </b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=5</code></td>
+<td>The PERSEUS II malware has taken over a Medusa control center; its infected android leader attacks you mercilessly.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Medusa Sector — On a deserted O'Neill cylinder station, </b><br><code>Exploration d6=6 → d10 faction (Medusa Sector) → Favor &lt; 0 → d6=6</code></td>
+<td>On a deserted O'Neill cylinder station, a dead Cyborg puppeteered remotely through its implants by a Medusa malware attacks you savagely.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — A smuggler dodging a cargo control check</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=1</code></td>
+<td>A smuggler dodging a cargo control checkpoint aboard a Smuggler Speeder offers to trade if you keep his position secret.</td>
+<td>Achat</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — 'THE BULLDOZER', a rusty Edgecharger W h</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=2</code></td>
+<td>'THE BULLDOZER', a rusty Edgecharger W hosting a clandestine boxing ring on a nomadic route.</td>
+<td>Combat sol, Gain, Favor, Soin</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — A chrome Orion Moth hosts illegal raves </b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=3</code></td>
+<td>A chrome Orion Moth hosts illegal raves with Syndicate-supplied narcobiotics, out of ISF regulation range.</td>
+<td>Dépense, Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — Two Syndicate Mercenaries race their mod</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=4</code></td>
+<td>Two Syndicate Mercenaries race their modified starships and take bets.</td>
+<td>Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — Sirio Hex, a legendary Bounty Hunter abo</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=5</code></td>
+<td>Sirio Hex, a legendary Bounty Hunter aboard a dragon-figurehead Starpredator, offers you a Syndicate job.</td>
+<td>Gain, Favor</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — An Edgecharger W converted into a makesh</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor ≥ 0 → d6=6</code></td>
+<td>An Edgecharger W converted into a makeshift zoo for rare alien creatures by an ISF Trade Baron turned smuggler.</td>
+<td>Combat sol, Gain</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — Looters and raiders ambush your starship</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=1</code></td>
+<td>Looters and raiders ambush your starship at a captured outpost crossing: a Smuggler Speeder crashes into your wing dealing 5 Hull damage and stalling your engines, and a Looter breaks into your ship.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — A hostile Starpredator of the LINESTAR G</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=2</code></td>
+<td>A hostile Starpredator of the LINESTAR GROUP, a mercenary paramilitary outfit hired to destroy competition on illegal trade routes, closes in on your ship.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — At a space saloon, a bartender gifts you</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=3</code></td>
+<td>At a space saloon, a bartender gifts you a free Zero-G Liquor; before you can drink, a Bounty Hunter walks in whispering your name.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — Two Space Pirates attack you at the main</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=4</code></td>
+<td>Two Space Pirates attack you at the main gate of an abandoned space dock their gang took over.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — A chain of EMP mines disables your elect</b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=5</code></td>
+<td>A chain of EMP mines disables your electronics; two Mercenaries teleport inside your spacecraft from a nearby mothership and force the gates to your control room.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Corsair Syndicate — An O2 system failure forces a stop at a </b><br><code>Exploration d6=6 → d10 faction (Corsair Syndicate) → Favor &lt; 0 → d6=6</code></td>
+<td>An O2 system failure forces a stop at a remote asteroid, which turns out to be the secret hideout of an Outer Ring Crime Boss on the run; he opens fire.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — An abandoned shipyard turned titanium ch</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=1</code></td>
+<td>An abandoned shipyard turned titanium chapel, where a Synth Apostle preaches the transhumanist creed to human followers.</td>
+<td>Déplacement</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — A breached derelict ship holds a dead An</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=2</code></td>
+<td>A breached derelict ship holds a dead Android Titan, killed by a bounty hunter while transporting a Tesseract to the nearest Settlement.</td>
+<td>Gain, Soin</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — A Snowstorm Delta low on fuel carries sy</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=3</code></td>
+<td>A Snowstorm Delta low on fuel carries synthetic human clones escaped from a forced-labor factory on an orbiting asteroid, 4 tiles northeast.</td>
+<td>Combat sol, Dépense</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — On a moon's dark side, twelve Android Sy</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=4</code></td>
+<td>On a moon's dark side, twelve Android Synths and a Synth Apostle perform a ritual to upload a dead human's consciousness.</td>
+<td>Soin, Dépense</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — A damaged STARLINE-series Automaton Bot,</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=5</code></td>
+<td>A damaged STARLINE-series Automaton Bot, an Old World ship-repair machine, drifts through space; you may haul it in and try to fix it.</td>
+<td>Dépense, Réparation</td>
+<td class="mono">—</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — In an abandoned brutalist factory, a tor</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor ≥ 0 → d6=6</code></td>
+<td>In an abandoned brutalist factory, a torn-apart Android Synth reports being ambushed by a Mutated Chimaera during a reconnaissance mission.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — A gravity jammer on a small asteroid for</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=1</code></td>
+<td>A gravity jammer on a small asteroid formation slows your ship; when you land to disable it, two Android Synths ambush you in payback for past confrontations with the Arch.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — A remote-controlled Epsilon Interceptor </b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=2</code></td>
+<td>A remote-controlled Epsilon Interceptor warship bearing the Synth Arch crest warps in, piloted remotely by Android Apostles from their HQ, and fires its particle cannons.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — On a derelict low-gravity space station,</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=3</code></td>
+<td>On a derelict low-gravity space station, a Cyborg ex-space marine snipes at you with a modified gravity rifle, then charges with inhuman speed.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — At a deserted recon satellite you siphon</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=4</code></td>
+<td>At a deserted recon satellite you siphon its reserves (gain 6 Energy), unknowingly activating the security protocol: an Android Titan attacks you.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — The auto-pilot AI of a civilian Eclipse </b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=5</code></td>
+<td>The auto-pilot AI of a civilian Eclipse Warden has turned hostile, killed its crew, and attacks your spacecraft to take control of it too.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+<tr data-g="faction">
+<td><span class="tag">—</span></td>
+<td>Faction</td>
+<td><b>Synth Arch — In a deserted pyramid-shaped station lit</b><br><code>Exploration d6=6 → d10 faction (Synth Arch) → Favor &lt; 0 → d6=6</code></td>
+<td>In a deserted pyramid-shaped station littered with the bodies of mercenaries sent to capture an experimental android, a Synth Apostle attacks you before you reach the computer room.</td>
+<td>Combat sol</td>
+<td class="mono">/combat</td>
+</tr>
+</tbody>
+</table>
+<footer>Généré par <code>npx tsx scripts/gen-journey-html.ts</code> — ne pas éditer à la main.</footer>
+<script>
+const f = document.getElementById('f')
+const rows = [...document.querySelectorAll('#b tr')]
+f.addEventListener('click', (e) => {
+  const b = e.target.closest('button')
+  if (!b) return
+  ;[...f.querySelectorAll('button')].forEach((x) => x.classList.remove('on'))
+  b.classList.add('on')
+  const g = b.dataset.g
+  rows.forEach((r) => r.classList.toggle('hidden', g !== '__all' && r.dataset.g !== g))
+})
+</script>
+</body>
+</html>
