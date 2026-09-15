@@ -83,16 +83,64 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 
 - **Portainer** — https://raf-bmax.tail14baaa.ts.net/
 - **Uptime Kuma** — https://raf-bmax.tail14baaa.ts.net:8443/
+- **Bureau virtuel (Steam / Blender)** — https://raf-bmax.tail14baaa.ts.net:8445/desktop.html
+- **Dashboard Hermes** — https://raf-bmax.tail14baaa.ts.net:10000/ (auth BASIC)
 - **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
 
-Port 10000 libre (ex-Obsidian, décommissionné le 2026-08-31).
+**Attention aux ports Tailscale Serve** — `~/docker/stack/serve.sh` les réinitialise
+tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 10000. Toute
+publication faite à la main (ex. le bureau virtuel sur 8445) est **perdue** à
+chaque exécution de `serve.sh`. Il faut y ajouter la ligne correspondante.
 
-**Non exposés** (les 3 ports HTTPS de Tailscale Serve sont pris) — tunnel SSH :
+**Non exposés** — tunnel SSH :
 
     ssh -L 9119:localhost:9119 raf@raf-bmax.tail14baaa.ts.net   # dashboard Hermes
     ssh -L 8080:localhost:8080 raf@raf-bmax.tail14baaa.ts.net   # Dozzle
 
 Puis http://localhost:9119 ou http://localhost:8080
+
+---
+
+## 5bis. Bureau virtuel (apps graphiques en headless)
+
+La machine est headless (aucun écran branché) : les applis GUI lancées depuis
+SSH **tournent mais n'affichent aucune fenêtre**. Solution en place : un écran
+X11 virtuel diffusé dans le navigateur.
+
+**Accès :** https://raf-bmax.tail14baaa.ts.net:8445/desktop.html
+
+**Quatre services systemd user** (actifs, `enabled`, survivent au reboot grâce
+au `linger` activé) :
+
+    systemctl --user status virtual-desktop.service          # écran X :5 (Xtigervnc)
+    systemctl --user status virtual-desktop-wm.service       # gestionnaire de fenêtres (jwm)
+    systemctl --user status virtual-desktop-novnc.service    # noVNC (port 6085)
+    systemctl --user status steam-virtual.service            # client Steam
+
+Tout est dans `~/projets/remote-desktop/` (binaires extraits sans root dans
+`prefix/`, aucun paquet système installé pour VNC/noVNC).
+
+**Lancer Blender :**
+
+    ~/projets/remote-desktop/blender.sh              # version Steam (5.2.1 LTS)
+    BLENDER=~/blender/blender ~/projets/remote-desktop/blender.sh   # standalone (5.2.0)
+
+En mode graphique (fenêtre visible) ou `--background` (scripts Python, rendu).
+Steam → bibliothèque → Blender fonctionne aussi.
+
+**Piège n°1 — jamais hériter de Wayland.** Les variables `WAYLAND_DISPLAY` et
+`XDG_SESSION_TYPE=wayland` de la session SSH font que l'appli tente Wayland,
+échoue en silence et n'affiche rien. Il faut `WAYLAND_DISPLAY=` (vide),
+`XDG_SESSION_TYPE=x11`, `XAUTHORITY=` et `--gpu-backend opengl`.
+
+**Piège n°2 — ordonnancement systemd.** Un service qui a à la fois
+`After=default.target` et `WantedBy=default.target` crée un *ordering cycle* :
+systemd supprime le job au boot et le service ne démarre jamais. Symptôme :
+l'appli marche à la main mais pas après reboot.
+
+**Piège n°3 — Xauthority.** En SSH, `~/.Xauthority` n'existe pas ; le vrai
+fichier est `/run/user/1000/.mutter-Xwaylandauth.*` (cf. `systemctl --user
+show-environment`).
 
 ---
 
@@ -399,16 +447,46 @@ Le watchdog couvre le **gel logiciel** (noyau figé, pilote en boucle). Il ne
 couvre **pas** le gel matériel (alimentation, RAM, CPU) : dans ce cas le
 timer TCO ne tourne plus non plus et rien ne redémarre. D'où les étages 2 et 3.
 
-**Étage 2 — surveillance externe (te prévient sur ton téléphone)**
+**Étage 2 — surveillance externe (te prévient sur ton téléphone) — ✅ PROUVÉ**
 
 Nécessite un compte sur un service hors de la maison. Le BMAX appelle une URL
 depuis Internet ; si l'appel cesse, le service alerte (mail, push, SMS).
 
-    sudo bash /home/raf/docker/stack/setup-external-monitor.sh 'URL_DE_PING'
+**Choix : healthchecks.io** (et non Uptime Kuma). Kuma tourne *sur* le BMAX :
+machine gelée = Kuma gelé = aucune alerte. Il ne peut pas signaler sa propre
+mort. Le gratuit de healthchecks.io couvre le besoin : 20 sondes, alertes
+illimitées par mail / Discord / Slack / Telegram / ntfy.
 
-Un **script de relance automatique est déjà en place** (`cron @reboot`) : la
-sonde se réarme seule après chaque redémarrage, y compris après un reset par
-watchdog. URL et état dans `~/.hermes/external-monitor.url` / `.state`.
+Réglages de la sonde sur le site : **Period 5 min**, **Grace Time 15 min**
+(c'est *Period + Grace* qui donne le délai d'alerte ≈ 20 min), et une
+**intégration active** (mail, Discord…) — sans elle la panne est détectée
+mais personne n'est prévenu.
+
+    bash /home/raf/docker/stack/setup-external-monitor.sh 'URL_DE_PING'
+
+**Aucun sudo nécessaire** : tout vit dans `~/.hermes/` et dans le crontab de
+raf (contrairement à l'étage 1, qui touche au noyau).
+
+Un **script de relance automatique est en place** (`cron @reboot`) : la sonde
+se réarme seule après chaque redémarrage, y compris après un reset par
+watchdog. URL et état dans `~/.hermes/external-monitor.url` (mode 600) / `.state`.
+
+Cadence : **5 min**, alignée sur la Period. Pinger plus souvent ne détecte
+rien de plus vite (le délai dépend de la Grace), et le gratuit ne garde que
+100 entrées d'historique par sonde — à 1 min, cela ne couvrirait que ~1h40.
+
+**Preuve mesurée (2026-09-15) :**
+
+- 19:00:01 — le cron envoie `up` **seul** (visible dans le journal)
+- 19:01:33 — signal d'échec volontaire → **alerte mail reçue**
+- 19:05:01 — le cron renvoie `up` → **retour au vert automatique**
+- l'IPv6 vue par healthchecks correspond à celle du BMAX dans les logs
+  tailscaled : c'est bien cette machine qui est surveillée
+
+Vérification :
+
+    bash /home/raf/docker/stack/setup-external-monitor.sh --status
+    /home/raf/docker/stack/external-monitor-ping.sh test
 
 **Étage 3 — prise connectée + Wake-on-LAN (le recours manuel)**
 
