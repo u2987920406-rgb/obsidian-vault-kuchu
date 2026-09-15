@@ -286,6 +286,9 @@ est dans `DISCORD_FREE_RESPONSE_CHANNELS`. Attention : mentionner
     systemd-inhibit --list
     sudo systemctl reboot -i
 
+**Machine totalement injoignable (gel noyau)** — voir la section 17 : c'est
+un cas à part, qui ne se règle pas en SSH puisque plus rien ne tourne.
+
 ---
 
 ## 16. Chemins utiles
@@ -298,3 +301,144 @@ est dans `DISCORD_FREE_RESPONSE_CHANNELS`. Attention : mentionner
 | Services systemd utilisateur | `/home/raf/.config/systemd/user/` |
 | Projets | `/home/raf/projets/` |
 | Cette fiche | `/home/raf/FICHE.md` |
+
+---
+
+## 17. Reprise après gel noyau (à distance)
+
+### Ce qui s'est passé le 2026-09-15
+
+Dernière ligne écrite dans le journal : **11:59:02**. Puis ~5 h de silence
+total, jusqu'à un hard reboot manuel à 16:53.
+
+**Ce n'était pas une panne Tailscale.** Tout le noyau a gelé. Une fois le
+noyau figé, plus rien ne tourne : ni Tailscale, ni SSH, ni systemd, ni
+Hermes, ni Docker. C'est pour ça qu'il n'y avait aucun moyen d'entrer.
+
+**Signes relevés dans le journal :**
+
+- aucune séquence d'arrêt (pas de SIGTERM, pas de « Journal stopped ») —
+  contrairement aux arrêts propres du 30/08
+- aucun vmcore dans `/var/crash` alors que kdump est actif : le noyau n'a
+  même pas eu le temps de paniquer
+- `workqueue: dm_irq_work_func [amdgpu] hogged CPU for >10000us` (répété les
+  31/08) et `REG_WAIT timeout ... optc314_disable_crtc line:145` — signature
+  classique du pilote `amdgpu` sur iGPU Radeon 780M
+
+**Suspect principal : le pilote `amdgpu`.** Sans dump noyau, c'est un
+suspect étayé, pas une preuve.
+
+**Écarté :** RAM (60 % libre à 11:50), disque (17 %), veille (masquée), OOM
+(les kills du journal datent du 07/09 et visaient Chrome).
+
+### Le piège du monitoring actuel
+
+Uptime Kuma **tourne sur le BMAX**. Machine gelée = Kuma gelé = aucune alerte.
+La sonde `hermes-healthcheck.timer` a le même angle mort : elle est *détecteur*,
+pas *acteur*, et elle tourne sur la machine qu'elle surveille.
+
+**Règle : pour savoir qu'une machine est morte, la surveillance doit être
+hors de cette machine.**
+
+### Les trois protections (dans l'ordre d'efficacité)
+
+**Étage 1 — watchdog matériel (automatique, ne dépend de rien) — ✅ PROUVÉ**
+
+Le chipset AMD FCH a un timer TCO. S'il est armé, la machine **redémarre
+seule** si le noyau ne le nourrit plus. C'est la seule protection qui marche
+sans intervention humaine ni réseau.
+
+    sudo bash /home/raf/docker/stack/setup-resilience.sh
+
+Le script arme le watchdog (`sp5100_tco`, 60 s) et écrit `kernel.panic=10`
+pour qu'un panic noyau redémarre au lieu de figer. Idempotent.
+
+Vérification :
+
+    wdctl
+    cat /proc/sys/kernel/panic
+
+**Preuve que le watchdog fonctionne vraiment — TEST RÉUSSI (2026-09-15)**
+
+Armer un watchdog n'est pas la même chose que prouver qu'il redémarre la
+machine. Le BMAX a un DMI minimaliste (`AMD / AMI / AR7`) : la présence du
+timer TCO n'était pas garantie. On l'a donc testé pour de vrai, par un gel
+volontaire.
+
+    sudo bash /home/raf/docker/stack/test-watchdog.sh
+
+Le script journalise l'état AVANT (dont le `boot_id`), charge le module, puis
+ouvre `/dev/watchdog` et **cesse de le nourrir**.
+
+**Résultat mesuré :**
+
+- Module : `sp5100_tco` → `SP5100 TCO timer [version 0]`
+- Dernier log avant reset : 17:37:44 · Premier log après : 17:38:50 → **66 s de silence**
+- Séquence d'arrêt propre : **aucune** (coupure brutale)
+- `boot_id` avant / après : différents
+
+La machine a donc redémarré **seule**, sans intervention humaine, dans le
+délai du chien de garde. **La protection de l'étage 1 est réelle, pas
+théorique** — c'est vérifié sur ce matériel précis.
+
+Après coup, lire le verdict :
+
+    bash /home/raf/docker/stack/verif-watchdog.sh
+
+Le verdict compare les `boot_id` avant/après : c'est la preuve fiable, plus
+que l'horloge ou l'uptime.
+
+Pour annuler un test en cours (rien ne s'est passé au bout de 3 min) :
+
+    sudo kill $(cat /home/raf/.hermes/watchdog-test.lock)
+    sudo modprobe -r sp5100_tco
+
+### Limite honnête de l'étage 1
+
+Le watchdog couvre le **gel logiciel** (noyau figé, pilote en boucle). Il ne
+couvre **pas** le gel matériel (alimentation, RAM, CPU) : dans ce cas le
+timer TCO ne tourne plus non plus et rien ne redémarre. D'où les étages 2 et 3.
+
+**Étage 2 — surveillance externe (te prévient sur ton téléphone)**
+
+Nécessite un compte sur un service hors de la maison. Le BMAX appelle une URL
+depuis Internet ; si l'appel cesse, le service alerte (mail, push, SMS).
+
+    sudo bash /home/raf/docker/stack/setup-external-monitor.sh 'URL_DE_PING'
+
+Un **script de relance automatique est déjà en place** (`cron @reboot`) : la
+sonde se réarme seule après chaque redémarrage, y compris après un reset par
+watchdog. URL et état dans `~/.hermes/external-monitor.url` / `.state`.
+
+**Étage 3 — prise connectée + Wake-on-LAN (le recours manuel)**
+
+Le watchdog ne sauve pas d'un gel *matériel* (alim, RAM, CPU). Là, il faut
+couper l'alimentation depuis l'extérieur : **prise connectée** (Tasmota,
+Shelly) sur le BMAX, pilotable depuis le téléphone.
+
+Pour que la machine puisse se rallumer ensuite, **Wake-on-LAN** doit être
+actif. Il était **désactivé** (`/sys/class/net/enp1s0/device/power/wakeup =
+disabled`) — le script de l'étage 1 l'active.
+
+**Côté BIOS, une seule fois à la main :**
+
+- `ErP Ready` / `EuP` → **Disabled** (sinon la carte réseau n'est plus
+  alimentée machine éteinte)
+- `Power On By PCIE/PCI` / `Wake on LAN` → **Enabled**
+
+**Dernier recours en SSH** — si le noyau répond encore un peu mais que rien
+d'autre ne marche, SysRq est actif (176) :
+
+    echo b | sudo tee /proc/sysrq-trigger
+
+Hard reboot immédiat, sans attendre la fin des délais.
+
+### En voyage, machine bloquée : l'ordre des gestes
+
+1. L'alerte de l'étage 2 arrive sur le téléphone.
+2. Attendre 90 s : le watchdog matériel redémarre peut-être déjà.
+3. Toujours rien ? Prise connectée → couper 15 s → rallumer.
+4. La machine remonte toute seule (services systemd `enabled`, `@reboot`).
+5. Si même ça échoue : le problème est matériel, il faut quelqu'un sur place.
+
+---
