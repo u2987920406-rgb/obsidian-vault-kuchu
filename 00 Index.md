@@ -43,6 +43,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[11 Ressources/raf-bmax — Fiche opérationnelle]] — Le serveur homelab :
   accès (Discord d'abord, SSH en secours), stack Docker, surveillance,
   Hermès, procédures headless. À lire quand quelque chose ne va pas.
+- [[11 Ressources/BanditRS — Scanner sécurité Python]] — Scanner de sécurité
+  Python (Rust, drop-in `bandit`). Installé sur BMAX dans
+  `~/.hermes/.venv-banditrs/`. Audits vault/Astroprisma/Ulysse à 0.
+  Config Ulysse : `~/projets/ulysse/.bandit.yaml`.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
