@@ -86,9 +86,10 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 - **Bureau virtuel (Steam / Blender)** — https://raf-bmax.tail14baaa.ts.net:8445/desktop.html
 - **Dashboard Hermes** — https://raf-bmax.tail14baaa.ts.net:10000/ (auth BASIC)
 - **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
+- **DeepSeek Harness (`dsh`)** — https://raf-bmax.tail14baaa.ts.net:8447/ (service systemd user `dsh.service`, port 3080). **L'URL exige un jeton** qui change à chaque redémarrage : récupérer le lien courant avec `dsh-link`. Détail : [[20.02 DeepSeek Harness]].
 
 **Attention aux ports Tailscale Serve** — `~/docker/stack/serve.sh` les réinitialise
-tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 10000. Toute
+tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 8445 / 8447 / 10000. Toute
 publication faite à la main (ex. le bureau virtuel sur 8445) est **perdue** à
 chaque exécution de `serve.sh`. Il faut y ajouter la ligne correspondante.
 
@@ -348,6 +349,7 @@ un cas à part, qui ne se règle pas en SSH puisque plus rien ne tourne.
 | Secrets Hermes | `/home/raf/.hermes/.env` (mode 600) |
 | Services systemd utilisateur | `/home/raf/.config/systemd/user/` |
 | Projets | `/home/raf/projets/` |
+| DeepSeek Harness (`dsh`) | `/home/raf/projets/deepseek-harness` — données : `.dsh-home/`, clé : `/home/raf/.config/dsh/dsh.env` (600), lien UI : `dsh-link` |
 | Cette fiche | `/home/raf/FICHE.md` |
 
 ---
@@ -405,6 +407,49 @@ Vérification :
 
     wdctl
     cat /proc/sys/kernel/panic
+
+#### ⚠️ Faux-vert corrigé le 2026-09-16 (l'étage 1 était DÉSARMÉ en silence)
+
+Le 16/09, la machine a gelé de ~09:18 à 16:18 (**7 h**, coupure brutale :
+`recovering journal` + inodes orphelins au redémarrage) **sans que le watchdog
+ne redémarre quoi que ce soit**. Diagnostic :
+
+- `sp5100_tco` n'était **pas chargé** : aucun `/dev/watchdog`, `wdctl` vide.
+- Cause : le paquet noyau Ubuntu **blackliste** ce module
+  (`/usr/lib/modprobe.d/blacklist_linux_7.0.0-31-generic.conf:62
+   → blacklist sp5100_tco`), et le paquet en change à chaque montée de version
+  (`-30` puis `-31` en 24 h).
+- `systemd-modules-load` **applique** la blacklist → chaque boot journalise
+  `Module 'sp5100_tco' is deny-listed (by kmod)`, puis
+  `Failed to open any watchdog device before the initial transaction completed`.
+- `/etc/modules-load.d/watchdog-bmax.conf` était donc **inerte**, et
+  `RuntimeWatchdogSec=60s` **armé dans le vide**.
+
+**Pourquoi le test du 15/09 n'a pas vu le défaut :** le script chargeait le
+module par un `modprobe` **à la main**, qui n'applique pas la blacklist. Tout
+était vert le soir du test, et faux après le premier redémarrage. **Un
+garde-fou jamais revu rouge est un faux-vert.**
+
+**Correctif (dans `setup-resilience.sh`, relancer le script) :**
+
+- une unité `watchdog-bmax.service` (oneshot, `DefaultDependencies=no`,
+  avant `sysinit.target`) exécute `/sbin/modprobe sp5100_tco` — un `modprobe`
+  direct ne consulte pas la blacklist — puis vérifie que `/dev/watchdog`
+  existe ;
+- une unité `watchdog-bmax-reexec.service` (après `multi-user.target`) fait
+  `systemctl daemon-reexec`, car **systemd n'ouvre `/dev/watchdog` qu'une
+  fois, très tôt au démarrage**, avant que notre module n'existe. Sans ce
+  re-exec, `RuntimeWatchdogSec` reste inerte même module chargé.
+
+**Vérification après le prochain démarrage (les 4 doivent être vrais) :**
+
+    ls -l /dev/watchdog
+    wdctl
+    systemctl status watchdog-bmax.service
+    journalctl -b -1 --no-pager | grep -c "deny-listed"   # doit valoir 0 après le correctif
+
+Si `wdctl` reste vide, c'est que le module ne se charge plus sur le noyau en
+cours : vérifier `modprobe -n -v sp5100_tco`.
 
 **Preuve que le watchdog fonctionne vraiment — TEST RÉUSSI (2026-09-15)**
 

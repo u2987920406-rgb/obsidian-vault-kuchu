@@ -29,6 +29,11 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   autoentrepreneur. Objectif : en un coup d'œil, savoir si l'activité couvre les
   charges et combien se verser. PRD (étape 2) : [[10.05 Gestion Budget/PRD]].
   Prochaine étape : Guide-lines.
+- [[10.06 Panda roux]] — Animation de personnage dans Blender (BMAX).
+  **v7 du modèle validée** (2026-09-15) : panda roux cartoon, 5 vues cohérentes,
+  aucun élément détaché. Modélisation par script bpy (`~/projets/panda-roux`).
+  Détail technique : [[10.06 Panda roux/Notes techniques]].
+  Prochaine étape : rig + animation.
 
 ## 11 Ressources
 - [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
@@ -49,12 +54,16 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   Config Ulysse : `~/projets/ulysse/.bandit.yaml`.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
+- [[20.02 DeepSeek Harness]] — Locataire `dsh` (DeepSeek Harness, MIT, dev preview) :
+  runtime d'agent « tout est plugin », Web UI sur 3080, service systemd user,
+  exposé tailnet sur 8447. Modèle branché sur la route Ollama Cloud.
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
   [[20.01 Hermès/SKILLS|index des skills]]. Architecture mémoire (couches, décharge,
   décision RAG, config compression) : [[20.01 Hermès/ARCHITECTURE-MEMOIRE]].
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
+- [[30 Journal/2026-09-16]] — Gel du BMAX 7 h sans protection (watchdog étage 1 jamais chargé : sp5100_tco blacklisté par le noyau Ubuntu → faux-vert) + panne Ollama Cloud 17:12→17:38, 6 salons bloqués.
 - [[30 Journal/2026-09-15]] — Gel noyau du BMAX (~5 h injoignable) : diagnostic, cause (watchdog désarmé + Kuma sur la machine surveillée), scripts de reprise à distance + section 17 de la fiche.
 - [[30 Journal/2026-09-08]] — HTML-as-Plan intégré à La Méthode, validé sur Ulysse (template skill + étape 6bis, rendu jsdom vérifié).
 - [[30 Journal/2026-09-05]] — Kitsune to Yōkai : v1 déclarée (passe globale, débogage visuel, process capture vision).
