@@ -87,9 +87,11 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 - **Dashboard Hermes** — https://raf-bmax.tail14baaa.ts.net:10000/ (auth BASIC)
 - **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
 - **DeepSeek Harness (`dsh`)** — https://raf-bmax.tail14baaa.ts.net:8447/ (service systemd user `dsh.service`, port 3080). **L'URL exige un jeton** qui change à chaque redémarrage : récupérer le lien courant avec `dsh-link`. Détail : [[20.02 DeepSeek Harness]].
+- **Connexion dsh (mobile) — LE CHEMIN VALIDÉ** — https://raf-bmax.tail14baaa.ts.net:8448/ (service `dsh-login.service`, port 8097). Page à **un bouton** : c'est l'entrée depuis le téléphone (validé sur le Pixel le 2026-09-16). Le lien direct 8447 cliqué depuis Discord donne un 401 à cause du `SameSite=Strict` du cookie dsh. Le jeton y est régénéré à chaque chargement.
 
 **Attention aux ports Tailscale Serve** — `~/docker/stack/serve.sh` les réinitialise
-tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 8445 / 8447 / 10000. Toute
+tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 8445 / 8447 / 8448 /
+10000. Toute
 publication faite à la main (ex. le bureau virtuel sur 8445) est **perdue** à
 chaque exécution de `serve.sh`. Il faut y ajouter la ligne correspondante.
 
@@ -430,26 +432,58 @@ module par un `modprobe` **à la main**, qui n'applique pas la blacklist. Tout
 était vert le soir du test, et faux après le premier redémarrage. **Un
 garde-fou jamais revu rouge est un faux-vert.**
 
-**Correctif (dans `setup-resilience.sh`, relancer le script) :**
+**Correctif — INSTALLÉ et appliqué le 2026-09-16 au soir**
 
-- une unité `watchdog-bmax.service` (oneshot, `DefaultDependencies=no`,
-  avant `sysinit.target`) exécute `/sbin/modprobe sp5100_tco` — un `modprobe`
-  direct ne consulte pas la blacklist — puis vérifie que `/dev/watchdog`
-  existe ;
-- une unité `watchdog-bmax-reexec.service` (après `multi-user.target`) fait
-  `systemctl daemon-reexec`, car **systemd n'ouvre `/dev/watchdog` qu'une
-  fois, très tôt au démarrage**, avant que notre module n'existe. Sans ce
-  re-exec, `RuntimeWatchdogSec` reste inerte même module chargé.
+Artefact réel : **`~/projets/bmax-watchdog/`** (`bmax-watchdog.service` +
+`install.sh` idempotent + `README.md`). C'est **ce dossier qui fait foi**.
 
-**Vérification après le prochain démarrage (les 4 doivent être vrais) :**
+    sudo bash /home/raf/projets/bmax-watchdog/install.sh
 
+Le principe : une unité systemd qui exécute `/sbin/modprobe sp5100_tco`, un
+appel **par nom explicite** qui ne consulte pas la blacklist — c'est le fait
+observé (le chargement manuel a toujours marché, `systemd-modules-load` refuse).
+
+- `DefaultDependencies=no` + `Before=sysinit.target` : l'unité s'exécute pendant
+  la transaction initiale, avant que systemd ne referme sa tentative d'ouvrir
+  `/dev/watchdog`.
+- `ConditionKernelModuleLoaded=!sp5100_tco` : ne fait rien si le module est déjà
+  chargé (idempotent par construction).
+- **Correction d'une affirmation fausse** : ce correctif **n'est PAS** dans
+  `setup-resilience.sh`. Vérifié le 16/09 — ce script (mtime 15/09 17:31) ne
+  contient aucun code d'écriture d'unité. Le relancer ne pose aucune unité.
+- `/etc/modules-load.d/watchdog-bmax.conf` est **toujours présent** et reste
+  inerte : à supprimer pour ne pas entretenir un faux-vert de plus.
+
+**État réel, vérifié le 16/09 à 19:21 — armé, mais à chaud :**
+
+    /dev/watchdog, /dev/watchdog0        crees
+    WatchdogDevice=/dev/watchdog0
+    RuntimeWatchdogUSec=1min
+    WatchdogLastPingTimestamp=Wed 2026-09-16 19:21:22 CEST
+    systemd[1]: Using hardware watchdog /dev/watchdog0: 'SP5100 TCO timer'
+    wdctl -> timeout 60 s, timeleft 57 s
+
+Le `daemon-reexec` de l'installeur a récupéré le device pour ce boot. **Le
+contrôle le plus parlant est `WatchdogLastPingTimestamp` qui AVANCE** : c'est la
+preuve que systemd nourrit vraiment le chien de garde.
+`RuntimeWatchdogUSec=1min` **seul ne prouve rien** — c'est exactement le
+faux-vert du 16/09 (réglage présent, device absent).
+
+**⚠️ Reste NON prouvé : le démarrage à froid.** L'unité n'a pas encore traversé
+un boot complet. La question ouverte est si `Before=sysinit.target` suffit à
+faire ouvrir `/dev/watchdog`, ou s'il faut en plus un service de `daemon-reexec`
+tardif. **Ne pas annoncer la protection comme acquise avant de l'avoir vérifié.**
+
+**Vérification après le prochain démarrage (les 3 doivent être vrais) :**
+
+    bash /home/raf/.hermes/skills/devops/host-freeze-recovery/scripts/verify-watchdog-boot.sh
     ls -l /dev/watchdog
-    wdctl
-    systemctl status watchdog-bmax.service
-    journalctl -b -1 --no-pager | grep -c "deny-listed"   # doit valoir 0 après le correctif
+    journalctl -b 0 --no-pager | grep -c "deny-listed"   # doit valoir 0
 
-Si `wdctl` reste vide, c'est que le module ne se charge plus sur le noyau en
-cours : vérifier `modprobe -n -v sp5100_tco`.
+`Using hardware watchdog` présent **avec `deny-listed` à 0** = le pari de
+l'ordre de démarrage est gagné. Sinon : ajouter l'unité de `daemon-reexec`, ou
+charger le module depuis l'initramfs (piste « garante », mais reconstruire un
+initrd sur cette machine headless est un risque de non-démarrage).
 
 **Preuve que le watchdog fonctionne vraiment — TEST RÉUSSI (2026-09-15)**
 
