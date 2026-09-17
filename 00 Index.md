@@ -30,10 +30,12 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   charges et combien se verser. PRD (étape 2) : [[10.05 Gestion Budget/PRD]].
   Prochaine étape : Guide-lines.
 - [[10.06 Panda roux]] — Animation de personnage dans Blender (BMAX).
-  **v7 du modèle validée** (2026-09-15) : panda roux cartoon, 5 vues cohérentes,
-  aucun élément détaché. Modélisation par script bpy (`~/projets/panda-roux`).
-  Détail technique : [[10.06 Panda roux/Notes techniques]].
-  Prochaine étape : rig + animation.
+  **Modèle v7 + rig + animation v2 validés** (2026-09-15) : panda roux cartoon,
+  course, queue et saut de ruisseau à timing physique (parabole à 0,00 mm de la
+  théorie). Modélisation et animation par script bpy
+  (`~/projets/panda-roux`). Détail : [[10.06 Panda roux/Animation]],
+  [[10.06 Panda roux/Notes techniques]].
+  Prochaine étape : autres animations dans un salon dédié.
 
 ## 11 Ressources
 - [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
