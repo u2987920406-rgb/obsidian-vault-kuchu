@@ -176,8 +176,9 @@ appliquée). Plan consultable : [[JETS-PLAN.html]] (`docs/JETS-PLAN.html`).
 Commits : `1177865`, `e8b861c`, `81207b7`, `afa0c61`, `3b5cbea`, `1124130`,
 `79cbe2f`, `4bb1095`, `64c985f`.
 
-Reste connu : les jets multiples (« Trois Jets de défi ») ne résolvent qu'**un**
-jet ; les 6 gabarits CARTE du Cybersphere restent dérivés (visuels absents).
+Les jets multiples (« Trois Jets de défi ») résolvent désormais les **N** lancers
+(commit `3e00bab`). Reste connu : les 6 gabarits CARTE du Cybersphere sont
+dérivés (visuels du livre absents).
 
 Serveur de jeu : service **systemd** `astroprisma.service` (Restart=always +
 Linger) → http://100.101.17.46:5199/
