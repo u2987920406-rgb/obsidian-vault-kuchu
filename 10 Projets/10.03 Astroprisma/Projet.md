@@ -177,7 +177,8 @@ Commits : `1177865`, `e8b861c`, `81207b7`, `afa0c61`, `3b5cbea`, `1124130`,
 `79cbe2f`, `4bb1095`, `64c985f`.
 
 Les jets multiples (« Trois Jets de défi ») résolvent désormais les **N** lancers
-(commit `3e00bab`). Reste connu : les 6 gabarits CARTE du Cybersphere sont
+(commit `3e00bab`). Un choix qui exige une ressource est **refuse** si le joueur
+ne l'a pas (commit `0bc1850`). Reste connu : les 6 gabarits CARTE du Cybersphere sont
 dérivés (visuels du livre absents).
 
 Serveur de jeu : service **systemd** `astroprisma.service` (Restart=always +
