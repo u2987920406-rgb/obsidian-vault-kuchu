@@ -157,3 +157,27 @@ preuves) · 6. Commit/push propre · 7. Validation humaine Raf.
 
 ## Voir aussi
 - [[00 Index]]
+
+
+## Jets du livre — 78 branchés (2026-09-17)
+
+Chantier « chaque contexte où un dé doit être lancé pour un impact réel ».
+Inventaire : **206** éléments citant un dé dans les 17 JSON → **78 vrais jets**
+(issue écrite par le livre). Les 9 domaines sont livrés :
+
+planètes (20) · factions (22) · capacités d'ennemis (16) · HACK au sol (3) ·
+fuite spatiale (1) · objets à effet de zone (5) · Cybersphere (4) ·
+rencontres neutres (4) · événements d'anneau (1).
+
+Moteur : `app/src/engine/checks.ts` (parse `ROLL`/`JET`, FR **et** EN) +
+`CheckPanel` partagé (proposer → lancer → RÉUSSITE/ÉCHEC → conséquence
+appliquée). Plan consultable : [[JETS-PLAN.html]] (`docs/JETS-PLAN.html`).
+
+Commits : `1177865`, `e8b861c`, `81207b7`, `afa0c61`, `3b5cbea`, `1124130`,
+`79cbe2f`, `4bb1095`, `64c985f`.
+
+Reste connu : les jets multiples (« Trois Jets de défi ») ne résolvent qu'**un**
+jet ; les 6 gabarits CARTE du Cybersphere restent dérivés (visuels absents).
+
+Serveur de jeu : service **systemd** `astroprisma.service` (Restart=always +
+Linger) → http://100.101.17.46:5199/

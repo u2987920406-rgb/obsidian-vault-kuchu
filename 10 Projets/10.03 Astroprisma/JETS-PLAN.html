@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Astroprisma — Tous les jets du livre</title>
+<style>
+  :root {
+    --bg:#0f0d17; --panel:#181528; --panel2:#201c33; --line:#2e2846;
+    --txt:#ece9f5; --dim:#a79fc4; --ok:#3ddc97; --todo:#fdbb5b; --wip:#5ac8fa; --ko:#f16042;
+    --neon:#58d6e8;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { padding:28px 20px 20px; border-bottom:1px solid var(--line);
+    background:linear-gradient(160deg,#1a1630,#0f0d17); }
+  h1 { margin:0 0 6px; font-size:23px; letter-spacing:.2px; }
+  .sous { color:var(--dim); font-size:14px; max-width:900px; }
+  .origine { margin-top:10px; font-size:13px; color:var(--dim); font-style:italic;
+    border-left:3px solid var(--neon); padding-left:10px; }
+  main { padding:20px; max-width:1180px; margin:0 auto; }
+  .kpis { display:flex; flex-wrap:wrap; gap:12px; margin:0 0 24px; }
+  .kpi { background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:14px 18px; min-width:132px; }
+  .kpi .v { font-size:26px; font-weight:700; }
+  .kpi .l { font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:.6px; }
+  h2 { font-size:17px; margin:28px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line); }
+  table { width:100%; border-collapse:collapse; font-size:14px;
+    background:var(--panel); border-radius:12px; overflow:hidden; }
+  th { text-align:left; padding:11px 12px; background:var(--panel2);
+    font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--dim); }
+  td { padding:11px 12px; border-top:1px solid var(--line); vertical-align:top; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; font-weight:700; }
+  td.det { color:var(--dim); font-size:13px; }
+  code { background:#0b0917; padding:2px 6px; border-radius:5px; font-size:12.5px; color:var(--neon); }
+  .badge { padding:3px 9px; border-radius:99px; font-size:11.5px; font-weight:700; white-space:nowrap; }
+  .badge.ok   { background:rgba(61,220,151,.15); color:var(--ok); border:1px solid rgba(61,220,151,.4); }
+  .badge.todo { background:rgba(253,187,91,.13); color:var(--todo); border:1px solid rgba(253,187,91,.4); }
+  .badge.wip  { background:rgba(90,200,250,.13); color:var(--wip); border:1px solid rgba(90,200,250,.4); }
+  .badge.ko   { background:rgba(241,96,66,.13); color:var(--ko); border:1px solid rgba(241,96,66,.4); }
+  ul { padding-left:20px; } li { margin:6px 0; }
+  .note { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--todo);
+    border-radius:10px; padding:13px 16px; margin:14px 0; color:var(--dim); font-size:13.5px; }
+  footer { padding:26px 20px; color:var(--dim); font-size:12.5px; text-align:center;
+    border-top:1px solid var(--line); margin-top:30px; }
+  @media (max-width:720px) {
+    td.det, th.det { display:none; }
+    h1 { font-size:19px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Astroprisma — Tous les jets du livre</h1>
+  <div class="sous">Chantier : chaque contexte du jeu où un dé doit être lancé pour un impact réel sur la partie</div>
+  <div class="origine">Retour Raf (1549993861131014165) : « vérifie tous les contextes du jeu où un roll est nécessaire et où il faut réellement lancer le dé pour un impact réel sur la partie »</div>
+</header>
+<main>
+  <div class="kpis">
+    <div class="kpi"><div class="v">206</div><div class="l">éléments à jet</div></div>
+    <div class="kpi"><div class="v">78</div><div class="l">jets réels</div></div>
+    <div class="kpi"><div class="v" style="color:var(--ok)">78</div><div class="l">branchés</div></div>
+    <div class="kpi"><div class="v" style="color:var(--ok)">0</div><div class="l">à brancher</div></div>
+  </div>
+
+  <div class="note">
+    <b>Méthode.</b> Scan des 17 fichiers de <code>data/</code> (Scan des 17 fichiers de data/ : objet structuré `check` (roll/success/failure) OU texte citant ROLL/JET avec une issue écrite.).
+    Sur 206 éléments citant un dé, <b>78 sont de vrais jets</b>
+    (issue écrite dans le livre) et 128 sont des descriptions de règle —
+    celles-ci ne se proposent pas au joueur.
+  </div>
+
+  <h2>Domaines</h2>
+  <table>
+    <thead><tr>
+      <th>#</th><th>Domaine</th><th style="text-align:right">Jets</th><th>État</th><th>Agent</th><th class="det">Détail</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><b>D1</b></td>
+        <td>Planètes / satellites</td>
+        <td class="num">20</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>—</code></td>
+        <td class="det">20 rencontres avec objet `check`. Déjà branchées et prouvées (commit 1177865).</td>
+      </tr>
+      <tr>
+        <td><b>D2</b></td>
+        <td>Missions de faction</td>
+        <td class="num">22</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Faction</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>e8b861c</code>) — `factions.json` : complications et rencontres hostiles de faction. ROLL GRACE/VIGOR/TECH avec Success/Failure écrits. Afficher le jet dans la page Factions et appliquer la conséquence.</td>
+      </tr>
+      <tr>
+        <td><b>D3</b></td>
+        <td>Capacités d'ennemis (combat au sol)</td>
+        <td class="num">16</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Combat</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>81207b7</code>) — `enemies.json` : « ROLL X against an enemy. On a success, all enemies are Stunned for TEC turns. » Le combat ne propose pas le jet. Impact réel : Stunned / Silenced / Overheated / dégâts.</td>
+      </tr>
+      <tr>
+        <td><b>D4</b></td>
+        <td>Combat au sol — HACK</td>
+        <td class="num">3</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Combat</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>81207b7</code>) — `combat.json` : « ROLL MIND against the enemy. On a success, the chosen HACK takes effect. » et « ROLL GRACE against the enemy. On a success, you escape the fight. »</td>
+      </tr>
+      <tr>
+        <td><b>D5</b></td>
+        <td>Combat spatial</td>
+        <td class="num">1</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Spatial</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>afa0c61</code>) — `space-combat.json` : fuite — « ROLL GRACE against the enemy, adding the enemy ship's ACTIONS to the Challenge Die ». Aussi : les 3 jets de manoeuvres.</td>
+      </tr>
+      <tr>
+        <td><b>D6</b></td>
+        <td>Équipement / armes</td>
+        <td class="num">5</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Equip</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>3b5cbea</code>) — `equipment.json` : « ROLL VIGOR against the highest difficulty enemy. Success: all enemies take d8 x VIG damage. » Armes à effet de zone.</td>
+      </tr>
+      <tr>
+        <td><b>D7</b></td>
+        <td>Cybersphere</td>
+        <td class="num">4</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Cyber</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>1124130</code>) — 36 rencontres d66, dont 4 avec jet : « ROLL MIND; on a Failure, malware infects you {CLOCK +1}. » Le jet doit être proposé dans la page Cybersphere et le Clock/Serum/HP impacté.</td>
+      </tr>
+      <tr>
+        <td><b>D8</b></td>
+        <td>Rencontres neutres</td>
+        <td class="num">4</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Events</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>79cbe2f</code>) — `generators-events.json` : 4 rencontres neutres avec jet (ROLL VIGOR/GRACE/TECH/MIND).</td>
+      </tr>
+      <tr>
+        <td><b>D9</b></td>
+        <td>Événements d'anneau (ring events)</td>
+        <td class="num">1</td>
+        <td><span class="badge ok">FAIT</span></td>
+        <td><code>Agent-Events</code></td>
+        <td class="det"><b>FAIT</b> (commit <code>79cbe2f</code>) — `ringEvents.middleRing.even.entries[4]` : « ROLL MIND; on a success gain 1 NGHTMR Key [+1 Medusa Favor] ». Les 5 choix à jet déjà faits, reste ce cas dans l'EFFET.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Répartition aux agents</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Domaine</th><th style="text-align:right">Charge</th></tr></thead>
+    <tbody>
+      <tr><td><code>Agent-Faction</code></td><td>D2</td><td class="num">22 jets</td></tr>
+      <tr><td><code>Agent-Combat</code></td><td>D3+D4</td><td class="num">19 jets</td></tr>
+      <tr><td><code>Agent-Spatial</code></td><td>D5</td><td class="num">1 jet</td></tr>
+      <tr><td><code>Agent-Equip</code></td><td>D6</td><td class="num">5 jets</td></tr>
+      <tr><td><code>Agent-Cyber</code></td><td>D7</td><td class="num">4 jets</td></tr>
+      <tr><td><code>Agent-Events</code></td><td>D8+D9</td><td class="num">5 jets</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Critères d'acceptation</h2>
+  <ul>
+      <li><b>AC1</b> — Chaque jet réel est PROPOSÉ au joueur avec ses specs du livre (réussite/échec).</li>
+      <li><b>AC2</b> — Le lancer montre le détail (dé + stat contre dé adverse) et RÉUSSITE/ÉCHEC.</li>
+      <li><b>AC3</b> — La conséquence du livre est appliquée à la fiche et affichée.</li>
+      <li><b>AC4</b> — Le résultat change réellement l'état (HP/Énergie/XP/Faveur/Clock/Serum), prouvé avant/après.</li>
+      <li><b>AC5</b> — Zéro régression : suites + e2e vertes, 0 erreur console.</li>
+      <li><b>AC6</b> — Un test par domaine, nommé, qui échoue si un jet du livre disparaît.</li>
+  </ul>
+
+  <h2>Hors périmètre</h2>
+  <ul>
+      <li>128 mentions de règle (ex. « Attack with one equipped weapon: roll the weapon's base damage die ») : descriptions de mécanique, pas des jets à proposer au joueur.</li>
+      <li>Les 78 jets réels sont tous branchés à l'interface (9 domaines livrés).</li>
+  </ul>
+
+  <div class="note">
+    <b>Déjà acquis</b> (1177865) — Les jets des rencontres de planète/satellite + les 7 choix d'anneau.<br>Moteur `src/engine/checks.ts` : parse « ROLL <stat> Success/Failure », résout d10+stat contre d10 adverse, applique la conséquence du livre.
+  </div>
+</main>
+<footer>Astroprisma X Hermes — 2026-09-17 · fichier mis à jour à chaque domaine livré</footer>
+</body>
+</html>
