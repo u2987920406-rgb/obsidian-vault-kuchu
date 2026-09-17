@@ -88,10 +88,12 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 - **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
 - **DeepSeek Harness (`dsh`)** — https://raf-bmax.tail14baaa.ts.net:8447/ (service systemd user `dsh.service`, port 3080). **L'URL exige un jeton** qui change à chaque redémarrage : récupérer le lien courant avec `dsh-link`. Détail : [[20.02 DeepSeek Harness]].
 - **Connexion dsh (mobile) — LE CHEMIN VALIDÉ** — https://raf-bmax.tail14baaa.ts.net:8448/ (service `dsh-login.service`, port 8097). Page à **un bouton** : c'est l'entrée depuis le téléphone (validé sur le Pixel le 2026-09-16). Le lien direct 8447 cliqué depuis Discord donne un 401 à cause du `SameSite=Strict` du cookie dsh. Le jeton y est régénéré à chaque chargement.
+- **Nova Wing** (jeu généré par MangoOS) — https://raf-bmax.tail14baaa.ts.net:8449/ (port 5180)
+- **Nébuleuse — Escadron Starwing** (shoot'em up généré par DSH, projet `~/projets/shoot-em-up-dsh`, port 5190) — https://raf-bmax.tail14baaa.ts.net:8450/ (service systemd user `nebuleuse.service`, `Restart=always` : survit aux coupures). Le jeu est jouable **au doigt** (glisser pour piloter, tir automatique, boutons BOMBE/PAUSE) et **nécessite le paysage** : en portrait une invite propose le plein écran.
 
 **Attention aux ports Tailscale Serve** — `~/docker/stack/serve.sh` les réinitialise
 tous (`tailscale serve reset`) puis réapplique 443 / 8443 / 8445 / 8447 / 8448 /
-10000. Toute
+8449 / 8450 / 10000. Toute
 publication faite à la main (ex. le bureau virtuel sur 8445) est **perdue** à
 chaque exécution de `serve.sh`. Il faut y ajouter la ligne correspondante.
 
