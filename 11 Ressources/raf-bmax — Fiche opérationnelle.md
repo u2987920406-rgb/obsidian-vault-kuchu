@@ -85,7 +85,7 @@ docker-socket-proxy) plus les sandboxes `hermes-*` éventuels.
 - **Uptime Kuma** — https://raf-bmax.tail14baaa.ts.net:8443/
 - **Bureau virtuel (Steam / Blender)** — https://raf-bmax.tail14baaa.ts.net:8445/desktop.html
 - **Dashboard Hermes** — https://raf-bmax.tail14baaa.ts.net:10000/ (auth BASIC)
-- **Gestion Budget** (PWA) — http://100.101.17.46:8093/ (port 8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`)
+- **Gestion Budget** (PWA installable) — **https://raf-bmax.tail14baaa.ts.net:8452/** (Tailscale Serve → :8093, service systemd user `gestion-budget.service`, backup quotidien 02h00 `gestion-budget-backup.timer`). Accès direct tailnet : http://100.101.17.46:8093/
 - **DeepSeek Harness (`dsh`)** — https://raf-bmax.tail14baaa.ts.net:8447/ (service systemd user `dsh.service`, port 3080). **L'URL exige un jeton** qui change à chaque redémarrage : récupérer le lien courant avec `dsh-link`. Détail : [[20.02 DeepSeek Harness]].
 - **Connexion dsh (mobile) — LE CHEMIN VALIDÉ** — https://raf-bmax.tail14baaa.ts.net:8448/ (service `dsh-login.service`, port 8097). Page à **un bouton** : c'est l'entrée depuis le téléphone (validé sur le Pixel le 2026-09-16). Le lien direct 8447 cliqué depuis Discord donne un 401 à cause du `SameSite=Strict` du cookie dsh. Le jeton y est régénéré à chaque chargement.
 - **Nova Wing** (jeu généré par MangoOS) — https://raf-bmax.tail14baaa.ts.net:8449/ (port 5180)
