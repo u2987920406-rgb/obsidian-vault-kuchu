@@ -1,7 +1,7 @@
 # Hermès — Index des Skills
 
 > Inventaire des skills installées sur Hermès. Source de vérité pour savoir ce qu'on
-> peut demander à Hermès. Mis à jour le 2026-09-08.
+> peut demander à Hermès. Mis à jour le 2026-09-18.
 >
 > **Rappel :** on ne tape jamais le nom d'une skill — on décrit l'intention en langage
 > naturel, Hermès charge la skill adaptée.
@@ -15,6 +15,8 @@
 | **`cabinet-agentique`** v2 | Les 5 rôles du cabinet + règle --global (modèle global courant, jamais épinglé) | Orchestrer, décider qui fait quoi |
 | **`reasoning-verification-patterns`** | Vérifier un fait externe avec un outil avant de répondre | Toute question factuelle (sport, actu, récompenses) |
 | **`transfert-projet`** | Basculer une discussion vers un salon projet dédié | Quand un sujet mérite son salon (Projets) |
+| **`eval-harness`** | Eval-driven development : pass@k, graders (code/modèle/humain), baseline de régression. Adapté d'ECC (2026-09-18) | Avant de faire confiance à un prompt/skill/config non déterministe, ou pour comparer deux modèles |
+| **`clapet-anti-retour`** | Tester un outil/config AVANT adoption (gain réel vs perte d'info), et vérifier une affirmation d'agent sur la source. Inclut « évaluer un gros paquet tiers » | Avant d'installer un outil, de croire un rapport d'agent, ou d'adopter un bundle de skills |
 
 ## Skills Matt Pocock (workflow d'ingénierie)
 
