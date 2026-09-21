@@ -38,6 +38,33 @@ par Raf (skill `qa-loop`) : meilleur raisonnement autonome, compte ChatGPT, zér
 coût API additionnel. L'orchestrateur (le cron) tourne, lui, sur le **modèle
 global courant**, jamais épinglé.
 
+> ⚠️ **21/09 — quota ChatGPT épuisé.** Codex répond
+> `You've hit your usage limit … try again at 12:49` : trois ticks ont brûlé
+> pour rien avant que la cause soit vue dans son log. La boucle est donc
+> **en pause** (`cron 8514c223c460`, `enabled: false`) jusqu'à ce que le cerveau
+> QA redevienne disponible. Les alternatives ont été testées :
+> **Claude Code** → `organization has disabled Claude subscription access`
+> (clé API Anthropic requise), **DSH** → dépend de `DEEPSEEK_API_KEY`.
+> Relancer : `hermes cron resume 8514c223c460` (après avoir retiré
+> `/tmp/astroprisma-quota.json` si le garde-fou bloque encore).
+
+### Répartition des rôles (correction du 21/09, premier tick réel)
+
+**Codex tourne dans un bac à sable qui tue Chrome** (`SIGTRAP`, FS en lecture
+seule) : il ne peut donc **pas** lancer la suite Playwright. Au premier tick
+réel, il a constaté « Playwright est bloqué par le sandbox », n'a rien livré,
+et le clapet a refusé la PR — correct, mais stérile.
+
+D'où la séparation, qui est aussi le clapet de la skill :
+
+| Qui | Fait quoi |
+|---|---|
+| **Codex** | lit l'issue, trouve la cause chiffrée, **écrit le test** (`verif/*issue-N*.cjs`), applique le **fix minimal**, commite |
+| **Le harnais** (le script, hors bac à sable) | build de la branche, **rejoue le test sur `origin/master` non patché** (il doit ROUGIR), lance la **suite complète** sur le build de la branche, puis décide |
+
+Un test vert sur master non patché ⇒ **garde illusoire** : PR refusée. C'est le
+piège documenté par la skill (faux vert de `test_tactile.py`, issue #122).
+
 ## Le clapet (ce qui empêche la boucle de dériver)
 
 Codex ne merge **jamais**. Trois barrières avant qu'un travail compte :
@@ -60,12 +87,23 @@ Codex ne merge **jamais**. Trois barrières avant qu'un travail compte :
 
 ## Pièges rencontrés à la pose (à savoir)
 
+- **Quota du cerveau QA (le plus coûteux)** : sans garde-fou, chaque tick
+  relance un cerveau épuisé et échoue — 3 ticks brûlés le 21/09. Le script
+  détecte désormais `usage limit … try again at HH:MM`, note l'heure de reprise
+  dans `/tmp/astroprisma-quota.json` et **ne travaille plus** jusque-là.
+- **Ticks concurrents** : le tick rendait « aucun commit » pendant qu'un Codex
+  tournait **encore** (il met plusieurs minutes à écrire, bien plus que le
+  timeout apparent). Verrou `flock` posé sur `/tmp/astroprisma-autoloop.lock` :
+  un seul tick à la fois, les autres passent leur tour.
 - **`model_snapshot` épinglé à la création** : le tool `cronjob` a collé un
   snapshot au job neuf. Corrigé par `hermes cron edit 8514c223c460 --model
   deepseek-v4.1-flash` (le tool `update` ne suffit pas, seul le CLI a l'effet).
 - **`node_modules` committé par erreur** : c'est un **symlink** vers
   `~/projets/deepseek-harness/node_modules` — git suit le lien. Retiré du suivi,
   ajouté au `.gitignore`.
+- **Branche résiduelle** : un tick interrompu laisse `qa/issue-N`, ce qui faisait
+  échouer la création du worktree suivant (`a branch named 'qa/issue-1' already
+  exists`). Le script nettoie branche + worktree avant de créer.
 - **Codex hors dépôt** : `codex exec` refuse de tourner hors d'un dépôt de
   confiance ⇒ `--skip-git-repo-check` obligatoire.
 - **Le serveur preview ne survit pas à un reset** : le tick le relance lui-même
