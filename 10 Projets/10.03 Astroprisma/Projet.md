@@ -23,6 +23,16 @@ serveur.
 - Dernier travail : refonte UI/UX via La Méthode — Jalon 1 + Jalon 2 livrés,
   correctifs UX et pont combat spatial (voir « État d'avancement »).
 
+## Maquette tactique (hors repo ci-dessus)
+- Local : `~/projets/astroprisma-dsh` — **hors git** pour l'instant.
+- Maquette de combat au sol branchée sur les règles du livre : vue **duel**
+  à deux fenêtres (façon Advance Wars) + tour canonique p.30-32 (initiative
+  `d10+GRA`, ENEMY MOVE → MAIN → SIDE, HACKs du livre avec Malware).
+- Servie en local sur `:5211`, publiée sur le tailnet `:8451`
+  (`tailscale serve`, entrée persistée dans `~/docker/stack/serve.sh`).
+- Vérification : `bash verif/tout.sh` → 53 OK / 0 FAIL (Chrome réel).
+  Détail : [[2026-09-21]].
+
 ## Stack technique
 - Frontend : **Vite + React 19 + TypeScript + Tailwind 4 + Zustand**, PWA
   (`vite-plugin-pwa`).
