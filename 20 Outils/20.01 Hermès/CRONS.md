@@ -40,6 +40,7 @@
 | `Veille IA quotidienne` (`f2f69465b4da`) | 07h30 | Veille IA (11 sources, 5-6 sujets) → thread #revue-quotidien-ia | 17/09 05h54 OK (run de contrôle) |
 | `qa-agent-ulysse-poll` (`f73e969eb6f0`) | toutes les 30 min | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire, script `qa_loop_poll.sh`) | 05/09 16h03 OK |
 | `Tri email automatique` (`dffce1216c72`) | tous les 3 jours | Tri boîte kuchubb@gmail.com (Himalaya, skill email-inbox-triage) → #gestion-emails | 07/09 12h32 OK |
+| `qa-astroprisma-autoloop` (`8514c223c460`) | toutes les 10 min | **Boucle QA auto-récursive** sur la maquette tactique Astroprisma : audite → file une issue → corrige (Codex) → vérifie → PR. **Jamais de merge.** Script `astroprisma_qa_autoloop.sh`. Détail : [[Boucle QA auto-récursive]] | posé 21/09 |
 | `Vider corbeille Gmail` (`ca3f08d2cccc`) | 02/10 09h00 | Purge corbeille email-triage (one-shot) — **prompt perdu** | — |
 
 ## Désactivés / supprimés
