@@ -2,7 +2,7 @@
 
 > Registre des tâches planifiées (crons) d'Hermès et de leurs désactivations.
 > **Règle :** à chaque désactivation d'un cron, noter ici le **pourquoi** (basique).
-> Mis à jour le 2026-09-17 (incident jobs.json + réparation).
+> Mis à jour le 2026-09-22 (relance agent QA Ulysse : livraison + monitor + skill excalidraw).
 
 ## Incident du 09→17/09/2026 — crons muets
 
@@ -38,7 +38,7 @@
 | Cron | Horaire | Rôle | Dernier run |
 |---|---|---|---|
 | `Veille IA quotidienne` (`f2f69465b4da`) | 07h30 | Veille IA (11 sources, 5-6 sujets) → thread #revue-quotidien-ia | 17/09 05h54 OK (run de contrôle) |
-| `qa-agent-ulysse-poll` (`f73e969eb6f0`) | toutes les 30 min | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire, script `qa_loop_poll.sh`) | 05/09 16h03 OK |
+| `qa-agent-ulysse-poll` (`f73e969eb6f0`) | toutes les 30 min, **monitor-gated** (réveil seulement au changement d'état des issues, sinon silence) | Poll issues `bug` Ulysse → agent QA (cabinet, skill `qa-loop`, clapet Hermès, PR obligatoire, script `qa_loop_poll.sh`). Livraison : thread `#ulysse / Ulysse (Qa agent loop)` depuis 22/09 (l'ancien thread `#cabinet-agents/reprenons` est supprimé — 404 sur chaque tick). Skills : `qa-loop`, `hermes-github-claude-loop`, **`excalidraw`** (ajoutée 22/09 : schéma utile → fichier `.excalidraw` validé dans `~/projets/ulysse/qa-artefacts/`, joint au rapport ; sources usages Raf = git log repo + RESUME-ULYSSE.md + notes vault) | 22/09 10h42 OK (livraison vérifiée dans le thread) |
 | `Tri email automatique` (`dffce1216c72`) | tous les 3 jours | Tri boîte kuchubb@gmail.com (Himalaya, skill email-inbox-triage) → #gestion-emails | 07/09 12h32 OK |
 | `qa-astroprisma-autoloop` (`8514c223c460`) | ~~toutes les 10 min~~ | **Boucle QA auto-récursive** Astroprisma : audite → file une issue → corrige (Codex) → vérifie → PR. **Jamais de merge.** Script `astroprisma_qa_autoloop.sh`. **EN PAUSE 21/09 : quota ChatGPT épuisé** (Claude Code refusé par l'org, DSH sans clé). Reprise : `hermes cron resume 8514c223c460`. Détail : [[Boucle QA auto-récursive]] | posé 21/09, mis en pause 21/09 |
 | `Vider corbeille Gmail` (`ca3f08d2cccc`) | 02/10 09h00 | Purge corbeille email-triage (one-shot) — **prompt perdu** | — |
