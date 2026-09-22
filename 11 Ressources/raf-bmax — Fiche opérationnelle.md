@@ -259,6 +259,40 @@ Revenir au mode conteneur isolé (Hermes ne peut plus administrer la machine) :
 
 ---
 
+## 10bis. Hermes — tout passe par Xiaomi (depuis le 2026-09-22)
+
+**Un seul provider pour tous les cerveaux** — abonnement Token Plan Xiaomi MiMo
+(`XIAOMI_API_KEY` dans `~/.hermes/.env`, base
+`https://token-plan-ams.xiaomimimo.com/v1`).
+
+| Surface | Modèle / réglage |
+|---|---|
+| Modèle global | `mimo-v2.6-flash` (`model.default`) |
+| Fallback | `mimo-v2.6-pro` (`fallback_providers`) |
+| Vision auxiliaire | `mimo-v2.6-pro` (`auxiliary.vision`) |
+| Profil Ulysse | `mimo-v2.6-flash` (+ vision `mimo-v2.6-pro`) |
+| Cerveau QA Astroprisma | suit `model.default`, signe avec `XIAOMI_API_KEY` |
+| TTS | provider command `xiaomi` → `~/.hermes/scripts/xiaomi_tts.py` (`mimo-v2.5-tts`) |
+| STT | provider command `xiaomi` → `~/.hermes/scripts/xiaomi_stt.py` (`mimo-v2.5-asr`) |
+
+**Xiaomi n'a pas d'API `/v1/audio/*`** : TTS et ASR passent par
+`/v1/chat/completions` (audio en base64 dans `message.audio.data`, audio en
+`input_audio` base64 pour l'ASR). C'est pour ça que TTS/STT sont déclarés en
+`type: command` dans `tts.providers.xiaomi` / `stt.providers.xiaomi`.
+
+**Deux exceptions volontaires** (Xiaomi n'offre ni l'un ni l'autre) :
+`browser.cloud_provider` et `image_gen` restent sur `nous`.
+
+**Limite connue :** l'ASR Xiaomi ne supporte que `auto`/`zh`/`en` — la
+transcription française est approximative (un test le 22/09 a rendu juste, un
+autre a rendu du bruit). À réévaluer, ou à garer sur un STT français si ça
+reste pénible.
+
+Backups avant migration : `~/.hermes/config.yaml.bak.pre-xiaomi-all-20260922_214939`
+et `~/.hermes/profiles/ulysse/config.yaml.bak.pre-xiaomi-all`.
+
+---
+
 ## 11. Créer un nouveau projet
 
 **1. Profil cloisonné** (si le projet touche du code ou du contenu tiers) :
@@ -352,6 +386,7 @@ un cas à part, qui ne se règle pas en SSH puisque plus rien ne tourne.
 | Stack Docker | `/home/raf/docker/stack/` |
 | Config Hermes | `/home/raf/.hermes/config.yaml` |
 | Secrets Hermes | `/home/raf/.hermes/.env` (mode 600) |
+| Scripts TTS/STT Xiaomi | `/home/raf/.hermes/scripts/xiaomi_tts.py`, `xiaomi_stt.py` (cf. section 10bis) |
 | Services systemd utilisateur | `/home/raf/.config/systemd/user/` |
 | Projets | `/home/raf/projets/` |
 | DeepSeek Harness (`dsh`) | `/home/raf/projets/deepseek-harness` — données : `.dsh-home/`, clé : `/home/raf/.config/dsh/dsh.env` (600), lien UI : `dsh-link` |
