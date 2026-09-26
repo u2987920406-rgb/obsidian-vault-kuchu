@@ -2,7 +2,7 @@
 
 > Registre des tâches planifiées (crons) d'Hermès et de leurs désactivations.
 > **Règle :** à chaque désactivation d'un cron, noter ici le **pourquoi** (basique).
-> Mis à jour le 2026-09-22 (relance agent QA Ulysse : livraison + monitor + skill excalidraw).
+> Mis à jour le 2026-09-25 (nouvelle boucle `qa-ulysse-livrables` : 12 livrables html/pdf/excel/slides, monitor-gated, vérification finale par Raf).
 
 ## Incident du 09→17/09/2026 — crons muets
 
@@ -42,6 +42,7 @@
 | `Tri email automatique` (`dffce1216c72`) | tous les 3 jours | Tri boîte kuchubb@gmail.com (Himalaya, skill email-inbox-triage) → #gestion-emails | 07/09 12h32 OK |
 | `qa-astroprisma-autoloop` (`8514c223c460`) | ~~toutes les 10 min~~ | **Boucle QA auto-récursive** Astroprisma : audite → file une issue → corrige (Codex) → vérifie → PR. **Jamais de merge.** Script `astroprisma_qa_autoloop.sh`. **EN PAUSE 21/09 : quota ChatGPT épuisé** (Claude Code refusé par l'org, DSH sans clé). Reprise : `hermes cron resume 8514c223c460`. Détail : [[Boucle QA auto-récursive]] | posé 21/09, mis en pause 21/09 |
 | `Vider corbeille Gmail` (`ca3f08d2cccc`) | 02/10 09h00 | Purge corbeille email-triage (one-shot) — **prompt perdu** | — |
+| `qa-ulysse-livrables` (`26af8485f535`) | toutes les 30 min, **monitor-gated** (le script `ulysse-livrables-etat.py` ne réveille l'agent que si l'inventaire a bougé, sinon silence) | **Boucle livrables Ulysse** (demande Raf 25/09) : génère **12 fichiers** — `html`/`pdf`/`excel`/`slides` ×3, thèmes différents — avec clapet à 3 volets : pertinence, véracité sourcée (citations dans le fichier), **mise en page/design** (capture Chrome/pdftoppm + vision, question fermée, 2 essais max puis REJET). 1 tick = 1 fichier, jamais plus. venv dédié `~/projets/ulysse/.venv-livrables` (openpyxl + python-pptx). Contrat : `~/projets/ulysse/livrables/INVENTAIRE.md` (lignes `VALIDE`/`REJET` lues par le monitor) — **Raf vérifie tout à la fin** ; à 12/12 le script poste UNE seule fois le rapport dans le thread QA puis plus aucun run d'agent (cron à vide). Livraison intermédiaire `local` (zéro bruit). Skills : `qa-loop`, `vision-qa`, `xlsx`, `powerpoint`. Snapshot : `None` après `hermes cron edit` (piège création — vérifié le 25/09) | 25/09 07h17 — premier tick lancé manuellement |
 
 ## Désactivés / supprimés
 

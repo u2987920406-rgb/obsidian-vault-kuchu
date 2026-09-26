@@ -36,6 +36,11 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   (`~/projets/panda-roux`). Détail : [[10.06 Panda roux/Animation]],
   [[10.06 Panda roux/Notes techniques]].
   Prochaine étape : autres animations dans un salon dédié.
+- [[10.07 BenchIA]] — App de benchmark hardware-aware de nos pipelines IA
+  (`~/projets/benchmark-ia`). **v1.0 validée** (2026-09-26) : verdicts de
+  faisabilité réévaluables au changement de matériel (cases refusées →
+  recochables), runner multi-envs avec oracles exécutés, mesures réelles du
+  BMAX, bench computer use. Détail : [[10.07 BenchIA/Projet]].
 
 ## 11 Ressources
 - [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
