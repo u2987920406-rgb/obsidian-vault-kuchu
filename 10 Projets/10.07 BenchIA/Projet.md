@@ -29,6 +29,10 @@ Ce que l'app fait :
   serveur, cap 50 actions = mur, taux + latence/action (agent réel Hermès
   validé sur l'atelier : ~101 s/action).
 
+Anomalie J4 close : build Unity headless = 12,3 s sur AstroprismaUnity
+(éditeur portable : `LD_LIBRARY_PATH=prefix-libxml/lib`, projet dans le
+sous-dossier `AstroprismaUnity/`).
+
 Prochaine étape : clé `DEEPSEEK_API_KEY` pour ouvrir la cellule C4 (DSH),
 rejouer les mesures à chaque changement de profil matériel.
 
