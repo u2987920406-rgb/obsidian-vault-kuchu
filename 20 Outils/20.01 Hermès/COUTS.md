@@ -45,6 +45,28 @@ périmé n'est plus relu à chaque tour.
   réel. Un score bas veut dire que l'essentiel du budget part dans des habitudes
   corrigeables.
 
+## Le plan d'optimisation (automatique, sans compromis)
+
+`/api/plan?days=N` ne se contente plus de constater : pour chaque défaut il rend
+un **remède** (titre, `type` config|comportement, `etat` applique|a_faire,
+`commande`, `gain_usd`, `sans_compromis`, `pourquoi`) plus **LA** solution à
+appliquer, choisie par gain décroissant — une commande de config passant avant un
+geste à acquérir.
+
+- **`tokentrack_fix_aux.py`** (`~/.hermes/scripts/`) applique seul les solutions
+  **sans compromis** : reroutage des tâches de service (titres, compression, revue
+  mémoire/skills, approbations, vision) vers un provider gratuit. Idempotent,
+  sauvegarde la config, `--dry-run` et `--revert`.
+- **`Optimisation auto (TokenTrack)`** (`b36e3a98f1e5`, toutes les 10 min, **sans
+  agent**) : applique la config en attente, sinon poste **UNE** proposition
+  (titre + commande + pourquoi + gain) dans #rapports dès que la semaine dépasse
+  15 $ — jamais deux fois pour le même constat.
+- Ce qui change la **qualité** (premium sur du chat) n'est jamais appliqué seul :
+  c'est proposé, marqué `demande ton accord`.
+
+Règle : **sans compromis** veut dire aucune régression de qualité — on ne coupe
+que du gaspillage structurel, jamais du raisonnement utile.
+
 ## Pièges de mesure (à ne pas refaire)
 
 - **Ne pas additionner les constats** : ils se recouvrent (un fil long sur un modèle
