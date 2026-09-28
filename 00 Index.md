@@ -67,6 +67,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
   [[20.01 Hermès/SKILLS|index des skills]]. Architecture mémoire (couches, décharge,
   décision RAG, config compression) : [[20.01 Hermès/ARCHITECTURE-MEMOIRE]].
+  Coût des tokens et comportement d'usage (mesures, gestes, alertes) :
+  [[20.01 Hermès/COUTS]].
   (Ajouter un outil = ajouter un 20.0x, jamais recréer un Vault.)
 
 ## 30 Journal
