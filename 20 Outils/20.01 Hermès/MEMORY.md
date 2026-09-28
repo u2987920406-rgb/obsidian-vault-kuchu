@@ -39,4 +39,4 @@
   6/09 — regressaient qualité/coins tokens ; réactivables en test isolé si besoin).
 
 ## Commandements
-- Les 10 commandements (règles intouchables) : [[20.01 Hermès/COMMANDEMENTS]]
+- Les 10 commandements (règles intouchables) : [[20.01 Hermès/SOUL|commandements]]

@@ -138,4 +138,4 @@ cross-site (8447 cliqué depuis Discord) → 401 ; chemin 8448 → OK.
 ## Voir aussi
 
 - [[11 Ressources/raf-bmax — Fiche opérationnelle]] §5 (interfaces web) et §16
-- [[20.01 Hermès]] — l'autre locataire ; les deux cohabitent, ports distincts
+- [[20.01 Hermès/README|20.01 Hermès]] — l'autre locataire ; les deux cohabitent, ports distincts

@@ -33,3 +33,14 @@ pour retrouver l'état actuel.
 - **Natif** (`~/.hermes/`) = LEAN : règles intouchables + pointeurs.
 - **Vault** = source de vérité détaillée, lue à la demande.
 - Ne jamais dupliquer le contenu natif dans le Vault (risque de divergence).
+
+## Notes de ce dossier
+- [[20.01 Hermès/SOUL]] — le cadre, règles intouchables
+- [[20.01 Hermès/USER]] — qui est Raf
+- [[20.01 Hermès/MEMORY]] — environnement & projets (pointeur)
+- [[20.01 Hermès/SKILLS]] — index des skills
+- [[20.01 Hermès/CRONS]] — crons, état & désactivations
+- [[20.01 Hermès/ADM]] — décisions
+- [[20.01 Hermès/RECAP]] — récap curé
+- [[20.01 Hermès/ARCHITECTURE-MEMOIRE]] — architecture mémoire
+- [[20.01 Hermès/DECHARGE-MEMOIRE]] — décharge mémoire

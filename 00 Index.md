@@ -11,7 +11,7 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   **État courant : [[10.01 Ulysse/ETAT-2026-08-09]]** — jalon 4, dépôt déplacé
   sur le Bureau, Terminal branché (`hermes --tui` derrière `/api/pty`), socle
   des garde-fous d'écriture posé.
-- [[10.02 Hermes Dashboard/INDEX]] — Dashboard de pilotage Hermes en Rust (axum,
+- [[10.02 Hermes Dashboard]] — Dashboard de pilotage Hermes en Rust (axum,
   `~/projets/hermes-dashboard`, https://github.com/u2987920406-rgb/hermes-dashboard).
   v0.1 : données mockées, 6 endpoints API, port 8091. Généré par Freebuff.
   Création : [[10.02 Hermes Dashboard/Création]].
@@ -61,10 +61,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   Config Ulysse : `~/projets/ulysse/.bandit.yaml`.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
-- [[20.02 DeepSeek Harness]] — Locataire `dsh` (DeepSeek Harness, MIT, dev preview) :
+- [[20.02 DeepSeek Harness/README|20.02 DeepSeek Harness]] — Locataire `dsh` (DeepSeek Harness, MIT, dev preview) :
   runtime d'agent « tout est plugin », Web UI sur 3080, service systemd user,
   exposé tailnet sur 8447. Modèle branché sur la route Ollama Cloud.
-- [[20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
+- [[20.01 Hermès/README|20.01 Hermès]] — Locataire Hermès : miroir curé de USER/MEMORY/SOUL, ADM, RECAP,
   [[20.01 Hermès/SKILLS|index des skills]]. Architecture mémoire (couches, décharge,
   décision RAG, config compression) : [[20.01 Hermès/ARCHITECTURE-MEMOIRE]].
   Coût des tokens et comportement d'usage (mesures, gestes, alertes) :
@@ -85,6 +85,9 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[30 Journal/2026-08-09]] — Terminal branché, deux passes de design, socle
   des garde-fous d'écriture. Cinq défauts et ce qu'ils apprennent.
 
+- Document d'origine (2026-08-07, plan d'indexage **exécuté**) :
+  [[HANDOFF-Plan-Indexage-Vault]].
+
 ## Règle d'or
 1 Vault unique. Racine = index partagé. Outils = locataires 20.x.
 Ajouter un outil IA = ajouter un dossier 20.0x, jamais recréer un Vault séparé.
@@ -101,3 +104,10 @@ Ajouter un outil IA = ajouter un dossier 20.0x, jamais recréer un Vault sépar�
 - Aucun push automatique à intervalle : on pousse quand on veut, en une fois.
 - Identité commit : kuchubb / u2987920406@gmail.com. Token PAT géré par le Gestionnaire de credentials Windows.
 - Règle : avant de quitter, Ctrl+Alt+S pour figer le travail sur GitHub (survit au PC).
+- [[30 Journal/2026-09-22]] — Hermès basculé sur Xiaomi (Token Plan) — modèle, fallback, vision, TTS/STT.
+- [[30 Journal/2026-09-21]] — Astroprisma — tour canonique p.30-32 + vue duel (maquette tactique).
+- [[30 Journal/2026-09-17]] — Astroprisma — chantier « tous les jets du livre » : 78 jets branchés (9 domaines).
+- [[30 Journal/2026-09-14]] — Astroprisma — parcours start→endpoints, dossier + matrice de couverture.
+- [[30 Journal/2026-09-09]] — Astroprisma — retours map de Raf, Jalon 2 en boucle nocturne.
+- [[30 Journal/2026-09-07]] — Rétro de la boucle quotidienne (Kitsune v1) — leçons et actions.
+- [[30 Journal/2026-08-31]] — Ulysse lancé sur le BMAX (handoff Claude) — état vérifié en réel.
