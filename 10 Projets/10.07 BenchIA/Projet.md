@@ -29,11 +29,31 @@ Ce que l'app fait :
   serveur, cap 50 actions = mur, taux + latence/action (agent réel Hermès
   validé sur l'atelier : ~101 s/action).
 
+**Taxe de harness chiffrée (2026-09-28)** — même modèle `deepseek-v4.1-flash`
+via ollama-cloud, cas `distance-velo`, 5 runs, 100 % de réussite partout :
+
+| cellule | harness | médiane | RAM peak | taxe vs API nue |
+|---|---|---|---|---|
+| C0 | aucun (API directe) | 3,9 s | — | référence |
+| C5 | DSH headless | 4,3 s | 0,54 Go | +0,4 s (1,1×) |
+| C6 | Hermès CLI | 10,5 s | 0,24 Go | +6,6 s (2,7×) |
+
+DSH : débloqué par `--patch` (le bundle force `deepseek-official/deepseek-flash`,
+route sans clé, et la pile headless n'a aucun fournisseur lisible) —
+`envs/dsh-default-model.patch.yml`. Hermès paie son bootstrap agent (mémoire,
+skills, garde-fous) mais reste le plus léger en RAM. Fichiers : `envs/c0-*`,
+`envs/c5-dsh-deepseek41.yaml`, `envs/c6-hermes-deepseek41.yaml`.
+
+AJEAN (C6 du catalogue) = **non_disponible** documenté : v0.16.4 n'expose pas
+`/v1/chat/completions` (404) et son CLI exige un moteur local sur :8080 ; le
+smoke externe (`ajean test` → « pong ») est validé mais non mesurable par le
+runner. Voir `catalogue/llm.yaml`.
+
 Anomalie J4 close : build Unity headless = 12,3 s sur AstroprismaUnity
 (éditeur portable : `LD_LIBRARY_PATH=prefix-libxml/lib`, projet dans le
 sous-dossier `AstroprismaUnity/`).
 
-Prochaine étape : clé `DEEPSEEK_API_KEY` pour ouvrir la cellule C4 (DSH),
-rejouer les mesures à chaque changement de profil matériel.
+Prochaine étape : rejouer les mesures à chaque changement de profil matériel
+(le moteur de recoche est prêt) ; aucune clé payante requise.
 
 Liens : [[00 Index]] · méthode : skill la-methode.
