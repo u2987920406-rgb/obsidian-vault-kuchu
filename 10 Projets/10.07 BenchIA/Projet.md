@@ -53,7 +53,21 @@ Anomalie J4 close : build Unity headless = 12,3 s sur AstroprismaUnity
 (éditeur portable : `LD_LIBRARY_PATH=prefix-libxml/lib`, projet dans le
 sous-dossier `AstroprismaUnity/`).
 
-Prochaine étape : rejouer les mesures à chaque changement de profil matériel
+**Prochaine étape : rejouer les mesures à chaque changement de profil matériel**
 (le moteur de recoche est prêt) ; aucune clé payante requise.
+
+**2e nœud matériel — Dell Tower 810 (profil `profils-materiel/dell-810.yaml`,
+28/09)** : GTX 1080 Ti (11 Go VRAM, CUDA certain, driver 580.x max), RAM et
+disque encore **non sondés** → type `reel_partiel`, champs `a_confirmer`.
+Verdicts : **23 ok / 4 limite / 6 refusé** contre 17/5/11 sur le BMAX, **6
+configurations recouchées et 0 régression** (Flux nf4 1024 et Wan 21-1B 480p
+passent ok). Mur restant : VRAM 11 Go (Wan 14B, Hunyuan, nanite) et 32 Go RAM
+pour Unreal. La machine n'est ni dans le tailnet ni sur le LAN — à re-sonder
+avant de considérer les cases « RAM/disque » comme acquises.
+
+**App mobile + grille** : APK Capacitor (`mobile/BenchIA.apk`) pointant sur
+`https://raf-bmax.tail14baaa.ts.net:8462` ; grille desktop sur `:8460`. Le CLI
+`bench` (verdict / run / rapport) et `scripts/gen_mobile_data.py` régénèrent les
+données affichées — zéro valeur estimée.
 
 Liens : [[00 Index]] · méthode : skill la-methode.
