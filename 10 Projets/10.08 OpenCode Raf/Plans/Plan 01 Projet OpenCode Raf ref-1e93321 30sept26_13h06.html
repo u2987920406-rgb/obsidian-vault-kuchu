@@ -185,89 +185,162 @@
 
 <script>
 const DATA = {
-  name: "OpenCode Raf",
-  meta: "plan 01 · lettre A · 8 jalons · A1 (vision) = risque Hi · en cours",
-  prd: {
-    ctx: "OpenCode (opencode-ai 1.18.32) est sorti meilleur du banc du 26/09 : 26 min 00 s, 0 intervention avec mimo-v2.6-flash, seul PDF sans aucun defaut de mise en page (23/23 en vision), pytest rejoue et pipeline EXIT=0 - la meme note que les autres harness. Mais il est arrive NU : la verification du 30/09 montre 0 plugin charge, le hook RTK absent (rtk gain : << No hook installed >>), aucun des 178 skills Hermes visible (12 skills charges, tous venus de ~/.claude/skills/synced), aucun AGENTS.md global, batch_tool absent, pas de vision_model, 0 serveur MCP. Ce projet regroupe ses reglages, ses plugins et ses mesures dans un depot dedie.",
-    feats: [
-      "Boucle visuelle autonome : OpenCode verifie lui-meme son rendu avant d annoncer (A1, pari non demontre)",
-      "Plugin RTK : reduction de tokens bash (12,2 % global mesure, jusqu a 96 % sur ps / ls -la)",
-      "Skills Hermes exposes : 4 a 6 skills de methode et de preuve, pas les 178",
-      "AGENTS.md global : francais, jamais de suppression, verifier avant d annoncer",
-      "experimental.batch_tool : appels d outils groupes, comme MiMo Code",
-      "opencode serve en service systemd user : pilotable depuis Hermes sans bloquer un tour",
-      "Banc de controle A/B : rejouer le brief et comparer a chaque jalon, anti-regression"
+  "name": "OpenCode Raf",
+  "meta": "plan 01 · lettre A · 6/8 jalons clos (A6 en échec) · maj 30/09/26 18h56",
+  "prd": {
+    "ctx": "OpenCode (opencode-ai 1.18.32) est sorti meilleur du banc du 26/09 : 26 min 00 s, 0 intervention avec mimo-v2.6-flash, seul PDF sans aucun défaut de mise en page (23/23 en vision). Mais il est arrivé nu : aucun plugin, hook RTK absent, aucun des 178 skills Hermès visible, pas de consigne de comportement, pas de vision. Atelier ~/projets/opencode-raf.",
+    "feats": [
+      "Outil ocraf-vision : OpenCode se capture et se vérifie lui-même (prouvé sur brief neutre)",
+      "Plugin RTK actif : les commandes bash sont réécrites et réduites",
+      "6 skills Hermès exposés (la-methode, gate-preuve, tdd-proof-gate, visual-feedback-loop, perfect-prompt, systematic-debugging)",
+      "Règles de comportement chargées via la clé instructions (refus de suppression prouvé)",
+      "opencode serve en service systemd user, pilotable par API",
+      "Banc A/B honnête : non-régression prouvée, aucun gain de temps mesuré"
     ],
-    cst: [
-      "Utilisateur : Raf, atelier BMAX, usage quotidien en deleguant du code",
-      "Contrainte : tout reglage passe par le schema officiel (36 options racine), jamais par un patch du binaire",
-      "Contrainte : une config modifiee = smoke test AVANT tout chronometre (une config invalide tue le run)",
-      "Contrainte : aucune cle en clair dans le depot ; opencode.json reste dans ~/.config"
+    "cst": [
+      "Toute config modifiée part en .bak horodaté avant édition",
+      "Smoke test CONFIG_OK après chaque changement de config",
+      "Aucune clé en clair dans le dépôt",
+      "Services systemd user, jamais de sudo"
     ],
-    risques: [
-      {n:"Hi",  t:"A1 - la boucle visuelle ne paie pas (aucun harness du marche ne s auto-verifie) -> gate visuel rendu a Hermes, ecrit noir sur blanc"},
-      {n:"Mid", t:"Le bruit de selection : 178 skills exposes feraient choisir OpenCode au hasard -> selection de 4 a 6"},
-      {n:"Mid", t:"La reecriture RTK change la sortie vue par l agent -> a surveiller sur un brief qui depend du format exact d un output"},
-      {n:"Low", t:"Le service serve ne remonte pas au boot, ou une variable d env non lue"}
+    "risques": [
+      {
+        "n": "Hi",
+        "t": "ocraf-vision ajoute un appel réseau externe (NVIDIA) sur chaque livraison visuelle : à surveiller en coût"
+      },
+      {
+        "n": "Mid",
+        "t": "Aucune comparaison possible avec la référence du 26/09 : quota xiaomi 429 et bunny-proxy HS"
+      },
+      {
+        "n": "Low",
+        "t": "batch_tool inerte en 1.18.32 : clé laissée sans effet de bord"
+      }
     ]
   },
-  guidelines: [
-    ["Code",   "Une option existe dans le schema -> on l utilise. Schema lu a la source : curl -s https://opencode.ai/config.json (36 options racine, aucune devinee)."],
-    ["Archi",  "Toute config modifiee part en .bak-<motif> horodate AVANT edition ; le custom (plugins, agents) vit dans ~/.config/opencode/plugins/."],
-    ["Tests",  "Apres CHAQUE changement de config : opencode run << Reponds exactement: CONFIG_OK >> doit rendre CONFIG_OK."],
-    ["UX",     "Le plan se lit en HTML sur mobile, Pixel 9 Pro XL (1140x512 CSS)."],
-    ["Nommage","Skills et agents en kebab-case ; tout custom de ce projet porte le prefixe ocraf-."],
-    ["Data",   "Aucune cle en clair dans le depot ; scan secrets avant chaque commit."],
-    ["Ops",    "Services systemd user, jamais de sudo ; port libre verifie avant d en ouvrir un."]
+  "guidelines": [
+    [
+      "Code",
+      "Une option existe dans le schéma officiel → on l'utilise. Aucun patch du binaire si une clé fait le travail."
+    ],
+    [
+      "Archi",
+      "Tout custom de ce projet porte le préfixe ocraf- ; plugins et tools isolés dans ~/.config/opencode/."
+    ],
+    [
+      "Tests",
+      "Après CHAQUE changement de config : opencode run 'Réponds exactement: CONFIG_OK'. Une config invalide tue le run sans qu'aucun agent soit en cause."
+    ],
+    [
+      "UX",
+      "Le plan se lit en HTML sur mobile (412 px minimum)."
+    ],
+    [
+      "Nommage",
+      "kebab-case pour skills et agents ; plans successifs numérotés, lettre = étiquette des jalons."
+    ],
+    [
+      "Data",
+      "Aucune clé en clair dans le dépôt. opencode.json reste dans ~/.config, jamais versionné."
+    ],
+    [
+      "Ops",
+      "Services systemd user, jamais de sudo. Port libre vérifié avant d'en ouvrir un."
+    ]
   ],
-  jalons: [
-    {t:"A1 - Boucle visuelle autonome", risk:3, riskL:"Hi", done:false,
-      ck:["A1.1 Chercher un plugin vision communautaire existant",
-          "A1.2 Prototype ocraf-vision.ts : outil vision_check(image_path, question)",
-          "A1.3 Epreuve reelle : defaut injecte (2 px hors marge) -> OpenCode le NOMME sans qu on le lui dise",
-          "Fallback ecrit : echec -> gate visuel rendu a Hermes, aucune annonce visuelle par OpenCode"]},
-    {t:"A2 - Banc de controle A/B (non-regression)", risk:2, riskL:"Mid", done:false,
-      ck:["A2.1 Rejouer instructions-demo.txt, chrono, 0 intervention -> reference A",
-          "A2.2 Consigner A dans docs/MESURES.md ; apres chaque jalon suivant, rejouer et comparer"]},
-    {t:"A3 - Plugin RTK", risk:2, riskL:"Mid", done:false,
-      ck:["A3.1 rtk init -g --opencode puis smoke test CONFIG_OK",
-          "A3.2 Mesure : rtk gain avant/apres + part des appels bash reecrits, aucun run casse"]},
-    {t:"A4 - Skills Hermes exposes", risk:2, riskL:"Mid", done:false,
-      ck:["A4.1 Choisir 4 a 6 skills : la-methode, gate-preuve, tdd-proof-gate, visual-feedback-loop, perfect-prompt, systematic-debugging",
-          "A4.2 skills.paths dans opencode.json -> opencode debug skill liste les skills avec leur location Hermes",
-          "A4.3 Epreuve d usage : l outil skill est bien appele (lu dans la DB d evenements)"]},
-    {t:"A5 - AGENTS.md global", risk:1, riskL:"Low", done:false,
-      ck:["A5.1 Ecrire ~/.config/opencode/AGENTS.md : francais, jamais de suppression, verifier avant d annoncer",
-          "Critere : << supprime le fichier X >> -> refus explicite"]},
-    {t:"A6 - experimental.batch_tool", risk:1, riskL:"Low", done:false,
-      ck:["A6.1 Une ligne dans opencode.json + smoke test",
-          "Critere : au moins un appel d outil groupe observe"]},
-    {t:"A7 - opencode serve en service systemd user", risk:1, riskL:"Low", done:false,
-      ck:["A7.1 opencode-raf-serve.service (user), 127.0.0.1, port 5184 (libre), env dans ~/.config/opencode-serve.env",
-          "Critere : curl /global/health -> healthy:true apres restart, et is-enabled au boot"]},
-    {t:"A8 - Documentation et trace", risk:1, riskL:"Low", done:false,
-      ck:["A8.1 Creer la skill opencode-ops (meme forme que openfox-ops)",
-          "A8.2 Note vault 10.08 OpenCode Raf + index des plans regenere",
-          "A8.3 Journal de seance dans 30 Journal/"]}
+  "jalons": [
+    {
+      "t": "A1 — Boucle visuelle autonome (outil ocraf-vision)",
+      "risk": 3,
+      "riskL": "Hi",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A2 — Banc de contrôle A/B (non-régression)",
+      "risk": 2,
+      "riskL": "Mid",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A3 — Plugin RTK (réduction de tokens)",
+      "risk": 2,
+      "riskL": "Mid",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A4 — Skills Hermès exposés (6)",
+      "risk": 2,
+      "riskL": "Mid",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A5 — Règles de comportement (instructions)",
+      "risk": 1,
+      "riskL": "Low",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A6 — batch_tool : ÉCHEC, clé inerte en 1.18.32",
+      "risk": 1,
+      "riskL": "Low",
+      "done": false,
+      "ck": []
+    },
+    {
+      "t": "A7 — opencode serve en service systemd user",
+      "risk": 1,
+      "riskL": "Low",
+      "done": true,
+      "ck": []
+    },
+    {
+      "t": "A8 — Documentation et trace (reste)",
+      "risk": 1,
+      "riskL": "Low",
+      "done": false,
+      "ck": []
+    }
   ],
-  ac: [
-    {done:true,  txt:"Deplace : le projet vit dans <code>~/projets/opencode-raf</code> (541 Mo : preuves du banc + archives-essai1), <code>archives-banc</code> vide"},
-    {done:true,  txt:"Verifie : aucune cle en clair dans le depot <code>opencode-raf</code> (scan avant git init)"},
-    {done:true,  txt:"Verifie : <code>GET /global/health</code> -> <code>{\"healthy\":true,\"version\":\"1.18.32\"}</code>"},
-    {done:false, txt:"Apres chaque changement de config : <code>opencode run</code> rend <code>CONFIG_OK</code> et <code>opencode debug config</code> ne remonte aucune erreur de schema"},
-    {done:false, txt:"Un <code>ls -la</code> lance par OpenCode est reecrit en <code>rtk ls -la</code>, sans qu aucun run echoue"},
-    {done:false, txt:"Les skills retenus apparaissent dans <code>opencode debug skill</code> avec un <code>location</code> sous <code>/home/raf/.hermes/skills/</code>"},
-    {done:false, txt:"Brieffe <code>supprime le fichier X</code>, OpenCode refuse explicitement (preuve : sa reponse)"},
-    {done:false, txt:"Au moins un appel d outil groupe observe apres A6"},
-    {done:false, txt:"<code>curl /global/health</code> sur le port 5184 rend <code>healthy:true</code> apres un restart du service"},
-    {done:false, txt:"Le brief du banc rejoue rend un temps <= 30 min ET un PDF sans defaut visuel (23/23 ou mieux) ; sinon le jalon fautif est annule et la regression ecrite"},
-    {done:false, txt:"Si A1 echoue : la raison et la decision sont ecrites dans le plan, aucun abandon silencieux"}
+  "ac": [
+    {
+      "done": true,
+      "txt": "Après chaque changement de config, <code>CONFIG_OK</code> est rendu et <code>opencode debug config</code> ne remonte aucune erreur de schéma"
+    },
+    {
+      "done": true,
+      "txt": "Un <code>git status</code> lancé par OpenCode apparaît réécrit en <code>rtk git status</code> (trace <code>$ rtk git status</code>)"
+    },
+    {
+      "done": true,
+      "txt": "Les 6 skills retenus apparaissent dans <code>opencode debug skill</code> avec un <code>location</code> sous <code>~/.hermes/skills/</code>"
+    },
+    {
+      "done": true,
+      "txt": "Brieffé « supprime le fichier X », OpenCode refuse explicitement et le fichier reste intact"
+    },
+    {
+      "done": false,
+      "txt": "Au moins un appel d'outil groupé observé après A6 — <b>NON SATISFAIT</b> : le tool <code>batch</code> n'est pas exposé en 1.18.32"
+    },
+    {
+      "done": true,
+      "txt": "<code>curl http://127.0.0.1:5186/global/health</code> rend <code>{\"healthy\":true}</code> après un <code>restart</code> du service"
+    },
+    {
+      "done": false,
+      "txt": "<b>AC7 non satisfait</b> : ≤ 30 min et PDF sans défaut — les deux bras sont à ~3 min et leurs PDF sont propres, mais la référence du 26/09 est incomparable (quota). À réécrire dans un Plan 02"
+    },
+    {
+      "done": true,
+      "txt": "Si A1 échoue, la raison et la décision sont écrites dans le plan — A1 a réussi, A6 a échoué et l'échec est écrit"
+    }
   ],
-  mockups: [
-    "A1 - la boucle visee : OpenCode livre -> il CAPTURE lui-meme -> il REGARDE (vision_check) -> il nomme le defaut -> il corrige la cause -> re-capture. Plafond 3 tours, verdict binaire PASS/FAIL par loi.",
-    "A7 - le service : opencode serve --hostname 127.0.0.1 --port 5184, cle dans ~/.config/opencode-serve.env, unit systemd user, curl /global/health comme sonde de sante.",
-    "Pistes ecartees pour l instant : MCP (0 serveur configure, rien a brancher qui paie le cout en contexte), les 178 skills en bloc, l ouverture d un port public."
-  ]
+  "mockups": []
 };
 
 const $ = id => document.getElementById(id);
