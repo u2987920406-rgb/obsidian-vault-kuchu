@@ -196,7 +196,7 @@
 <script>
 const DATA = {
   name: "Astroprisma Unity",
-  meta: "v0.1 · port V1 → C# · Unity 6",
+  meta: "v0.1 · port V1 → C# · Unity 6 · A9 livré",
   // ── Identité du plan : DOIT refléter son nom de fichier, sans quoi la trace ment.
   ident: {
     rang: "01",
@@ -204,7 +204,7 @@ const DATA = {
     ref: "sansref",
     date: "30sept26_06h59",      // horodatage du nom = date de création
     statut: "en cours",          // en cours | livré | remplacé | abandonné
-    maj: "30/09/26 17h10"        // dernière mise à jour de ce tableau de bord
+    maj: "30/09/26 20h19",   // dernière mise à jour de ce tableau de bord
   },
   tests: "342/342",   // preuve des écrans livrés (onglet Acquis)
   nomFichierMD: "Plan 01 Projet Astroprisma sansref 30sept26_06h59",
@@ -257,8 +257,8 @@ const DATA = {
     {t:"Sprint 14 — Bestiaire", ck:["BestiaryRules + écran Bestiary.unity (6 groupes du livre, liste, fiche illustrée, moves verbatim)","450/450 tests, capture bestiary-1080x1920.png — gate PASS après 2 FAIL corrigés"]}
   ],
   jalons: [
-    {t:"A9 — Bestiaire relié + accès aux écrans existants", risk:1, riskL:"Low", done:false,
-     ck:["Bouton « Bestiaire » depuis StarMap et depuis Combat (retour vers l'écran d'origine)","Le carnet de campagnes ouvre l'escale et la fiche du vaisseau","AC1 vérifiée : le bestiaire s'ouvre et revient, sans casser le parcours existant"]},
+    {t:"A9 — Bestiaire relié + accès aux écrans existants", risk:1, riskL:"Low", done:true,
+     ck:["Bouton « Bestiaire » depuis StarMap (300×92) et depuis Combat (260×92) — retour vers l'écran d'origine ; combat repris au round près","Carnet ouvert depuis la carte ; de là, Escale et Fiche du vaisseau (aucune n'était joignable avant) ; chaque retour revient à l'écran ouvrant","AC1 mesurée : case 1,-1 · cycle 2 · fuel 19 avant, identiques au retour — 30 fiches, 6 groupes"]},
     {t:"A10 — Journal de bord", risk:3, riskL:"Hi", done:false,
      ck:["JournalRules : entrée datée (cycle, lieu, type), tri, résumé par cycle","Unifier les journaux locaux existants (settlement, combat, espace) en un seul flux de campagne","Écran Journal.unity : liste chronologique + détail de l'entrée, filtré par cycle","Les jets du livre apparaissent tels quels dans l'entrée (verbatim)"]},
     {t:"A11 — Réputation &amp; sidequests", risk:1, riskL:"Low", done:false,
@@ -277,7 +277,7 @@ const DATA = {
      ck:["Table de parité V1 → Unity : chaque module coché ou explicitement déclaré hors périmètre","Passe globale sans régression sur les 10 écrans existants + les nouveaux","Build Android ARM64 vérifié (aapt + libil2cpp.so), pas seulement l'éditeur"]}
   ],
   ac: [
-    {done:false, txt:"<b>AC1</b> — Depuis la carte, <code>Bestiaire</code> s'ouvre et le bouton retour ramène à la carte à la même position"},
+    {done:true, txt:"<b>AC1</b> — Depuis la carte, <code>Bestiaire</code> s'ouvre et le bouton retour ramène à la carte à la même position <i>(vérifié : case, cycle et fuel identiques avant/après)</i>"},
     {done:false, txt:"<b>AC2</b> — Une action de jeu (déplacement, achat, combat) crée une entrée de journal avec son cycle et son lieu, et le journal survit à la fermeture de l'app"},
     {done:false, txt:"<b>AC3</b> — Le journal d'une campagne donne l'ordre chronologique du plus récent au plus ancien et le résumé d'un cycle est exact"},
     {done:false, txt:"<b>AC4</b> — Le tirage d'une sidequest donne un résultat présent dans la table du livre pour la faction choisie (jamais de ligne inventée)"},

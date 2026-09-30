@@ -6,7 +6,7 @@
 | **Lettre** | `A` — les jalons de ce plan sont `A1`…`A17` |
 | **Statut** | en cours |
 | **Créé le** | 30sept26_06h59 |
-| **Dernière mise à jour** | 30/09/26 08h15 |
+| **Dernière mise à jour** | 30/09/26 20h19 |
 | **Code** | `sansref` (dossier `~/projets/astroprisma-unity/` non versionné) |
 
 **Plan : `Plan 01 Projet Astroprisma sansref 30sept26_06h59.html`** — c'est la
@@ -49,11 +49,17 @@ gate visuel** (capture 1080×1920 + vision + mesure pixel).
 
 Illustrations IA via OpenRouter : 6 portraits d'Origin, 18 vaisseaux, 30 ennemis.
 
-## Reste : 9 jalons (A9 → A17)
+## Livré depuis : A9 (bestiaire relié + écrans débloqués)
+
+**A9 est livré** (vérifié : bestiaire ouvert depuis la carte et le combat, retour à l'écran
+d'origine, combat repris au round près — AC1 mesurée : case 1,-1 · cycle 2 · fuel 19
+identiques avant/après). Le carnet ouvre désormais l'escale et la fiche du vaisseau,
+qui n'étaient joignables par aucun chemin.
+
+## Reste : 8 jalons (A10 → A17)
 
 | Jalon | Objet | Risque |
 |---|---|---|
-| **A9** | Bestiaire relié (bouton depuis carte + combat) | Low |
 | **A10** | Journal de bord (entrées datées, unification des journaux locaux) | **Hi** |
 | **A11** | Réputation & sidequests (5 factions, 5 tables d6 p.60) | Low |
 | **A12** | Équipage (crew.json : embauche, rôles, skills, salaires) | Mid |
