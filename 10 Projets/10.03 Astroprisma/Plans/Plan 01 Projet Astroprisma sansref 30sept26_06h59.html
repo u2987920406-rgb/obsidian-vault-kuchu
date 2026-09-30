@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan — Astroprisma Unity (port V1 → C#)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#e8eaf0;
+    --muted:#9aa3b2; --accent:#5ad1ff; --accent2:#9d7bff; --ok:#3ddc84;
+    --warn:#ffb020; --danger:#ff5d6c; --line:#262b35; --radius:10px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header{position:sticky; top:0; z-index:10; background:#11131aE6;
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
+    padding:14px 22px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+  header h1{font-size:19px; margin:0; letter-spacing:.2px}
+  header .meta{color:var(--muted); font-size:1rem}
+  .wrap{max-width:1080px; margin:26px auto; padding:0 20px}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; position:sticky; top:60px;
+    z-index:9; background:var(--bg); padding:8px 0}
+  .tab{border:1px solid var(--line); background:var(--panel); color:var(--muted);
+    min-height:44px; display:inline-flex; align-items:center;
+    padding:10px 18px; border-radius:20px; cursor:pointer; font-size:1rem;
+    transition:.15s}
+  .tab:hover{color:var(--ink); border-color:var(--accent)}
+  .tab.active{background:linear-gradient(120deg,#123a4a,#2a2150);
+    color:var(--accent); border-color:var(--accent); font-weight:600}
+  .pane{display:none; animation:fade .3s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1}}
+  .card{background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); padding:18px 20px; margin:14px 0}
+  .card h2{margin:0 0 10px; font-size:16px; color:var(--accent);
+    border-bottom:1px solid var(--line); padding-bottom:8px}
+  .card h3{font-size:14px; color:var(--accent2); margin:16px 0 6px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .kpi{display:flex; gap:12px; flex-wrap:wrap; margin:6px 0}
+  .kpi div{flex:1; min-width:130px; background:var(--panel2); border:1px solid var(--line);
+    border-radius:8px; padding:12px 14px}
+  .kpi b{display:block; font-size:18px; color:var(--accent)}
+  .kpi span{color:var(--muted); font-size:1rem}
+  ul,ol{margin:6px 0; padding-left:22px}
+  li{margin:5px 0}
+  .tag{display:inline-block; font-size:1rem; padding:4px 12px; border-radius:12px;
+    background:var(--panel2); border:1px solid var(--line); color:var(--muted); margin:2px}
+  .tag.hi{color:var(--danger); border-color:var(--danger)}
+  .tag.mid{color:var(--warn); border-color:var(--warn)}
+  .tag.low{color:var(--ok); border-color:var(--ok)}
+  .tag.idea{color:var(--accent2); border-color:var(--accent2)}
+  .ac{list-style:none; padding:0; margin:0}
+  .ac li{display:flex; gap:10px; align-items:flex-start; padding:9px 10px;
+    border:1px solid var(--line); border-radius:8px; margin:7px 0; cursor:pointer;
+    transition:.15s; background:var(--panel2); min-height:48px}
+  .ac li:hover{border-color:var(--accent)}
+  .ac li.done{opacity:.55; text-decoration:line-through}
+  .ac input{margin-top:12px; accent-color:var(--ok); cursor:pointer; width:24px; height:24px}
+  /* La CIBLE tactile, c'est la ligne entière (≥ 44 px) : la case seule fait 24 px,
+     sous le seuil — on la laisse visuellement petite mais on clique la ligne. */
+  .ac li > span{flex:1}
+  .ac code,code,pre code,li code{background:#0c0e13; padding:1px 6px; border-radius:5px;
+    color:var(--accent); font-size:16px}
+  .foot{color:var(--muted); font-size:1rem; text-align:center; padding:24px 0 40px}
+  .btn{border:1px solid var(--accent); color:var(--accent); background:transparent;
+    padding:10px 16px; border-radius:8px; cursor:pointer; font-size:1rem; transition:.15s}
+  .btn:hover{background:#123a4a}
+  .ms{border-left:3px solid var(--line); padding:0 0 0 16px; margin:8px 0; position:relative}
+  .ms::before{content:""; position:absolute; left:-7px; top:4px; width:11px;
+    height:11px; border-radius:50%; background:var(--panel2); border:2px solid var(--accent)}
+  .ms.done::before{background:var(--ok); border-color:var(--ok)}
+  .ms h4{margin:0; font-size:15px}
+  table{width:100%; border-collapse:collapse; font-size:1rem}
+  th,td{text-align:left; padding:8px 10px; border:1px solid var(--line)}
+  th{background:var(--panel2); color:var(--muted); font-size:1rem; text-transform:uppercase;
+    letter-spacing:.4px}
+  .prog{height:8px; background:var(--panel2); border-radius:6px; overflow:hidden; margin-top:8px}
+  .prog>div{height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition:.3s}
+</style>
+</head>
+<body>
+<header>
+  <h1>Plan — <span id="projName">Astroprisma Unity</span></h1>
+  <span class="meta" id="projMeta">v0.1 · port V1 → C# · en conception</span>
+</header>
+
+<div class="wrap">
+  <div class="kpi">
+    <div><b id="kpiJalons">0/9</b><span>Jalons livrés</span></div>
+    <div><b id="kpiAC">0</b><span>AC cochées</span></div>
+    <div><b id="kpiRisque">—</b><span>Risque restant max</span></div>
+    <div><b id="kpiTests">450</b><span>Tests verts actuels</span></div>
+  </div>
+
+  <div class="tabs" id="tabBar">
+    <button class="tab active" data-tab="prd">PRD</button>
+    <button class="tab" data-tab="guidelines">Guidelines</button>
+    <button class="tab" data-tab="acquis">Acquis (J1–J8)</button>
+    <button class="tab" data-tab="jalons">Plan jalons</button>
+    <button class="tab" data-tab="ac">AC</button>
+    <button class="tab" data-tab="parite">Parité V1</button>
+  </div>
+
+  <section class="pane active" id="pane-prd">
+    <div class="card">
+      <h2>Contexte &amp; objectif</h2>
+      <p id="prdCtx"></p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Ce que le port doit livrer</h2>
+        <ul id="prdFeats"></ul>
+      </div>
+      <div class="card">
+        <h2>Utilisateur &amp; contraintes</h2>
+        <ul id="prdCst"></ul>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Risques</h2>
+      <div class="kpi" id="prdRisques"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-guidelines">
+    <div class="card">
+      <h2>Règles que l'on ne transige pas</h2>
+      <ul id="guideAxes"></ul>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-acquis">
+    <div class="card">
+      <h2>Déjà livré — 8 jalons, 10 écrans, gate visuel passé</h2>
+      <p style="color:var(--muted)">Rien à refaire : c'est la base sur laquelle les jalons suivants s'appuient.
+      Chaque ligne a sa capture 1080×1920 analysée par vision et ses tests verts.</p>
+      <div id="acquisList"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-jalons">
+    <div class="card">
+      <h2>Jalons restants (risque le plus élevé d'abord)</h2>
+      <div id="jalonsList"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-ac">
+    <div class="card">
+      <h2>Critères d'acceptation</h2>
+      <ul class="ac" id="acList"></ul>
+      <div class="prog"><div id="acProg"></div></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-parite">
+    <div class="card">
+      <h2>Parité V1 (app TS) → Unity</h2>
+      <table id="pariteTable"></table>
+    </div>
+  </section>
+
+  <div class="foot">Template « HTML-as-Plan » · skill la-methode · source d'écriture : PLAN-UNITY.md</div>
+</div>
+
+<script>
+const DATA = {
+  name: "Astroprisma Unity",
+  meta: "v0.1 · port V1 → C# · 9 jalons restants · en conception",
+  prd: {
+    ctx: "Le compagnon Astroprisma existe en web (Vite + React + TS, 14 modules de features) et sert de référence. Le port Unity (C#) doit atteindre la parité : tout ce que la V1 sait faire doit exister dans l'app Unity, avec les mêmes règles du livre et la même exigence de preuve visuelle. 8 jalons sont déjà livrés (10 écrans, 450 tests). Il reste 9 jalons. Le port n'invente rien : le livre (data/*.json) reste la seule source de vérité, et chaque écran passe par un gate visuel (capture 1080×1920 + vision + mesure pixel) avant d'être annoncé.",
+    feats: [
+      "Piloter un vaisseau : fiche vaisseau, modules, coque/boucliers/carburant, achat et installation",
+      "Hacker : Cybersphere, HACKs du livre, Malware, drones et cybertech (tech.json)",
+      "Gérer un équipage : embauche, rôles, skills, salaires (crew.json)",
+      "Tenir un journal de bord : ce qui s'est passé, cycle par cycle, avec les jets",
+      "Suivre sa réputation : Faveur par faction, seuils 2/5/10, expulsion",
+      "Tirer des sidequests : les 5 tables d6 du livre (p.60)",
+      "Consulter l'Oracle et les générateurs : questions fermées/ouvertes, rencontres, PNJ, noms",
+      "Accéder au bestiaire depuis la carte et le combat (écran livré, pas encore relié)"
+    ],
+    cst: [
+      "Raf, joueur solo — mobile-first 1080×1920 (Pixel 9 Pro XL 1140×512 inclus)",
+      "Source de vérité : data/*.json (le livre) ; aucune règle inventée",
+      "Gate visuel obligatoire : capture + vision + mesure pixel avant toute annonce",
+      "Règle pure (Rules/) séparée de l'UI (Presentation/), testée en EditMode",
+      "Un seul Unity à la fois sur le projet (verrou Temp/UnityLockfile)",
+      "Hors périmètre : multijoueur, cloud, audio du livre"
+    ],
+    risques: [
+      {n:"Hi",  t:"Cybersphere : tech.json (hacks, masterHacks, malware, drones, cybertech) n'est pas porté — c'est le plus gros bloc de contenu restant, et il touche le combat au sol"},
+      {n:"Hi",  t:"Journal de bord : les 21 fichiers qui citent « journal » sont des journaux locaux (settlement, combat), pas un journal de bord de campagne — lier tout ça sans casser l'existant est le vrai risque"},
+      {n:"Mid", t:"Générateurs : random-tables.json (29 Ko) + generators-*.json (106 Ko) — beaucoup de tables, risque d'inventer un ordre de tirage"},
+      {n:"Low", t:"Bestiaire et Réputation : contenu déjà importé ou très simple, risque faible"}
+    ]
+  },
+  guidelines: [
+    ["Source", "data/*.json est la seule vérité ; si le livre ne couvre pas, on le signale, on n'invente pas"],
+    ["Archi", "Rules/ (règle pure, aucun UnityEngine) · Application/ (services, session) · Presentation/ (UI, vues, contrôleurs) · Infrastructure/ (ScriptableObjects)"],
+    ["Nommage", "Contenu : Content/<Type>/<type>_{id}.asset · Art : Art/Characters/{Origins,Enemies,Foes}/<prefixe>_{id}.png · id = camelCase du livre"],
+    ["Tests", "EditMode NUnit par règle portée ; rouge avant, vert après ; suite complète verte avant d'annoncer"],
+    ["Visuel", "Capture 1080×1920 → vision_analyze → mesure pixel des 5 lois ; FAIL = fix de la cause, max 3 tours"],
+    ["Câblage", "Contenu chargé EN PREMIER (son import invalide les références posées avant) ; prefabs rechargés du disque EN DERNIER"],
+    ["Git", "Vault commité après chaque jalon (journal daté) ; pas de commit de projet sans feu vert"],
+    ["Docs", "plan.html = tableau de bord vivant : un jalon n'est livré que si la ligne est cochée avec ses preuves"]
+  ],
+  acquis: [
+    {t:"Sprint 5 — Combat au sol", ck:["Moteur CombatEngine/Combatant/CombatState + CombatService, loot du livre (LootTable)","Scène Combat.unity, 268/268 tests, capture combat-1080x1920.png — gate PASS"]},
+    {t:"Sprint 6 — Combat spatial", ck:["SpaceModule (32 modules), EnemyShip (18 vaisseaux), SpaceCombatEngine (Action Dice, shields, abordage, fuite)","342/342 tests, capture space-combat-1080x1920.png — gate PASS après 3 bugs corrigés"]},
+    {t:"Sprint 7 — Escale (settlement)", ck:["SettlementRules/Catalog (46 marchandises), achat, vente, ravitaillement, Hangar, Wiredoc, Scrapyard","368/368 tests, capture settlement-1080x1920.png — gate PASS après 2 FAIL corrigés"]},
+    {t:"Sprint 8 — Découverte de planète", ck:["DiscoveryCatalog (6 planètes + 6 satellites), StarMapState, HexMapView, animation de révélation","381/381 tests, capture starmap-discovery-1080x1920.png — gate PASS"]},
+    {t:"Sprint 9 — Factions &amp; faveurs", ck:["FactionCatalog (5 factions, 60 rencontres, 15 événements, 40 lignes de mission), FactionRules","407/407 tests, capture factions-1080x1920.png — gate PASS après 2 FAIL corrigés"]},
+    {t:"Sprint 10 — Fiche d'équipement", ck:["EquipmentCatalog (22 objets, 14 armes, 10 Armor Sets, 6 narcobiotiques), EquipmentRules","431/431 tests, capture sheet-1080x1920.png — gate PASS après 2 FAIL corrigés"]},
+    {t:"Sprint 11 — Carnet de campagnes", ck:["CampaignRules + CampaignStore (un fichier JSON par partie), GameManager.LoadGameFrom","443/443 tests, capture campaigns-1080x1920.png — gate PASS"]},
+    {t:"Illustrations IA (OpenRouter)", ck:["6 portraits d'Origin + 18 vaisseaux ennemis + 30 ennemis terrestres, générés et câblés","Captures playmode / space-combat / combat-foes — gate PASS"]},
+    {t:"Sprint 14 — Bestiaire", ck:["BestiaryRules + écran Bestiary.unity (6 groupes du livre, liste, fiche illustrée, moves verbatim)","450/450 tests, capture bestiary-1080x1920.png — gate PASS après 2 FAIL corrigés"]}
+  ],
+  jalons: [
+    {t:"J9 — Bestiaire relié + accès aux écrans existants", risk:1, riskL:"Low", done:false,
+     ck:["Bouton « Bestiaire » depuis StarMap et depuis Combat (retour vers l'écran d'origine)","Le carnet de campagnes ouvre l'escale et la fiche du vaisseau","AC1 vérifiée : le bestiaire s'ouvre et revient, sans casser le parcours existant"]},
+    {t:"J10 — Journal de bord", risk:3, riskL:"Hi", done:false,
+     ck:["JournalRules : entrée datée (cycle, lieu, type), tri, résumé par cycle","Unifier les journaux locaux existants (settlement, combat, espace) en un seul flux de campagne","Écran Journal.unity : liste chronologique + détail de l'entrée, filtré par cycle","Les jets du livre apparaissent tels quels dans l'entrée (verbatim)"]},
+    {t:"J11 — Réputation &amp; sidequests", risk:1, riskL:"Low", done:false,
+     ck:["Écran Réputation : les 5 factions, Faveur, échelle −3…10, seuils 2/5/10, règle d'expulsion","SidequestRules : les 5 tables d6 du livre (p.60), tirage par faction","Écran Sidequests : choix de faction, tirage d6, résultat du livre","L'écran Factions existant renvoie vers Réputation (pas de doublon)"]},
+    {t:"J12 — Équipage (Crew)", risk:2, riskL:"Mid", done:false,
+     ck:["CrewCatalog depuis crew.json : hiring, crewRules, skills, baseRoles","Embauche : coût, rôle, skill — les salaires du cycle sont déjà en place (V1) et branchés","Écran Crew.unity : équipage actuel (PV, rôle, skill) + marché d'embauche","Un membre à 0 PV ne peut plus agir (règle du livre appliquée, pas seulement affichée)"]},
+    {t:"J13 — Vaisseau (fiche &amp; modules)", risk:2, riskL:"Mid", done:false,
+     ck:["Écran Starship.unity : coque, boucliers, carburant, Energy, modules installés","Achat et installation d'un module depuis l'escale (coût, slots, préfixe d'Action Dice)","Les 32 modules du livre sont consultables avec leur effet verbatim","Le passage escale → installation → combat spatial garde le vaisseau modifié"]},
+    {t:"J14 — Cybersphere (HACK / Malware / drones)", risk:3, riskL:"Hi", done:false,
+     ck:["TechCatalog depuis tech.json : hacks, masterHacks, malwareTable, drones, cybertech","HACK au sol branché sur le combat : jet, Malware dépensé, effet appliqué","Immunité aux hacks appliquée (le champ existe déjà dans EnemyDefinition)","Écran Cybersphere.unity : Memory, implants, hacks connus, malware en réserve","Drones : invocation et tour de drone pendant le combat"]},
+    {t:"J15 — Oracle &amp; générateurs", risk:2, riskL:"Mid", done:false,
+     ck:["Oracle : questions fermées (d6) et ouvertes (2d6 + table d'inspiration), verbatim du livre","Générateurs : rencontres hostile/neutre, événements d'anneau, colonies, planètes, PNJ complet","random-tables.json : noms de PNJ, vaisseaux, planètes","Écran Oracle.unity : question → tirage → réponse + table consultable"]},
+    {t:"J16 — Écran Référence", risk:1, riskL:"Low", done:false,
+     ck:["Écran Référence.unity : rappel des règles clés (initiative, Challenge Roll, limites d'inventaire)","Consultable depuis n'importe quel écran sans perdre l'état en cours","Le contenu vient des docs de règles, pas d'un résumé libre"]},
+    {t:"J17 — Passe de parité finale", risk:2, riskL:"Mid", done:false,
+     ck:["Table de parité V1 → Unity : chaque module coché ou explicitement déclaré hors périmètre","Passe globale sans régression sur les 10 écrans existants + les nouveaux","Build Android ARM64 vérifié (aapt + libil2cpp.so), pas seulement l'éditeur"]}
+  ],
+  ac: [
+    {done:false, txt:"<b>AC1</b> — Depuis la carte, <code>Bestiaire</code> s'ouvre et le bouton retour ramène à la carte à la même position"},
+    {done:false, txt:"<b>AC2</b> — Une action de jeu (déplacement, achat, combat) crée une entrée de journal avec son cycle et son lieu, et le journal survit à la fermeture de l'app"},
+    {done:false, txt:"<b>AC3</b> — Le journal d'une campagne donne l'ordre chronologique du plus récent au plus ancien et le résumé d'un cycle est exact"},
+    {done:false, txt:"<b>AC4</b> — Le tirage d'une sidequest donne un résultat présent dans la table du livre pour la faction choisie (jamais de ligne inventée)"},
+    {done:false, txt:"<b>AC5</b> — La Faveur affichée est la même que celle utilisée par les règles (une seule source, pas deux compteurs)"},
+    {done:false, txt:"<b>AC6</b> — Un membre d'équipage embauché apparaît dans l'équipage avec son rôle et son skill, et son coût est débité du Serum"},
+    {done:false, txt:"<b>AC7</b> — Un module installé depuis l'escale est présent dans la fiche vaisseau ET dans le combat spatial (mêmes Action Dice)"},
+    {done:false, txt:"<b>AC8</b> — Une cible immunisée aux HACKs refuse le hack (le jet n'est pas proposé), conformément au livre"},
+    {done:false, txt:"<b>AC9</b> — Une question Oracle fermée rend une des 6 réponses du livre, jamais une réponse libre"},
+    {done:false, txt:"<b>AC10</b> — Chaque écran livré passe le gate visuel : capture 1080×1920, 0 px hors cadre, texte ≥ 16 px, cible ≥ 44 px, et vision PASS"},
+    {done:false, txt:"<b>AC11</b> — La suite EditMode complète reste verte après chaque jalon (aucune régression des 450 tests)"},
+    {done:false, txt:"<b>AC12</b> — Le build Android ARM64 démarre sur le téléphone et affiche l'écran de création (parité de démarrage)"}
+  ],
+  parite: [
+    ["creation", "Écran de création", "livré", "6 Origins, 6 portraits IA, rôles, stats"],
+    ["map", "Carte hexagonale", "livré", "3 anneaux, exploration d6, marquage"],
+    ["combat", "Combat au sol", "livré", "initiative, moves d10, loot, bestiaire illustré"],
+    ["map (découverte)", "Découverte de planète", "livré", "6 planètes + 6 satellites, animation"],
+    ["starship (spatial)", "Combat spatial", "livré", "Action Dice, shields, abordage, 18 vaisseaux illustrés"],
+    ["factions", "Factions", "livré", "5 factions, 60 rencontres, 40 missions"],
+    ["home (escale)", "Settlement", "livré", "46 marchandises, réparation, bourse, services"],
+    ["sheet", "Fiche &amp; équipement", "livré", "22 objets, 14 armes, 10 Armor Sets"],
+    ["shell (campagnes)", "Carnet de campagnes", "livré", "tri récent, reprise, bilan de mort"],
+    ["reference (bestiaire)", "Bestiaire", "livré, <b>non relié</b>", "30 fiches, 6 groupes — J9"],
+    ["journal", "Journal de bord", "<b>absent</b>", "J10"],
+    ["reputation", "Réputation", "<b>absent</b>", "J11"],
+    ["sidequests", "Sidequests", "<b>absent</b>", "J11"],
+    ["crew", "Équipage", "<b>absent</b>", "Rules/Crew/ vide — J12"],
+    ["starship", "Fiche vaisseau", "partiel", "combat spatial existe, fiche/modules non — J13"],
+    ["cybersphere", "Cybersphere / HACK", "<b>absent</b>", "Rules/Cybersphere/ vide — J14"],
+    ["oracle", "Oracle &amp; générateurs", "partiel", "Oracle.cs existe, aucun écran — J15"],
+    ["reference", "Référence", "partiel", "cité dans 5 fichiers, aucun écran — J16"]
+  ]
+};
+
+const $ = id => document.getElementById(id);
+function render(){
+  $("projName").textContent = DATA.name;
+  $("projMeta").textContent = DATA.meta;
+  $("prdCtx").textContent = DATA.prd.ctx;
+  $("prdFeats").innerHTML = DATA.prd.feats.map(f=>`<li>${f}</li>`).join("");
+  $("prdCst").innerHTML  = DATA.prd.cst.map(f=>`<li>${f}</li>`).join("");
+  $("prdRisques").innerHTML = DATA.prd.risques
+    .map(r=>`<div><b class="tag ${r.n.toLowerCase()}">${r.n}</b><span>${r.t}</span></div>`).join("");
+  $("guideAxes").innerHTML = DATA.guidelines
+    .map(([k,v])=>`<li><b>${k} :</b> ${v}</li>`).join("");
+  $("acquisList").innerHTML = DATA.acquis.map(a=>`
+    <div class="ms done">
+      <h4>${a.t} <span class="tag low">LIVRÉ</span></h4>
+      <ul>${a.ck.map(c=>`<li>${c}</li>`).join("")}</ul>
+    </div>`).join("");
+  $("jalonsList").innerHTML = DATA.jalons.map((j,i)=>`
+    <div class="ms ${j.done?'done':''}">
+      <h4>${j.t} <span class="tag ${j.riskL.toLowerCase()}">${j.riskL}</span></h4>
+      ${j.ck.length?`<ul>${j.ck.map(c=>`<li>${c}</li>`).join("")}</ul>`:""}
+    </div>`).join("");
+  $("acList").innerHTML = DATA.ac.map((a,i)=>`
+    <li class="${a.done?'done':''}">
+      <input type="checkbox" ${a.done?'checked':''} onchange="toggleAC(${i})">
+      <span>${a.txt}</span>
+    </li>`).join("");
+  $("pariteTable").innerHTML = `<tr><th>Module V1</th><th>Écran</th><th>État Unity</th><th>Détail</th></tr>`
+    + DATA.parite.map(r=>`<tr><td><code>${r[0]}</code></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+  const jalDone = DATA.jalons.filter(j=>j.done).length;
+  const acDone  = DATA.ac.filter(a=>a.done).length;
+  $("kpiJalons").textContent = `${jalDone}/${DATA.jalons.length}`;
+  $("kpiAC").textContent = `${acDone}/${DATA.ac.length}`;
+  let risq = DATA.jalons.filter(j=>!j.done).reduce((m,j)=>Math.max(m,j.risk),0);
+  $("kpiRisque").textContent = {3:"Hi",2:"Mid",1:"Low"}[risq] || (risq===0?"Terminé":risq);
+  $("acProg").style.width = ((acDone/DATA.ac.length)*100)+"%";
+  localStorage.setItem("plan-ac-"+DATA.name, JSON.stringify(DATA.ac.map(a=>a.done)));
+}
+function toggleAC(i){
+  DATA.ac[i].done = !DATA.ac[i].done;
+  render();
+}
+// La ligne entière est la cible tactile : un clic n'importe où dessus bascule la case.
+document.addEventListener("click", e=>{
+  const li = e.target.closest(".ac li"); if(!li) return;
+  if(e.target.tagName === "INPUT") return;
+  const idx = Array.prototype.indexOf.call(li.parentNode.children, li);
+  if(idx >= 0) toggleAC(idx);
+});
+$("tabBar").addEventListener("click", e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".pane").forEach(p=>p.classList.remove("active"));
+  b.classList.add("active");
+  $("pane-"+b.dataset.tab).classList.add("active");
+});
+try{
+  const saved = JSON.parse(localStorage.getItem("plan-ac-"+DATA.name)||"[]");
+  if(saved.length===DATA.ac.length) DATA.ac.forEach((a,i)=>a.done=saved[i]);
+}catch(e){}
+render();
+</script>
+</body>
+</html>
