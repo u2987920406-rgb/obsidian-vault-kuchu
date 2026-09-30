@@ -64,6 +64,10 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[11 Ressources/raf-bmax — Fiche opérationnelle]] — Le serveur homelab :
   accès (Discord d'abord, SSH en secours), stack Docker, surveillance,
   Hermès, procédures headless. À lire quand quelque chose ne va pas.
+- [[11 Ressources/raf-dell — Fiche opérationnelle]] — 2ᵉ machine du homelab
+  (Dell Precision 5810, Xeon v3 + GTX 1080 Ti, Ubuntu Server, headless) :
+  nœud GPU piloté depuis le BMAX, veille automatique après 15 min d'inactivité
+  et réveil par Wake-on-LAN (`~/projets/bmax-wol/wol-dell.sh`).
 - [[11 Ressources/BanditRS — Scanner sécurité Python]] — Scanner de sécurité
   Python (Rust, drop-in `bandit`). Installé sur BMAX dans
   `~/.hermes/.venv-banditrs/`. Audits vault/Astroprisma/Ulysse à 0.
