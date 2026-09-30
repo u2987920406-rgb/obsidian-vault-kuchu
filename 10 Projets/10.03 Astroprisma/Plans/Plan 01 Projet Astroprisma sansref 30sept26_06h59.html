@@ -33,6 +33,7 @@
   .pill.st-en-cours{border-color:var(--warn); color:var(--warn)}
   .pill.st-livre{border-color:var(--ok); color:var(--ok)}
   .pill.st-remplace, .pill.st-abandonne{border-color:var(--muted)}
+   .pill.st-remplacé{border-color:var(--muted); color:var(--muted)}
   .parent{color:var(--accent2)}
   .wrap{max-width:1080px; margin:26px auto; padding:0 20px}
   .tabs{display:flex; gap:6px; flex-wrap:wrap; position:sticky; top:60px;
@@ -95,6 +96,14 @@
   .prog{height:8px; background:var(--panel2); border-radius:6px; overflow:hidden; margin-top:8px}
   .prog>div{height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent2));
     transition:.3s}
+  /* ── Loi 1 (gate visuel) — règles ajoutées au plan du 30/09 : elles manquaient
+     dans le template au moment où ce plan a été écrit, d'où les 2 onglets qui
+     débordaient à 412 px (guidelines 13 px, parité 134 px). À garder EN DERNIER. */
+  code,.ac code,.ac li span,li,td,.ms h4{overflow-wrap:anywhere; word-break:break-word}
+  table{table-layout:fixed}
+  th,td{overflow-wrap:anywhere; word-break:break-word}
+  #pariteTable th:nth-child(1),#pariteTable td:nth-child(1){width:26%}
+  #pariteTable th:nth-child(3),#pariteTable td:nth-child(3){width:22%}
 </style>
 </head>
 <body>
@@ -107,9 +116,9 @@
 
 <div class="wrap">
   <div class="kpi">
-    <div><b id="kpiJalons">0/9</b><span>Jalons livrés</span></div>
+    <div><b id="kpiJalons">0/9</b><span id="kpiJalonsL">Jalons livrés</span></div>
     <div><b id="kpiAC">0</b><span>AC cochées</span></div>
-    <div><b id="kpiRisque">—</b><span>Risque restant max</span></div>
+    <div><b id="kpiRisque">—</b><span id="kpiRisqueL">Risque restant max</span></div>
     <div><b id="kpiTests">450</b><span>Tests verts actuels</span></div>
   </div>
 
@@ -197,6 +206,7 @@ const DATA = {
     statut: "en cours",          // en cours | livré | remplacé | abandonné
     maj: "30/09/26 08h10"        // dernière mise à jour de ce tableau de bord
   },
+  tests: "264/264",   // preuve des écrans livrés (onglet Acquis)
   nomFichierMD: "Plan 01 Projet Astroprisma sansref 30sept26_06h59",
   prd: {
     ctx: "Le compagnon Astroprisma existe en web (Vite + React + TS, 14 modules de features) et sert de référence. Le port Unity (C#) doit atteindre la parité : tout ce que la V1 sait faire doit exister dans l'app Unity, avec les mêmes règles du livre et la même exigence de preuve visuelle. 8 jalons sont déjà livrés (10 écrans, 450 tests). Il reste 9 jalons. Le port n'invente rien : le livre (data/*.json) reste la seule source de vérité, et chaque écran passe par un gate visuel (capture 1080×1920 + vision + mesure pixel) avant d'être annoncé.",
@@ -303,6 +313,10 @@ const DATA = {
 };
 
 const $ = id => document.getElementById(id);
+/* Le contenu du livre contient des « <...> » (Content/<Type>/_asset.asset). Injecté
+   tel quel par innerHTML, le navigateur le prend pour des balises : le texte est
+   AMPUTÉ et le mot long ne se coupe plus (débordement loi 1). On échappe. */
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const MOIS_NUM = {janv:"01", févr:"02", fevr:"02", mars:"03", avr:"04", mai:"05",
   juin:"06", juil:"07", août:"08", aout:"08", sept:"09", oct:"10", nov:"11", déc:"12", dec:"12"};
 function datesCourtes(cree, maj){
@@ -337,21 +351,21 @@ function render(){
   $("projMeta").textContent = DATA.meta;
   renderIdent();
   $("prdCtx").textContent = DATA.prd.ctx;
-  $("prdFeats").innerHTML = DATA.prd.feats.map(f=>`<li>${f}</li>`).join("");
-  $("prdCst").innerHTML  = DATA.prd.cst.map(f=>`<li>${f}</li>`).join("");
+  $("prdFeats").innerHTML = DATA.prd.feats.map(f=>`<li>${esc(f)}</li>`).join("");
+  $("prdCst").innerHTML  = DATA.prd.cst.map(f=>`<li>${esc(f)}</li>`).join("");
   $("prdRisques").innerHTML = DATA.prd.risques
-    .map(r=>`<div><b class="tag ${r.n.toLowerCase()}">${r.n}</b><span>${r.t}</span></div>`).join("");
+    .map(r=>`<div><b class="tag ${r.n.toLowerCase()}">${esc(r.n)}</b><span>${esc(r.t)}</span></div>`).join("");
   $("guideAxes").innerHTML = DATA.guidelines
-    .map(([k,v])=>`<li><b>${k} :</b> ${v}</li>`).join("");
+    .map(([k,v])=>`<li><b>${esc(k)} :</b> ${esc(v)}</li>`).join("");
   $("acquisList").innerHTML = DATA.acquis.map(a=>`
     <div class="ms done">
-      <h4>${a.t} <span class="tag low">LIVRÉ</span></h4>
-      <ul>${a.ck.map(c=>`<li>${c}</li>`).join("")}</ul>
+      <h4>${esc(a.t)} <span class="tag low">LIVRÉ</span></h4>
+      <ul>${a.ck.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>
     </div>`).join("");
   $("jalonsList").innerHTML = DATA.jalons.map((j,i)=>`
     <div class="ms ${j.done?'done':''}">
-      <h4>${j.t} <span class="tag ${j.riskL.toLowerCase()}">${j.riskL}</span></h4>
-      ${j.ck.length?`<ul>${j.ck.map(c=>`<li>${c}</li>`).join("")}</ul>`:""}
+      <h4>${esc(j.t)} <span class="tag ${esc(j.riskL.toLowerCase())}">${esc(j.riskL)}</span></h4>
+      ${j.ck.length?`<ul>${j.ck.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>`:""}
     </div>`).join("");
   $("acList").innerHTML = DATA.ac.map((a,i)=>`
     <li class="${a.done?'done':''}">
@@ -359,14 +373,23 @@ function render(){
       <span>${a.txt}</span>
     </li>`).join("");
   $("pariteTable").innerHTML = `<tr><th>Module V1</th><th>Écran</th><th>État Unity</th><th>Détail</th></tr>`
-    + DATA.parite.map(r=>`<tr><td><code>${r[0]}</code></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+    + DATA.parite.map(r=>`<tr><td><code>${esc(r[0])}</code></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
   const jalDone = DATA.jalons.filter(j=>j.done).length;
   const acDone  = DATA.ac.filter(a=>a.done).length;
   $("kpiJalons").textContent = `${jalDone}/${DATA.jalons.length}`;
   $("kpiAC").textContent = `${acDone}/${DATA.ac.length}`;
   let risq = DATA.jalons.filter(j=>!j.done).reduce((m,j)=>Math.max(m,j.risk),0);
   $("kpiRisque").textContent = {3:"Hi",2:"Mid",1:"Low"}[risq] || (risq===0?"Terminé":risq);
+  $("kpiTests").textContent = DATA.tests || "—";
   $("acProg").style.width = ((acDone/DATA.ac.length)*100)+"%";
+  // Un plan remplacé n'est pas un plan vide : ses jalons ouverts sont passés au
+  // plan suivant. Afficher « 0/9 livrés » ferait croire que rien n'a été fait.
+  if(DATA.ident.remplacePar){
+    $("kpiJalons").textContent = "→ " + DATA.ident.remplacePar;
+    $("kpiJalonsL").textContent = "Jalons passés au plan " + DATA.ident.remplacePar;
+    $("kpiRisque").textContent = "—";
+    $("kpiRisqueL").textContent = "Repris par le plan " + DATA.ident.remplacePar;
+  }
   const I = DATA.ident;
   $("footLine").textContent = `Plan ${I.rang} (lettre ${I.lettre})`
     + ` · ${I.date} · code ${I.ref} · statut ${I.statut} · maj ${I.maj}`
