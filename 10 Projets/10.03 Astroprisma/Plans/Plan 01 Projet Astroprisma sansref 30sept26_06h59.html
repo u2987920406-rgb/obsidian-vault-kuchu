@@ -23,10 +23,11 @@
     padding:10px 22px 12px; background:#11131a; border-bottom:1px solid var(--line)}
   .ident .id{font-weight:700; font-size:1rem; letter-spacing:.3px}
   .ident .sep{color:var(--line)}
-  .pill{display:inline-flex; align-items:center; min-height:28px; padding:4px 10px;
-    border-radius:14px; border:1px solid var(--line); background:var(--panel2);
+  .pill{display:inline-flex; align-items:center; min-height:30px; padding:3px 9px;
+    border-radius:15px; border:1px solid var(--line); background:var(--panel2);
     font-size:1rem; color:var(--muted)}
-  .pill b{color:var(--ink); margin-left:5px; font-weight:600}
+  .pill b{color:var(--ink); font-weight:600}
+  .pill b + b{margin-left:4px}
   .pill.principal{border-color:var(--accent); color:var(--accent)}
   .pill.sous-plan{border-color:var(--accent2); color:var(--accent2)}
   .pill.st-en-cours{border-color:var(--warn); color:var(--warn)}
@@ -115,7 +116,7 @@
   <div class="tabs" id="tabBar">
     <button class="tab active" data-tab="prd">PRD</button>
     <button class="tab" data-tab="guidelines">Guidelines</button>
-    <button class="tab" data-tab="acquis">Acquis (J1–J8)</button>
+    <button class="tab" data-tab="acquis">Acquis (A1–A8)</button>
     <button class="tab" data-tab="jalons">Plan jalons</button>
     <button class="tab" data-tab="ac">AC</button>
     <button class="tab" data-tab="parite">Parité V1</button>
@@ -190,12 +191,11 @@ const DATA = {
   // ── Identité du plan : DOIT refléter son nom de fichier, sans quoi la trace ment.
   ident: {
     rang: "01",
-    type: "principal",           // principal | sous-plan
-    parent: "",                  // numéro du plan principal si sous-plan
+    lettre: "A",                 // lettre des jalons/sprints de CE plan (01→A)
     ref: "sansref",
-    date: "30sept26_06h59",      // horodatage du nom
+    date: "30sept26_06h59",      // horodatage du nom = date de création
     statut: "en cours",          // en cours | livré | remplacé | abandonné
-    maj: "30/09/26 07h20"        // dernière mise à jour de ce tableau de bord
+    maj: "30/09/26 08h10"        // dernière mise à jour de ce tableau de bord
   },
   nomFichierMD: "Plan 01 Projet Astroprisma sansref 30sept26_06h59",
   prd: {
@@ -247,23 +247,23 @@ const DATA = {
     {t:"Sprint 14 — Bestiaire", ck:["BestiaryRules + écran Bestiary.unity (6 groupes du livre, liste, fiche illustrée, moves verbatim)","450/450 tests, capture bestiary-1080x1920.png — gate PASS après 2 FAIL corrigés"]}
   ],
   jalons: [
-    {t:"J9 — Bestiaire relié + accès aux écrans existants", risk:1, riskL:"Low", done:false,
+    {t:"A9 — Bestiaire relié + accès aux écrans existants", risk:1, riskL:"Low", done:false,
      ck:["Bouton « Bestiaire » depuis StarMap et depuis Combat (retour vers l'écran d'origine)","Le carnet de campagnes ouvre l'escale et la fiche du vaisseau","AC1 vérifiée : le bestiaire s'ouvre et revient, sans casser le parcours existant"]},
-    {t:"J10 — Journal de bord", risk:3, riskL:"Hi", done:false,
+    {t:"A10 — Journal de bord", risk:3, riskL:"Hi", done:false,
      ck:["JournalRules : entrée datée (cycle, lieu, type), tri, résumé par cycle","Unifier les journaux locaux existants (settlement, combat, espace) en un seul flux de campagne","Écran Journal.unity : liste chronologique + détail de l'entrée, filtré par cycle","Les jets du livre apparaissent tels quels dans l'entrée (verbatim)"]},
-    {t:"J11 — Réputation &amp; sidequests", risk:1, riskL:"Low", done:false,
+    {t:"A11 — Réputation &amp; sidequests", risk:1, riskL:"Low", done:false,
      ck:["Écran Réputation : les 5 factions, Faveur, échelle −3…10, seuils 2/5/10, règle d'expulsion","SidequestRules : les 5 tables d6 du livre (p.60), tirage par faction","Écran Sidequests : choix de faction, tirage d6, résultat du livre","L'écran Factions existant renvoie vers Réputation (pas de doublon)"]},
-    {t:"J12 — Équipage (Crew)", risk:2, riskL:"Mid", done:false,
+    {t:"A12 — Équipage (Crew)", risk:2, riskL:"Mid", done:false,
      ck:["CrewCatalog depuis crew.json : hiring, crewRules, skills, baseRoles","Embauche : coût, rôle, skill — les salaires du cycle sont déjà en place (V1) et branchés","Écran Crew.unity : équipage actuel (PV, rôle, skill) + marché d'embauche","Un membre à 0 PV ne peut plus agir (règle du livre appliquée, pas seulement affichée)"]},
-    {t:"J13 — Vaisseau (fiche &amp; modules)", risk:2, riskL:"Mid", done:false,
+    {t:"A13 — Vaisseau (fiche &amp; modules)", risk:2, riskL:"Mid", done:false,
      ck:["Écran Starship.unity : coque, boucliers, carburant, Energy, modules installés","Achat et installation d'un module depuis l'escale (coût, slots, préfixe d'Action Dice)","Les 32 modules du livre sont consultables avec leur effet verbatim","Le passage escale → installation → combat spatial garde le vaisseau modifié"]},
-    {t:"J14 — Cybersphere (HACK / Malware / drones)", risk:3, riskL:"Hi", done:false,
+    {t:"A14 — Cybersphere (HACK / Malware / drones)", risk:3, riskL:"Hi", done:false,
      ck:["TechCatalog depuis tech.json : hacks, masterHacks, malwareTable, drones, cybertech","HACK au sol branché sur le combat : jet, Malware dépensé, effet appliqué","Immunité aux hacks appliquée (le champ existe déjà dans EnemyDefinition)","Écran Cybersphere.unity : Memory, implants, hacks connus, malware en réserve","Drones : invocation et tour de drone pendant le combat"]},
-    {t:"J15 — Oracle &amp; générateurs", risk:2, riskL:"Mid", done:false,
+    {t:"A15 — Oracle &amp; générateurs", risk:2, riskL:"Mid", done:false,
      ck:["Oracle : questions fermées (d6) et ouvertes (2d6 + table d'inspiration), verbatim du livre","Générateurs : rencontres hostile/neutre, événements d'anneau, colonies, planètes, PNJ complet","random-tables.json : noms de PNJ, vaisseaux, planètes","Écran Oracle.unity : question → tirage → réponse + table consultable"]},
-    {t:"J16 — Écran Référence", risk:1, riskL:"Low", done:false,
+    {t:"A16 — Écran Référence", risk:1, riskL:"Low", done:false,
      ck:["Écran Référence.unity : rappel des règles clés (initiative, Challenge Roll, limites d'inventaire)","Consultable depuis n'importe quel écran sans perdre l'état en cours","Le contenu vient des docs de règles, pas d'un résumé libre"]},
-    {t:"J17 — Passe de parité finale", risk:2, riskL:"Mid", done:false,
+    {t:"A17 — Passe de parité finale", risk:2, riskL:"Mid", done:false,
      ck:["Table de parité V1 → Unity : chaque module coché ou explicitement déclaré hors périmètre","Passe globale sans régression sur les 10 écrans existants + les nouveaux","Build Android ARM64 vérifié (aapt + libil2cpp.so), pas seulement l'éditeur"]}
   ],
   ac: [
@@ -290,32 +290,45 @@ const DATA = {
     ["home (escale)", "Settlement", "livré", "46 marchandises, réparation, bourse, services"],
     ["sheet", "Fiche &amp; équipement", "livré", "22 objets, 14 armes, 10 Armor Sets"],
     ["shell (campagnes)", "Carnet de campagnes", "livré", "tri récent, reprise, bilan de mort"],
-    ["reference (bestiaire)", "Bestiaire", "livré, <b>non relié</b>", "30 fiches, 6 groupes — J9"],
-    ["journal", "Journal de bord", "<b>absent</b>", "J10"],
-    ["reputation", "Réputation", "<b>absent</b>", "J11"],
-    ["sidequests", "Sidequests", "<b>absent</b>", "J11"],
-    ["crew", "Équipage", "<b>absent</b>", "Rules/Crew/ vide — J12"],
-    ["starship", "Fiche vaisseau", "partiel", "combat spatial existe, fiche/modules non — J13"],
-    ["cybersphere", "Cybersphere / HACK", "<b>absent</b>", "Rules/Cybersphere/ vide — J14"],
-    ["oracle", "Oracle &amp; générateurs", "partiel", "Oracle.cs existe, aucun écran — J15"],
-    ["reference", "Référence", "partiel", "cité dans 5 fichiers, aucun écran — J16"]
+    ["reference (bestiaire)", "Bestiaire", "livré, <b>non relié</b>", "30 fiches, 6 groupes — A9"],
+    ["journal", "Journal de bord", "<b>absent</b>", "A10"],
+    ["reputation", "Réputation", "<b>absent</b>", "A11"],
+    ["sidequests", "Sidequests", "<b>absent</b>", "A11"],
+    ["crew", "Équipage", "<b>absent</b>", "Rules/Crew/ vide — A12"],
+    ["starship", "Fiche vaisseau", "partiel", "combat spatial existe, fiche/modules non — A13"],
+    ["cybersphere", "Cybersphere / HACK", "<b>absent</b>", "Rules/Cybersphere/ vide — A14"],
+    ["oracle", "Oracle &amp; générateurs", "partiel", "Oracle.cs existe, aucun écran — A15"],
+    ["reference", "Référence", "partiel", "cité dans 5 fichiers, aucun écran — A16"]
   ]
 };
 
 const $ = id => document.getElementById(id);
+const MOIS_NUM = {janv:"01", févr:"02", fevr:"02", mars:"03", avr:"04", mai:"05",
+  juin:"06", juil:"07", août:"08", aout:"08", sept:"09", oct:"10", nov:"11", déc:"12", dec:"12"};
+function datesCourtes(cree, maj){
+  // Les deux dates doivent s'écrire pareil : mois en chiffres des deux côtés.
+  const norm = d => {
+    let m = String(d).match(/^(\d{2})([a-zà-ÿ]+?)(\d{2})_(\d{2})h(\d{2})$/);
+    if(m) return {jour: m[1]+"/"+(MOIS_NUM[m[2].toLowerCase()] || m[2]), h: m[4]+"h"+m[5]};
+    m = String(d).match(/^(\d{2})\/(\d{2})\/\d{2} (\d{2}h\d{2})$/);
+    if(m) return {jour: m[1]+"/"+m[2], h: m[3]};
+    return {jour: "", h: String(d)};
+  };
+  const a = norm(cree), b = norm(maj);
+  if(a.jour && a.jour === b.jour){
+    return `créé <b>${a.h}</b> · maj <b>${b.h}</b>`;
+  }
+  return `créé <b>${a.jour} ${a.h}</b> · maj <b>${b.jour} ${b.h}</b>`;
+}
 function renderIdent(){
   const I = DATA.ident;
   const cls = s => (s||"").toLowerCase().replace(/\s+/g,"-");
+  // Compact : 4 pastilles, pas 6. Un bandeau qui tient sur 2 lignes.
   const parties = [];
-  parties.push(`<span class="pill ${cls(I.type)}">Plan n° <b>${I.rang}</b></span>`);
-  parties.push(`<span class="pill ${cls(I.type)}">${I.type}</span>`);
-  if(I.type === "sous-plan" && I.parent){
-    parties.push(`<span class="pill">Rattaché à <b class="parent">Plan ${I.parent}</b></span>`);
-  }
-  parties.push(`<span class="pill st-${cls(I.statut)}">statut <b>${I.statut}</b></span>`);
-  parties.push(`<span class="pill">créé le <b>${I.date}</b></span>`);
-  parties.push(`<span class="pill">maj <b>${I.maj}</b></span>`);
-  parties.push(`<span class="pill">code <b>${I.ref}</b></span>`);
+  parties.push(`<span class="pill">Plan <b>${I.rang}</b> · jalons <b>${I.lettre}1…</b></span>`);
+  parties.push(`<span class="pill st-${cls(I.statut)}"><b>${I.statut}</b></span>`);
+  parties.push(`<span class="pill">${datesCourtes(I.date, I.maj)}</span>`);
+  parties.push(`<span class="pill"><b>${I.ref}</b></span>`);
   $("identBar").innerHTML = `<span class="id">${DATA.name}</span>`
     + parties.join('<span class="sep">·</span>');
 }
@@ -355,8 +368,7 @@ function render(){
   $("kpiRisque").textContent = {3:"Hi",2:"Mid",1:"Low"}[risq] || (risq===0?"Terminé":risq);
   $("acProg").style.width = ((acDone/DATA.ac.length)*100)+"%";
   const I = DATA.ident;
-  $("footLine").textContent = `Plan ${I.rang} · ${I.type}`
-    + (I.parent ? ` du plan ${I.parent}` : "")
+  $("footLine").textContent = `Plan ${I.rang} (lettre ${I.lettre})`
     + ` · ${I.date} · code ${I.ref} · statut ${I.statut} · maj ${I.maj}`
     + ` · source d'écriture : ${DATA.nomFichierMD || "—"}.md`;
   localStorage.setItem("plan-ac-"+DATA.name, JSON.stringify(DATA.ac.map(a=>a.done)));

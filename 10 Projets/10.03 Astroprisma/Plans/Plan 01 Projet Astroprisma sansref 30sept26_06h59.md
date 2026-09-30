@@ -3,23 +3,23 @@
 | Champ | Valeur |
 |---|---|
 | **Rang** | `01` |
-| **Type** | plan principal |
-| **Rattaché à** | — |
+| **Lettre** | `A` — les jalons de ce plan sont `A1`…`A17` |
 | **Statut** | en cours |
 | **Créé le** | 30sept26_06h59 |
-| **Dernière mise à jour** | 30/09/26 07h35 |
+| **Dernière mise à jour** | 30/09/26 08h15 |
 | **Code** | `sansref` (dossier `~/projets/astroprisma-unity/` non versionné) |
 
 **Plan : `Plan 01 Projet Astroprisma sansref 30sept26_06h59.html`** — c'est la
 couche de validation (onglets, AC cochables, KPI). Ce `.md` est la source
 d'écriture, selon le skill `plan-traceable`.
 
-**Ce plan est le plan principal du port Unity** : les grandes lignes (Acquis
-J1–J8) et les étapes (jalons J9→J17). Toute demande qui survient en cours de
-route devient un **sous-plan** (`Plan 01.SS …`, ex. « plan bestiaire » rattaché à
-l'étape 4), jamais un nouveau plan principal — c'est ce qui garde le fil.
+**Ce plan est le plan INITIAL du port Unity** (les grandes lignes, lettre A).
+Les plans sont **successifs** : quand une demande survient en cours de route — un
+bestiaire à compléter, une partie omise — elle donne un **nouveau plan daté**
+(`Plan 02`, lettre B, jalons `B1`…), pas un sous-plan. `Plan 01` reste la
+référence initiale ; l'index dit lequel est le plus récent.
 
-- Règle de nommage : `Plan <NN>[.<SS>] Projet <Nom> ref-<sha> <JJmoisAA_HHhMM>`
+- Règle de nommage : `Plan <NN> Projet <Nom> ref-<sha> <JJmoisAA_HHhMM>`
 - `sansref` = le dossier `~/projets/astroprisma-unity/` **n'est pas un dépôt git**
   (`git rev-parse` remonte à `/home/raf/projets`) — information consignée telle quelle.
 - Trace vault : `vault/10 Projets/10.03 Astroprisma/Plans/`
@@ -49,22 +49,22 @@ gate visuel** (capture 1080×1920 + vision + mesure pixel).
 
 Illustrations IA via OpenRouter : 6 portraits d'Origin, 18 vaisseaux, 30 ennemis.
 
-## Reste : 9 jalons (J9 → J17)
+## Reste : 9 jalons (A9 → A17)
 
 | Jalon | Objet | Risque |
 |---|---|---|
-| **J9** | Bestiaire relié (bouton depuis carte + combat) | Low |
-| **J10** | Journal de bord (entrées datées, unification des journaux locaux) | **Hi** |
-| **J11** | Réputation & sidequests (5 factions, 5 tables d6 p.60) | Low |
-| **J12** | Équipage (crew.json : embauche, rôles, skills, salaires) | Mid |
-| **J13** | Vaisseau (fiche, modules, achat/installation) | Mid |
-| **J14** | Cybersphere (tech.json : hacks, malware, drones, cybertech) | **Hi** |
-| **J15** | Oracle & générateurs (questions d6/2d6, tables aléatoires) | Mid |
-| **J16** | Écran Référence | Low |
-| **J17** | Passe de parité finale + build Android ARM64 | Mid |
+| **A9** | Bestiaire relié (bouton depuis carte + combat) | Low |
+| **A10** | Journal de bord (entrées datées, unification des journaux locaux) | **Hi** |
+| **A11** | Réputation & sidequests (5 factions, 5 tables d6 p.60) | Low |
+| **A12** | Équipage (crew.json : embauche, rôles, skills, salaires) | Mid |
+| **A13** | Vaisseau (fiche, modules, achat/installation) | Mid |
+| **A14** | Cybersphere (tech.json : hacks, malware, drones, cybertech) | **Hi** |
+| **A15** | Oracle & générateurs (questions d6/2d6, tables aléatoires) | Mid |
+| **A16** | Écran Référence | Low |
+| **A17** | Passe de parité finale + build Android ARM64 | Mid |
 
-**Ordre proposé** : J9 (petit, rend visible l'existant) → J10/J11 (visibles
-côté joueur) → J12/J13 → **J14** (plus gros bloc de contenu) → J15/J16 → J17.
+**Ordre proposé** : A9 (petit, rend visible l'existant) → A10/A11 (visibles
+côté joueur) → A12/A13 → **A14** (plus gros bloc de contenu) → A15/A16 → A17.
 
 ## Constat de départ (vérifié sur disque, 2026-09-30)
 
@@ -80,8 +80,9 @@ côté joueur) → J12/J13 → **J14** (plus gros bloc de contenu) → J15/J16 �
 
 ## Chaîne des plans
 
-- **Plan 01** (ce fichier) — 30sept26_06h59 — état : 8 livrés / 9 restants.
-- Plan précédent : aucun.
+- **Plan 01** (ce fichier, lettre A) — 30sept26_06h59 — état : 8 livrés (A1–A8) / 9 restants (A9–A17).
+- Plan précédent : aucun — c'est le plan initial.
+- Plan suivant : à créer quand une demande le justifie (`nommer_plan.sh` → `Plan 02`, lettre B).
 
 ## Voir aussi
 
