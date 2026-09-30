@@ -5,12 +5,16 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 (pas de timestamps ici — voir 30 Journal).
 
 ## 10 Projets (projets de kuchu, pas des IA)
-- [[10.01 Ulysse]] — Masque web UI visuel posé sur Hermès. Installateur .bat
-  from-scratch pour utilisateurs non-tech (fournissent leur clé Nous).
-  Archi détaillée : [[10.01 Ulysse/ARCHI]].
-  **État courant : [[10.01 Ulysse/ETAT-2026-08-09]]** — jalon 4, dépôt déplacé
-  sur le Bureau, Terminal branché (`hermes --tui` derrière `/api/pty`), socle
-  des garde-fous d'écriture posé.
+- [[10.01 Ulysse]] — ⛔ **STAND-BY — production arrêtée, aucune reprise planifiée.**
+  Masque web UI visuel posé sur Hermès (installateur .bat from-scratch pour
+  utilisateurs non-tech). Arrêté parce que ses qualités venaient du prompt système
+  de Hermès, pas du harness : trop cher en temps et en forfait token pour un
+  comportement déjà obtenu par configuration. Service, scripts, salon Discord et
+  dossiers de code supprimés ; dépôt GitHub archivé, contexte dans l'issue #129.
+  Avant toute reprise : *qu'apporte-t-il que Hermès ne donne pas déjà ?*
+  Archi (historique) : [[10.01 Ulysse/ARCHI]].
+  **État courant : [[10.01 Ulysse/ETAT-2026-08-09]]** — jalon 4 atteint avant
+  l'arrêt.
 - [[10.02 Hermes Dashboard]] — Dashboard de pilotage Hermes en Rust (axum,
   `~/projets/hermes-dashboard`, https://github.com/u2987920406-rgb/hermes-dashboard).
   v0.1 : données mockées, 6 endpoints API, port 8091. Généré par Freebuff.
@@ -58,7 +62,8 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
 - [[11 Ressources/BanditRS — Scanner sécurité Python]] — Scanner de sécurité
   Python (Rust, drop-in `bandit`). Installé sur BMAX dans
   `~/.hermes/.venv-banditrs/`. Audits vault/Astroprisma/Ulysse à 0.
-  Config Ulysse : `~/projets/ulysse/.bandit.yaml`.
+  Config Ulysse (avant stand-by) : `~/projets/ulysse/.bandit.yaml` — **chemin
+  disparu, projet en stand-by**.
 
 ## 20 Outils (namespace par outil — locataires, JAMAIS à la racine)
 - [[20.02 DeepSeek Harness/README|20.02 DeepSeek Harness]] — Locataire `dsh` (DeepSeek Harness, MIT, dev preview) :
@@ -95,7 +100,8 @@ Ajouter un outil IA = ajouter un dossier 20.0x, jamais recréer un Vault sépar�
 ## Source de vérité
 - MEMORY.md (injectée chaque tour) reste LEAN : règles + profil + UN pointeur ici.
 - Toute la connaissance projet (archi Ulysse, Freebuff) vit DANS ce Vault, pas dans MEMORY.md.
-- Récap complet Ulysse : voir [[10.01 Ulysse/ARCHI]] (version indexée, source de vérité).
+- ⛔ Ulysse : **stand-by** (production arrêtée 2026-09-30, issue #129 du dépôt
+  `LyssU_googlelike`). Récap historique : [[10.01 Ulysse/ARCHI]].
 
 ## Automatisation Git (backup Vault)
 - Plugin « Obsidian Git » (Vinzent) installé. Repo privé GitHub : obsidian-vault-kuchu (branche master).

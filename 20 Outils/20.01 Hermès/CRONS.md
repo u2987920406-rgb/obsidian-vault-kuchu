@@ -2,7 +2,7 @@
 
 > Registre des tâches planifiées (crons) d'Hermès et de leurs désactivations.
 > **Règle :** à chaque désactivation d'un cron, noter ici le **pourquoi** (basique).
-> Mis à jour le 2026-09-25 (nouvelle boucle `qa-ulysse-livrables` : 12 livrables html/pdf/excel/slides, monitor-gated, vérification finale par Raf).
+> Mis à jour le 2026-09-30 (**stand-by Ulysse** : ses deux crons — `qa-agent-ulysse-poll`, `qa-ulysse-livrables` — ont disparu du registre, scripts retirés, projet arrêté).
 
 ## Incident du 09→17/09/2026 — crons muets
 
@@ -42,14 +42,23 @@
 | `Tri email automatique` (`dffce1216c72`) | tous les 3 jours | Tri boîte kuchubb@gmail.com (Himalaya, skill email-inbox-triage) → #gestion-emails | 07/09 12h32 OK |
 | `qa-astroprisma-autoloop` (`8514c223c460`) | ~~toutes les 10 min~~ | **Boucle QA auto-récursive** Astroprisma : audite → file une issue → corrige (Codex) → vérifie → PR. **Jamais de merge.** Script `astroprisma_qa_autoloop.sh`. **EN PAUSE 21/09 : quota ChatGPT épuisé** (Claude Code refusé par l'org, DSH sans clé). Reprise : `hermes cron resume 8514c223c460`. Détail : [[Boucle QA auto-récursive]] | posé 21/09, mis en pause 21/09 |
 | `Vider corbeille Gmail` (`ca3f08d2cccc`) | 02/10 09h00 | Purge corbeille email-triage (one-shot) — **prompt perdu** | — |
-| `qa-ulysse-livrables` (`26af8485f535`) | toutes les 30 min, **monitor-gated** (le script `ulysse-livrables-etat.py` ne réveille l'agent que si l'inventaire a bougé, sinon silence) | **Boucle livrables Ulysse** (demande Raf 25/09) : génère **12 fichiers** — `html`/`pdf`/`excel`/`slides` ×3, thèmes différents — avec clapet à 3 volets : pertinence, véracité sourcée (citations dans le fichier), **mise en page/design** (capture Chrome/pdftoppm + vision, question fermée, 2 essais max puis REJET). 1 tick = 1 fichier, jamais plus. venv dédié `~/projets/ulysse/.venv-livrables` (openpyxl + python-pptx). Contrat : `~/projets/ulysse/livrables/INVENTAIRE.md` (lignes `VALIDE`/`REJET` lues par le monitor) — **Raf vérifie tout à la fin** ; à 12/12 le script poste UNE seule fois le rapport dans le thread QA puis plus aucun run d'agent (cron à vide). Livraison intermédiaire `local` (zéro bruit). Skills : `qa-loop`, `vision-qa`, `xlsx`, `powerpoint`. Snapshot : `None` après `hermes cron edit` (piège création — vérifié le 25/09) | 25/09 07h17 — premier tick lancé manuellement |
+| ~~`qa-ulysse-livrables` (`26af8485f535`)~~ | **SUPPRIMÉ 30/09/2026** | Génération de 12 livrables Ulysse | Projet Ulysse **en stand-by** (production arrêtée, issue #129). Le cron n'existe plus dans le registre. |
+
+> **Note stand-by (30/09/2026)** — les deux crons Ulysse de ce registre ont disparu
+> avec l'arrêt du projet : `qa-agent-ulysse-poll` (`f73e969eb6f0`) et
+> `qa-ulysse-livrables` (`26af8485f535`) ne figurent plus dans
+> `~/.hermes/cron/jobs.json`. Vérifié le 30/09 : aucun cron de tous les profils
+> ne mentionne Ulysse. Leurs scripts (`qa_loop_poll.sh`,
+> `ulysse-livrables-etat.py`) ont été retirés de `~/.hermes/scripts/`.
+> Contexte : [[10.01 Ulysse]].
 
 ## Désactivés / supprimés
 
 | Cron | Statut | Dernier état | Pourquoi |
 |---|---|---|---|
 | `Boucle de rétroaction quotidienne` (`d5b1eeba86c2`) | désactivé 17/09 | — | Prompt + schedule détruits par le dashboard (schéma réduit) ; prompt absent des backups → désactivé plutôt que recréé de mémoire. |
-| `qa-agent-ulysse-poll` | réactivé 07/09 | Pause du 05/09 16h12 | Était en pause depuis le test e2e (PR #124 ouverte). Relancé par Raf le 07/09. |
+| `qa-agent-ulysse-poll` (`f73e969eb6f0`) | **SUPPRIMÉ 30/09/2026** | Dernier run 22/09 10h42 OK | Projet Ulysse **en stand-by** : poll des issues `bug` et agent QA n'ont plus d'objet (dépôt archivé, issue #129). N'existe plus dans le registre. |
+| ~~`qa-agent-ulysse-poll`~~ | réactivé 07/09 | Pause du 05/09 16h12 | Était en pause depuis le test e2e (PR #124 ouverte). Relancé par Raf le 07/09. |
 | `vault-backup` | supprimé 07/09 | — | Plus d'utilité (raison initiale à confirmer). |
 | `rapport-vault-quotidien` | supprimé 07/09 | — | Plus d'utilité (raison initiale à confirmer). |
 | `boucle-ulysse` | supprimé 07/09 | — | Zombie (enabled, n'avait pas tourné depuis 02/09) ; remplacé par `qa-agent-ulysse-poll`. |

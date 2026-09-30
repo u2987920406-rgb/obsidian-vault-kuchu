@@ -30,9 +30,15 @@ bandit -r mon_dossier/ -f json -o rapport.json
 - **Astroprisma** (`~/projets/Astroprisma_app_EMERGENT`) — 0 fichier Python
   (projet Vite/React/TS) → scan sans objet.
 - **Ulysse** (`~/projets/ulysse`) — 25 alertes initiales sur 17 fichiers
-  (6 819 lignes), ramenées à **0** après traitement.
+  (6 819 lignes), ramenées à **0** après traitement. *Projet en stand-by depuis le
+  30/09/2026 : dossiers de code supprimés, la commande ci-dessous ne s'applique
+  plus.* Voir [[10.01 Ulysse]].
 
 ## Ulysse — traitement des alertes
+
+> ⛔ **Section historique** — projet Ulysse en stand-by (30/09/2026). Le chemin
+> `~/projets/ulysse` n'existe plus ; gardé pour la traçabilité de la méthode de
+> traitement des alertes.
 
 Fichier de configuration : `~/projets/ulysse/.bandit.yaml` (versionné, à la racine
 du projet). Il déclare les `per_file_ignores` par fichier.
