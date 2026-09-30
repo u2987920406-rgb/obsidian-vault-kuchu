@@ -1,18 +1,33 @@
 # Plan 01 Projet Astroprisma sansref 30sept26_06h59 — source d'écriture
 
+| Champ | Valeur |
+|---|---|
+| **Rang** | `01` |
+| **Type** | plan principal |
+| **Rattaché à** | — |
+| **Statut** | en cours |
+| **Créé le** | 30sept26_06h59 |
+| **Dernière mise à jour** | 30/09/26 07h35 |
+| **Code** | `sansref` (dossier `~/projets/astroprisma-unity/` non versionné) |
+
 **Plan : `Plan 01 Projet Astroprisma sansref 30sept26_06h59.html`** — c'est la
 couche de validation (onglets, AC cochables, KPI). Ce `.md` est la source
 d'écriture, selon le skill `plan-traceable`.
 
-- Règle de nommage : `Plan <NN> Projet <Nom> ref-<sha> <JJmoisAA_HHhMM>`
+**Ce plan est le plan principal du port Unity** : les grandes lignes (Acquis
+J1–J8) et les étapes (jalons J9→J17). Toute demande qui survient en cours de
+route devient un **sous-plan** (`Plan 01.SS …`, ex. « plan bestiaire » rattaché à
+l'étape 4), jamais un nouveau plan principal — c'est ce qui garde le fil.
+
+- Règle de nommage : `Plan <NN>[.<SS>] Projet <Nom> ref-<sha> <JJmoisAA_HHhMM>`
 - `sansref` = le dossier `~/projets/astroprisma-unity/` **n'est pas un dépôt git**
   (`git rev-parse` remonte à `/home/raf/projets`) — information consignée telle quelle.
-- Rang : `01` (premier plan de ce projet dans `Plans/`).
 - Trace vault : `vault/10 Projets/10.03 Astroprisma/Plans/`
 - Copie de travail : `~/projets/astroprisma-unity/Plan 01 … 30sept26_06h59.html`
 - Servi : `~/projets/Astroprisma_app_EMERGENT/docs/` → http://100.101.17.46:5183/
   (service `astroprisma-plan.service`, python http.server sur `docs/`)
-- Format : template `plan.html` (skill `la-methode`, étape 6bis)
+- Index du projet : note-hub [[10.03 Astroprisma]], section « ## Plans »
+- Format : template `plan.html` (skills `la-methode` étape 6bis + `template-plan-html`)
 
 ## Situation au 2026-09-30 (état du code à cette date)
 

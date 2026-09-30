@@ -18,6 +18,21 @@
     padding:14px 22px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
   header h1{font-size:19px; margin:0; letter-spacing:.2px}
   header .meta{color:var(--muted); font-size:1rem}
+  /* Bandeau d'identité : le plan dit QUI il est, sans qu'on ouvre le nom du fichier. */
+  .ident{display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    padding:10px 22px 12px; background:#11131a; border-bottom:1px solid var(--line)}
+  .ident .id{font-weight:700; font-size:1rem; letter-spacing:.3px}
+  .ident .sep{color:var(--line)}
+  .pill{display:inline-flex; align-items:center; min-height:28px; padding:4px 10px;
+    border-radius:14px; border:1px solid var(--line); background:var(--panel2);
+    font-size:1rem; color:var(--muted)}
+  .pill b{color:var(--ink); margin-left:5px; font-weight:600}
+  .pill.principal{border-color:var(--accent); color:var(--accent)}
+  .pill.sous-plan{border-color:var(--accent2); color:var(--accent2)}
+  .pill.st-en-cours{border-color:var(--warn); color:var(--warn)}
+  .pill.st-livre{border-color:var(--ok); color:var(--ok)}
+  .pill.st-remplace, .pill.st-abandonne{border-color:var(--muted)}
+  .parent{color:var(--accent2)}
   .wrap{max-width:1080px; margin:26px auto; padding:0 20px}
   .tabs{display:flex; gap:6px; flex-wrap:wrap; position:sticky; top:60px;
     z-index:9; background:var(--bg); padding:8px 0}
@@ -84,8 +99,10 @@
 <body>
 <header>
   <h1>Plan — <span id="projName">Astroprisma Unity</span></h1>
-  <span class="meta" id="projMeta">v0.1 · port V1 → C# · en conception</span>
+  <span class="meta" id="projMeta">v0.1 · port V1 → C# · 9 jalons restants</span>
 </header>
+<!-- Identité : rang, type, rattachement, horodatage, statut. Toujours en tête. -->
+<div class="ident" id="identBar"></div>
 
 <div class="wrap">
   <div class="kpi">
@@ -163,13 +180,24 @@
     </div>
   </section>
 
-  <div class="foot">Template « HTML-as-Plan » · skill la-methode · source d'écriture : PLAN-UNITY.md</div>
+  <div class="foot" id="footLine">Template « HTML-as-Plan » · plan traçable</div>
 </div>
 
 <script>
 const DATA = {
   name: "Astroprisma Unity",
   meta: "v0.1 · port V1 → C# · 9 jalons restants · en conception",
+  // ── Identité du plan : DOIT refléter son nom de fichier, sans quoi la trace ment.
+  ident: {
+    rang: "01",
+    type: "principal",           // principal | sous-plan
+    parent: "",                  // numéro du plan principal si sous-plan
+    ref: "sansref",
+    date: "30sept26_06h59",      // horodatage du nom
+    statut: "en cours",          // en cours | livré | remplacé | abandonné
+    maj: "30/09/26 07h20"        // dernière mise à jour de ce tableau de bord
+  },
+  nomFichierMD: "Plan 01 Projet Astroprisma sansref 30sept26_06h59",
   prd: {
     ctx: "Le compagnon Astroprisma existe en web (Vite + React + TS, 14 modules de features) et sert de référence. Le port Unity (C#) doit atteindre la parité : tout ce que la V1 sait faire doit exister dans l'app Unity, avec les mêmes règles du livre et la même exigence de preuve visuelle. 8 jalons sont déjà livrés (10 écrans, 450 tests). Il reste 9 jalons. Le port n'invente rien : le livre (data/*.json) reste la seule source de vérité, et chaque écran passe par un gate visuel (capture 1080×1920 + vision + mesure pixel) avant d'être annoncé.",
     feats: [
@@ -275,9 +303,26 @@ const DATA = {
 };
 
 const $ = id => document.getElementById(id);
+function renderIdent(){
+  const I = DATA.ident;
+  const cls = s => (s||"").toLowerCase().replace(/\s+/g,"-");
+  const parties = [];
+  parties.push(`<span class="pill ${cls(I.type)}">Plan n° <b>${I.rang}</b></span>`);
+  parties.push(`<span class="pill ${cls(I.type)}">${I.type}</span>`);
+  if(I.type === "sous-plan" && I.parent){
+    parties.push(`<span class="pill">Rattaché à <b class="parent">Plan ${I.parent}</b></span>`);
+  }
+  parties.push(`<span class="pill st-${cls(I.statut)}">statut <b>${I.statut}</b></span>`);
+  parties.push(`<span class="pill">créé le <b>${I.date}</b></span>`);
+  parties.push(`<span class="pill">maj <b>${I.maj}</b></span>`);
+  parties.push(`<span class="pill">code <b>${I.ref}</b></span>`);
+  $("identBar").innerHTML = `<span class="id">${DATA.name}</span>`
+    + parties.join('<span class="sep">·</span>');
+}
 function render(){
   $("projName").textContent = DATA.name;
   $("projMeta").textContent = DATA.meta;
+  renderIdent();
   $("prdCtx").textContent = DATA.prd.ctx;
   $("prdFeats").innerHTML = DATA.prd.feats.map(f=>`<li>${f}</li>`).join("");
   $("prdCst").innerHTML  = DATA.prd.cst.map(f=>`<li>${f}</li>`).join("");
@@ -309,6 +354,11 @@ function render(){
   let risq = DATA.jalons.filter(j=>!j.done).reduce((m,j)=>Math.max(m,j.risk),0);
   $("kpiRisque").textContent = {3:"Hi",2:"Mid",1:"Low"}[risq] || (risq===0?"Terminé":risq);
   $("acProg").style.width = ((acDone/DATA.ac.length)*100)+"%";
+  const I = DATA.ident;
+  $("footLine").textContent = `Plan ${I.rang} · ${I.type}`
+    + (I.parent ? ` du plan ${I.parent}` : "")
+    + ` · ${I.date} · code ${I.ref} · statut ${I.statut} · maj ${I.maj}`
+    + ` · source d'écriture : ${DATA.nomFichierMD || "—"}.md`;
   localStorage.setItem("plan-ac-"+DATA.name, JSON.stringify(DATA.ac.map(a=>a.done)));
 }
 function toggleAC(i){
