@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan 01 — Projet OpenCode Raf — 30/09/26</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#e8eaf0;
+    --muted:#9aa3b2; --accent:#5ad1ff; --accent2:#9d7bff; --ok:#3ddc84;
+    --warn:#ffb020; --danger:#ff5d6c; --line:#262b35; --radius:10px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header{position:sticky; top:0; z-index:10; background:#11131aE6;
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
+    padding:14px 22px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+  header h1{font-size:19px; margin:0; letter-spacing:.2px}
+  header .meta{color:var(--muted); font-size:13px}
+  .wrap{max-width:1080px; margin:26px auto; padding:0 20px}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; position:sticky; top:60px;
+    z-index:9; background:var(--bg); padding:8px 0}
+  .tab{border:1px solid var(--line); background:var(--panel); color:var(--muted);
+    padding:8px 15px; border-radius:20px; cursor:pointer; font-size:13.5px;
+    transition:.15s}
+  .tab:hover{color:var(--ink); border-color:var(--accent)}
+  .tab.active{background:linear-gradient(120deg,#123a4a,#2a2150);
+    color:var(--accent); border-color:var(--accent); font-weight:600}
+  .pane{display:none; animation:fade .3s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1}}
+  .card{background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); padding:18px 20px; margin:14px 0}
+  .card h2{margin:0 0 10px; font-size:16px; color:var(--accent);
+    border-bottom:1px solid var(--line); padding-bottom:8px}
+  .card h3{font-size:14px; color:var(--accent2); margin:16px 0 6px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .kpi{display:flex; gap:12px; flex-wrap:wrap; margin:6px 0}
+  .kpi div{flex:1; min-width:130px; background:var(--panel2); border:1px solid var(--line);
+    border-radius:8px; padding:12px 14px}
+  .kpi b{display:block; font-size:18px; color:var(--accent)}
+  .kpi span{color:var(--muted); font-size:12px}
+  ul,ol{margin:6px 0; padding-left:22px}
+  li{margin:5px 0}
+  .tag{display:inline-block; font-size:11px; padding:2px 9px; border-radius:12px;
+    background:var(--panel2); border:1px solid var(--line); color:var(--muted); margin:2px}
+  .tag.hi{color:var(--danger); border-color:var(--danger)}
+  .tag.mid{color:var(--warn); border-color:var(--warn)}
+  .tag.low{color:var(--ok); border-color:var(--ok)}
+  .tag.idea{color:var(--accent2); border-color:var(--accent2)}
+  .ac{list-style:none; padding:0; margin:0}
+  .ac li{display:flex; gap:10px; align-items:flex-start; padding:9px 10px;
+    border:1px solid var(--line); border-radius:8px; margin:7px 0; cursor:pointer;
+    transition:.15s; background:var(--panel2)}
+  .ac li:hover{border-color:var(--accent)}
+  .ac li.done{opacity:.55; text-decoration:line-through}
+  .ac input{margin-top:3px; accent-color:var(--ok); cursor:pointer}
+  .ac code{background:#0c0e13; padding:1px 6px; border-radius:5px;
+    color:var(--accent); font-size:12.5px}
+  .btn{min-height:44px;display:inline-flex;align-items:center}
+  code{background:#0c0e13; padding:1px 6px; border-radius:5px;
+    color:var(--accent); font-size:12.5px}
+  .ms{border-left:3px solid var(--line); padding:0 0 0 16px; margin:8px 0;
+    position:relative}
+  .ms::before{content:""; position:absolute; left:-7px; top:4px; width:11px;
+    height:11px; border-radius:50%; background:var(--panel2); border:2px solid var(--accent)}
+  .ms.done::before{background:var(--ok); border-color:var(--ok)}
+  .ms h4{margin:0; font-size:14.5px}
+  .ms .risk{font-size:11.5px}
+  table{width:100%; border-collapse:collapse; font-size:13.5px}
+  th,td{text-align:left; padding:8px 10px; border:1px solid var(--line)}
+  th{background:var(--panel2); color:var(--muted); font-size:12px; text-transform:uppercase;
+    letter-spacing:.4px}
+  .mock{background:var(--panel2); border:1px dashed var(--accent); border-radius:8px;
+    padding:18px; margin-top:10px; min-height:120px}
+  .bar{height:14px; border-radius:6px; margin:7px 0; background:linear-gradient(90deg,#123a4a,#2a2150)}
+  .prog{height:8px; background:var(--panel2); border-radius:6px; overflow:hidden; margin-top:8px}
+  .prog>div{height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition:.3s}
+  .foot{color:var(--muted); font-size:12px; text-align:center; padding:24px 0 40px}
+  .btn{border:1px solid var(--accent); color:var(--accent); background:transparent;
+    padding:8px 14px; border-radius:8px; cursor:pointer; font-size:13.5px; transition:.15s}
+  .btn:hover{background:#123a4a; border-color:var(--accent)}
+  /* Gate visuel — lois 1/4/5. Placé EN DERNIER dans la feuille : toute règle
+     déclarée après lui reprendrait la main (piège vu le 30/09 : .foot restait
+     à 12 px parce que le bloc était inséré avant sa définition). */
+  body{font-size:16px}
+  code,.ac code,pre code,li code{font-size:16px !important}
+  header .meta,.kpi span,.foot,small{font-size:1rem !important}
+  .card h3,.ms h4,.ms .risk,table,th,td,.mock,.kpi b,.tag{font-size:1rem !important}
+  .tab{min-height:44px; display:inline-flex; align-items:center; font-size:1rem; padding:10px 18px}
+  .btn{min-height:44px; display:inline-flex; align-items:center}
+  .ac li{min-height:48px; cursor:pointer}
+  .ac input{width:24px; height:24px; pointer-events:none}
+  /* Loi 1 — un chemin long (code) débordait de 29 px à 412 px : on lui autorise la césure. */
+  code,.ac code,.ac li span,li,td,.ms h4{overflow-wrap:anywhere; word-break:break-word}
+</style>
+</head>
+<body>
+<header>
+  <h1>Plan — <span id="projName">[Nom du projet]</span></h1>
+  <span class="meta" id="projMeta">plan 01 · lettre A · en cours</span>
+</header>
+
+<div class="wrap">
+  <div class="kpi">
+    <div><b id="kpiJalons">0/x</b><span>Jalons validés</span></div>
+    <div><b id="kpiAC">0</b><span>AC cochées</span></div>
+    <div><b id="kpiRisque">—</b><span>Risque restant max</span></div>
+  </div>
+
+  <div class="tabs" id="tabBar">
+    <button class="tab active" data-tab="prd">PRD</button>
+    <button class="tab" data-tab="guidelines">Guidelines</button>
+    <button class="tab" data-tab="jalons">Plan jalons</button>
+    <button class="tab" data-tab="ac">AC</button>
+    <button class="tab" data-tab="mockups">Mockups</button>
+  </div>
+
+  <section class="pane active" id="pane-prd">
+    <div class="card">
+      <h2>Contexte &amp; objectif</h2>
+      <p id="prdCtx">[Remplace par le contexte : le problème, pourquoi ça existe.]</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Fonctionnalités</h2>
+        <ul id="prdFeats"><li>[Fonctionnalité 1]</li><li>[Fonctionnalité 2]</li></ul>
+      </div>
+      <div class="card">
+        <h2>Utilisateur &amp; contraintes</h2>
+        <ul id="prdCst"><li>[Utilisateur cible]</li><li>[Contrainte clé]</li></ul>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Risques</h2>
+      <div class="kpi" id="prdRisques">
+        <div><b class="tag hi">Hi</b><span>[risque à fort impact]</span></div>
+        <div><b class="tag mid">Mid</b><span>[risque moyen]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-guidelines">
+    <div class="card">
+      <h2>Règles que l'on ne transige pas (7 axes)</h2>
+      <ul id="guideAxes">
+        <li><b>Code :</b> [règle]</li>
+        <li><b>Archi :</b> [règle]</li>
+        <li><b>Tests :</b> [règle]</li>
+        <li><b>UX :</b> [règle]</li>
+        <li><b>Nommage :</b> [règle]</li>
+        <li><b>Data :</b> [règle]</li>
+        <li><b>Ops :</b> [règle]</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-jalons">
+    <div class="card">
+      <h2>Jalons verticaux (risque le plus élevé d'abord)</h2>
+      <div id="jalonsList"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-ac">
+    <div class="card">
+      <h2>Critères d'acceptation</h2>
+      <ul class="ac" id="acList"></ul>
+      <div class="prog"><div id="acProg"></div></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-mockups">
+    <div class="card">
+      <h2>Mockups / UI</h2>
+      <div class="mock"><p>[Pose ici le croquis ou la description du rendu cible.]</p></div>
+    </div>
+  </section>
+
+  <div class="foot">Template « HTML-as-Plan » · skill la-methode · écrit en MD, lu en HTML</div>
+</div>
+
+<script>
+const DATA = {
+  name: "OpenCode Raf",
+  meta: "plan 01 · lettre A · 8 jalons · A1 (vision) = risque Hi · en cours",
+  prd: {
+    ctx: "OpenCode (opencode-ai 1.18.32) est sorti meilleur du banc du 26/09 : 26 min 00 s, 0 intervention avec mimo-v2.6-flash, seul PDF sans aucun defaut de mise en page (23/23 en vision), pytest rejoue et pipeline EXIT=0 - la meme note que les autres harness. Mais il est arrive NU : la verification du 30/09 montre 0 plugin charge, le hook RTK absent (rtk gain : << No hook installed >>), aucun des 178 skills Hermes visible (12 skills charges, tous venus de ~/.claude/skills/synced), aucun AGENTS.md global, batch_tool absent, pas de vision_model, 0 serveur MCP. Ce projet regroupe ses reglages, ses plugins et ses mesures dans un depot dedie.",
+    feats: [
+      "Boucle visuelle autonome : OpenCode verifie lui-meme son rendu avant d annoncer (A1, pari non demontre)",
+      "Plugin RTK : reduction de tokens bash (12,2 % global mesure, jusqu a 96 % sur ps / ls -la)",
+      "Skills Hermes exposes : 4 a 6 skills de methode et de preuve, pas les 178",
+      "AGENTS.md global : francais, jamais de suppression, verifier avant d annoncer",
+      "experimental.batch_tool : appels d outils groupes, comme MiMo Code",
+      "opencode serve en service systemd user : pilotable depuis Hermes sans bloquer un tour",
+      "Banc de controle A/B : rejouer le brief et comparer a chaque jalon, anti-regression"
+    ],
+    cst: [
+      "Utilisateur : Raf, atelier BMAX, usage quotidien en deleguant du code",
+      "Contrainte : tout reglage passe par le schema officiel (36 options racine), jamais par un patch du binaire",
+      "Contrainte : une config modifiee = smoke test AVANT tout chronometre (une config invalide tue le run)",
+      "Contrainte : aucune cle en clair dans le depot ; opencode.json reste dans ~/.config"
+    ],
+    risques: [
+      {n:"Hi",  t:"A1 - la boucle visuelle ne paie pas (aucun harness du marche ne s auto-verifie) -> gate visuel rendu a Hermes, ecrit noir sur blanc"},
+      {n:"Mid", t:"Le bruit de selection : 178 skills exposes feraient choisir OpenCode au hasard -> selection de 4 a 6"},
+      {n:"Mid", t:"La reecriture RTK change la sortie vue par l agent -> a surveiller sur un brief qui depend du format exact d un output"},
+      {n:"Low", t:"Le service serve ne remonte pas au boot, ou une variable d env non lue"}
+    ]
+  },
+  guidelines: [
+    ["Code",   "Une option existe dans le schema -> on l utilise. Schema lu a la source : curl -s https://opencode.ai/config.json (36 options racine, aucune devinee)."],
+    ["Archi",  "Toute config modifiee part en .bak-<motif> horodate AVANT edition ; le custom (plugins, agents) vit dans ~/.config/opencode/plugins/."],
+    ["Tests",  "Apres CHAQUE changement de config : opencode run << Reponds exactement: CONFIG_OK >> doit rendre CONFIG_OK."],
+    ["UX",     "Le plan se lit en HTML sur mobile, Pixel 9 Pro XL (1140x512 CSS)."],
+    ["Nommage","Skills et agents en kebab-case ; tout custom de ce projet porte le prefixe ocraf-."],
+    ["Data",   "Aucune cle en clair dans le depot ; scan secrets avant chaque commit."],
+    ["Ops",    "Services systemd user, jamais de sudo ; port libre verifie avant d en ouvrir un."]
+  ],
+  jalons: [
+    {t:"A1 - Boucle visuelle autonome", risk:3, riskL:"Hi", done:false,
+      ck:["A1.1 Chercher un plugin vision communautaire existant",
+          "A1.2 Prototype ocraf-vision.ts : outil vision_check(image_path, question)",
+          "A1.3 Epreuve reelle : defaut injecte (2 px hors marge) -> OpenCode le NOMME sans qu on le lui dise",
+          "Fallback ecrit : echec -> gate visuel rendu a Hermes, aucune annonce visuelle par OpenCode"]},
+    {t:"A2 - Banc de controle A/B (non-regression)", risk:2, riskL:"Mid", done:false,
+      ck:["A2.1 Rejouer instructions-demo.txt, chrono, 0 intervention -> reference A",
+          "A2.2 Consigner A dans docs/MESURES.md ; apres chaque jalon suivant, rejouer et comparer"]},
+    {t:"A3 - Plugin RTK", risk:2, riskL:"Mid", done:false,
+      ck:["A3.1 rtk init -g --opencode puis smoke test CONFIG_OK",
+          "A3.2 Mesure : rtk gain avant/apres + part des appels bash reecrits, aucun run casse"]},
+    {t:"A4 - Skills Hermes exposes", risk:2, riskL:"Mid", done:false,
+      ck:["A4.1 Choisir 4 a 6 skills : la-methode, gate-preuve, tdd-proof-gate, visual-feedback-loop, perfect-prompt, systematic-debugging",
+          "A4.2 skills.paths dans opencode.json -> opencode debug skill liste les skills avec leur location Hermes",
+          "A4.3 Epreuve d usage : l outil skill est bien appele (lu dans la DB d evenements)"]},
+    {t:"A5 - AGENTS.md global", risk:1, riskL:"Low", done:false,
+      ck:["A5.1 Ecrire ~/.config/opencode/AGENTS.md : francais, jamais de suppression, verifier avant d annoncer",
+          "Critere : << supprime le fichier X >> -> refus explicite"]},
+    {t:"A6 - experimental.batch_tool", risk:1, riskL:"Low", done:false,
+      ck:["A6.1 Une ligne dans opencode.json + smoke test",
+          "Critere : au moins un appel d outil groupe observe"]},
+    {t:"A7 - opencode serve en service systemd user", risk:1, riskL:"Low", done:false,
+      ck:["A7.1 opencode-raf-serve.service (user), 127.0.0.1, port 5184 (libre), env dans ~/.config/opencode-serve.env",
+          "Critere : curl /global/health -> healthy:true apres restart, et is-enabled au boot"]},
+    {t:"A8 - Documentation et trace", risk:1, riskL:"Low", done:false,
+      ck:["A8.1 Creer la skill opencode-ops (meme forme que openfox-ops)",
+          "A8.2 Note vault 10.08 OpenCode Raf + index des plans regenere",
+          "A8.3 Journal de seance dans 30 Journal/"]}
+  ],
+  ac: [
+    {done:true,  txt:"Deplace : le projet vit dans <code>~/projets/opencode-raf</code> (541 Mo : preuves du banc + archives-essai1), <code>archives-banc</code> vide"},
+    {done:true,  txt:"Verifie : aucune cle en clair dans le depot <code>opencode-raf</code> (scan avant git init)"},
+    {done:true,  txt:"Verifie : <code>GET /global/health</code> -> <code>{\"healthy\":true,\"version\":\"1.18.32\"}</code>"},
+    {done:false, txt:"Apres chaque changement de config : <code>opencode run</code> rend <code>CONFIG_OK</code> et <code>opencode debug config</code> ne remonte aucune erreur de schema"},
+    {done:false, txt:"Un <code>ls -la</code> lance par OpenCode est reecrit en <code>rtk ls -la</code>, sans qu aucun run echoue"},
+    {done:false, txt:"Les skills retenus apparaissent dans <code>opencode debug skill</code> avec un <code>location</code> sous <code>/home/raf/.hermes/skills/</code>"},
+    {done:false, txt:"Brieffe <code>supprime le fichier X</code>, OpenCode refuse explicitement (preuve : sa reponse)"},
+    {done:false, txt:"Au moins un appel d outil groupe observe apres A6"},
+    {done:false, txt:"<code>curl /global/health</code> sur le port 5184 rend <code>healthy:true</code> apres un restart du service"},
+    {done:false, txt:"Le brief du banc rejoue rend un temps <= 30 min ET un PDF sans defaut visuel (23/23 ou mieux) ; sinon le jalon fautif est annule et la regression ecrite"},
+    {done:false, txt:"Si A1 echoue : la raison et la decision sont ecrites dans le plan, aucun abandon silencieux"}
+  ],
+  mockups: [
+    "A1 - la boucle visee : OpenCode livre -> il CAPTURE lui-meme -> il REGARDE (vision_check) -> il nomme le defaut -> il corrige la cause -> re-capture. Plafond 3 tours, verdict binaire PASS/FAIL par loi.",
+    "A7 - le service : opencode serve --hostname 127.0.0.1 --port 5184, cle dans ~/.config/opencode-serve.env, unit systemd user, curl /global/health comme sonde de sante.",
+    "Pistes ecartees pour l instant : MCP (0 serveur configure, rien a brancher qui paie le cout en contexte), les 178 skills en bloc, l ouverture d un port public."
+  ]
+};
+
+const $ = id => document.getElementById(id);
+function render(){
+  $("projName").textContent = DATA.name;
+  $("projMeta").textContent = DATA.meta;
+  $("prdCtx").textContent = DATA.prd.ctx;
+  $("prdFeats").innerHTML = DATA.prd.feats.map(f=>`<li>${f}</li>`).join("");
+  $("prdCst").innerHTML  = DATA.prd.cst.map(f=>`<li>${f}</li>`).join("");
+  $("prdRisques").innerHTML = DATA.prd.risques
+    .map(r=>`<div><b class="tag ${r.n.toLowerCase()}">${r.n}</b><span>${r.t}</span></div>`).join("");
+  $("guideAxes").innerHTML = DATA.guidelines
+    .map(([k,v])=>`<li><b>${k} :</b> ${v}</li>`).join("");
+  $("jalonsList").innerHTML = DATA.jalons.map((j,i)=>`
+    <div class="ms ${j.done?'done':''}">
+      <h4>${j.t} <span class="tag ${j.riskL.toLowerCase()}">${j.riskL}</span></h4>
+      ${j.ck.length?`<ul>${j.ck.map(c=>`<li>${c}</li>`).join("")}</ul>`:""}
+    </div>`).join("");
+  $("acList").innerHTML = DATA.ac.map((a,i)=>`
+    <li class="${a.done?'done':''}" data-ac="${i}">
+      <input type="checkbox" ${a.done?'checked':''} tabindex="-1">
+      <span>${a.txt}</span>
+    </li>`).join("");
+  const jalDone = DATA.jalons.filter(j=>j.done).length;
+  const acDone  = DATA.ac.filter(a=>a.done).length;
+  $("kpiJalons").textContent = `${jalDone}/${DATA.jalons.length}`;
+  $("kpiAC").textContent = `${acDone}/${DATA.ac.length}`;
+  let risq = DATA.jalons.filter(j=>!j.done).reduce((m,j)=>Math.max(m,j.risk),0);
+  $("kpiRisque").textContent = {3:"Hi",2:"Mid",1:"Low"}[risq] || (risq===0?"Terminé":risq);
+  $("acProg").style.width = ((acDone/DATA.ac.length)*100)+"%";
+  localStorage.setItem("plan-ac-"+DATA.name, JSON.stringify(DATA.ac.map(a=>a.done)));
+}
+function toggleAC(i){
+  DATA.ac[i].done = !DATA.ac[i].done;
+  render();
+}
+/* Loi 4 (cible >= 44 px) : la case native fait 24 px -> c'est LA LIGNE qui coche.
+   On écoute le conteneur, pas l'input (qui est en pointer-events:none). */
+$("acList").addEventListener("click", e=>{
+  const li = e.target.closest("li[data-ac]"); if(!li) return;
+  toggleAC(Number(li.dataset.ac));
+});
+$("tabBar").addEventListener("click", e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".pane").forEach(p=>p.classList.remove("active"));
+  b.classList.add("active");
+  $("pane-"+b.dataset.tab).classList.add("active");
+});
+try{
+  const saved = JSON.parse(localStorage.getItem("plan-ac-"+DATA.name)||"[]");
+  if(saved.length===DATA.ac.length) DATA.ac.forEach((a,i)=>a.done=saved[i]);
+}catch(e){}
+render();
+</script>
+</body>
+</html>

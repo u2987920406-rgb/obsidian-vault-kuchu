@@ -45,6 +45,11 @@ puis suit les liens vers les notes détaillées. Garder ce fichier stable et lis
   faisabilité réévaluables au changement de matériel (cases refusées →
   recochables), runner multi-envs avec oracles exécutés, mesures réelles du
   BMAX, bench computer use. Détail : [[10.07 BenchIA/Projet]].
+- [[10.08 OpenCode Raf]] — L'atelier OpenCode réglé et mesuré
+  (`~/projets/opencode-raf`). **Plan 01 en cours** (lettre A, jalons A1–A8) :
+  boucle visuelle autonome (risque Hi), banc de contrôle A/B, plugin RTK, skills
+  Hermès exposés, AGENTS.md, batch_tool, serve systemd, doc. OpenCode = sorti
+  meilleur du banc du 26/09 (26 min, 0 intervention, seul PDF sans défaut).
 
 ## 11 Ressources
 - [[11 Ressources/Écosystème Raf — Vue d'ensemble]] — carte mentale des outils
