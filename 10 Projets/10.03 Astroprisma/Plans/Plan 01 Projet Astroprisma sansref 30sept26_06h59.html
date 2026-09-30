@@ -119,7 +119,7 @@
     <div><b id="kpiJalons">0/9</b><span id="kpiJalonsL">Jalons livrés</span></div>
     <div><b id="kpiAC">0</b><span>AC cochées</span></div>
     <div><b id="kpiRisque">—</b><span id="kpiRisqueL">Risque restant max</span></div>
-    <div><b id="kpiTests">450</b><span>Tests verts actuels</span></div>
+    <div><b id="kpiTests">342/342</b><span>Tests verts actuels</span></div>
   </div>
 
   <div class="tabs" id="tabBar">
@@ -204,9 +204,9 @@ const DATA = {
     ref: "sansref",
     date: "30sept26_06h59",      // horodatage du nom = date de création
     statut: "en cours",          // en cours | livré | remplacé | abandonné
-    maj: "30/09/26 08h10"        // dernière mise à jour de ce tableau de bord
+    maj: "30/09/26 17h10"        // dernière mise à jour de ce tableau de bord
   },
-  tests: "264/264",   // preuve des écrans livrés (onglet Acquis)
+  tests: "342/342",   // preuve des écrans livrés (onglet Acquis)
   nomFichierMD: "Plan 01 Projet Astroprisma sansref 30sept26_06h59",
   prd: {
     ctx: "Le compagnon Astroprisma existe en web (Vite + React + TS, 14 modules de features) et sert de référence. Le port Unity (C#) doit atteindre la parité : tout ce que la V1 sait faire doit exister dans l'app Unity, avec les mêmes règles du livre et la même exigence de preuve visuelle. 8 jalons sont déjà livrés (10 écrans, 450 tests). Il reste 9 jalons. Le port n'invente rien : le livre (data/*.json) reste la seule source de vérité, et chaque écran passe par un gate visuel (capture 1080×1920 + vision + mesure pixel) avant d'être annoncé.",
