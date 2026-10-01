@@ -3,6 +3,10 @@
 Source de vérité : le dépôt GitHub (voir ci-dessous). Ce fichier est le résumé
 indexé dans le Vault, à tenir à jour quand le projet bouge.
 
+> **Dernière mise à jour : 2026-10-01.** Deux chantiers coexistent : l'app **TS**
+> (`Astroprisma_app_EMERGENT`, historique, sections ci-dessous) et le **port Unity**
+> en C# (`astroprisma-unity`, chantier courant — nouvelle section).
+
 ## Nature
 **Astroprisma Companion** — application web compagnon pour jouer au jeu de rôle
 solo **ASTROPRISMA** (space opéra post-apocalyptique) : fiche de personnage,
@@ -32,6 +36,61 @@ serveur.
   (`tailscale serve`, entrée persistée dans `~/docker/stack/serve.sh`).
 - Vérification : `bash verif/tout.sh` → 53 OK / 0 FAIL (Chrome réel).
   Détail : [[2026-09-21]].
+
+## Port Unity (chantier courant, 2026-10-01)
+
+Portage de l'app TS vers **Unity 6 / C#**, sprint par sprint (jalons `A1`…`A17`),
+avec **gate visuel obligatoire** avant chaque annonce : capture 1080×1920 du
+rendu réel + analyse vision. `FAIL` = correction de la cause puis re-capture
+(plafond 3 tours).
+
+- Local : `~/projets/astroprisma-unity` (le projet vit dans `AstroprismaUnity/`)
+- GitHub : `u2987920406-rgb/astroprisma-unity` (privé) — branche `master`
+- **Versionné depuis A10** : commit `f6a4cf3`, 1 044 fichiers ; `.gitignore`
+  Unity (Library/Temp/Builds/journaux exclus — 7 Go non versionnés).
+- Reference TS : `~/projets/astroprisma-dsh/ref` + `Astroprisma_app_EMERGENT/app/src`
+- Plan : [[10 Projets/10.03 Astroprisma/Plans/Plan 01 Projet Astroprisma sansref 30sept26_06h59]]
+
+### Avancement Unity — A1 → A10 livrés
+
+8 sprints + 3 jalons d'écrans, **11 scènes** : StarMap, Combat, SpaceCombat,
+Journal, Sheet, Bestiary, Settlement, Factions, Campaigns, EventNovel,
+CharacterCreation.
+
+| Jalon | Objet | État |
+|---|---|---|
+| A1 → A9 | moteur (dés, Challenge Rolls, combat sol + spatial), carte, écrans reliés, bestiaire | livrés |
+| **A10** | **journal de bord — un seul fil de campagne** | **livré** |
+| A11 → A17 | réputation & sidequests, … | à faire |
+
+**A10 en une phrase** : les journaux locaux (log de combat au sol, log spatial,
+journal d'événements) sont unifiés en un **fil unique** daté et situé (cycle +
+case) ; les **jets du livre** y entrent verbatim (`JournalKind.Roll`) —
+initiative d10+GRA, ✕ROLL d'attaque, ✕ROLL de fuite, Action Dice, d6
+d'exploration — une seule fois, aucun doublon au second passage.
+
+### Chiffres (2026-10-01)
+
+- **148** scripts C# (~**23 276** lignes) · **21** fichiers de tests
+- **473/473** tests EditMode verts (dont 4 neufs pour A10)
+- Lancement des suites : `run-tests.sh`, `run-a10-tests.sh` ; captures :
+  `run-sprint<n>.sh`, `run-a9.sh`, `run-a10-combat.sh`
+
+### Méthode (acquis des sprints)
+
+- **Jamais** de Play mode en `-batchmode` sans GPU : `WaitForEndOfFrame` ne se
+  déclenche pas, Unity boucle à 1200 % CPU sans écrire de PNG. Chemin prouvé :
+  Unity **avec** affichage X (`DISPLAY=:5`), `EditorApplication.Exit` auto.
+- Diagnostic : `grep -c "error CS" unity-s<n>.log` **avant** de suspecter le GPU
+  (une erreur CS fait bloquer Unity en silence, sans PNG).
+- Après un réimport massif, les références de prefab chargées avant sont
+  invalidées (`fileID: 0`) → re-câbler en dernier.
+- Les initialiseurs de champ dans une `struct` (C# 9 / Unity 6) cassent la
+  compilation en silence.
+- **Gate visuel** : capturer **le livrable**, pas son voisin. Un combat peut
+  détruire le `StarMapController` qui change de scène → réacquérir le
+  contrôleur à chaque cycle, et jouer le chemin réel (combat → retour carte →
+  bouton JOURNAL) avant de capturer.
 
 ## Stack technique
 - Frontend : **Vite + React 19 + TypeScript + Tailwind 4 + Zustand**, PWA
