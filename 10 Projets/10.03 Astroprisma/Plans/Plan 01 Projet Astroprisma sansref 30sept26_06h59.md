@@ -6,8 +6,8 @@
 | **Lettre** | `A` — les jalons de ce plan sont `A1`…`A17` |
 | **Statut** | en cours |
 | **Créé le** | 30sept26_06h59 |
-| **Dernière mise à jour** | 30/09/26 20h19 |
-| **Code** | `sansref` (dossier `~/projets/astroprisma-unity/` non versionné) |
+| **Dernière mise à jour** | 01/10/26 23h50 |
+| **Code** | `sansref` (dossier `~/projets/astroprisma-unity/`, dépôt privé `astroprisma-unity`) |
 
 **Plan : `Plan 01 Projet Astroprisma sansref 30sept26_06h59.html`** — c'est la
 couche de validation (onglets, AC cochables, KPI). Ce `.md` est la source
@@ -20,8 +20,9 @@ bestiaire à compléter, une partie omise — elle donne un **nouveau plan daté
 référence initiale ; l'index dit lequel est le plus récent.
 
 - Règle de nommage : `Plan <NN> Projet <Nom> ref-<sha> <JJmoisAA_HHhMM>`
-- `sansref` = le dossier `~/projets/astroprisma-unity/` **n'est pas un dépôt git**
-  (`git rev-parse` remonte à `/home/raf/projets`) — information consignée telle quelle.
+- Le dossier `~/projets/astroprisma-unity/` **est désormais un dépôt git** (privé
+  `astroprisma-unity`, créé au jalon A10, commit `f6a4cf3`). Le nom du plan porte
+  encore `sansref` : c'est l'état à sa création, conservé tel quel.
 - Trace vault : `vault/10 Projets/10.03 Astroprisma/Plans/`
 - Copie de travail : `~/projets/astroprisma-unity/Plan 01 … 30sept26_06h59.html`
 - Servi : `~/projets/Astroprisma_app_EMERGENT/docs/` → http://100.101.17.46:5183/
@@ -49,18 +50,23 @@ gate visuel** (capture 1080×1920 + vision + mesure pixel).
 
 Illustrations IA via OpenRouter : 6 portraits d'Origin, 18 vaisseaux, 30 ennemis.
 
-## Livré depuis : A9 (bestiaire relié + écrans débloqués)
+## Livré depuis : A10 (journal de bord — un seul fil de campagne)
 
-**A9 est livré** (vérifié : bestiaire ouvert depuis la carte et le combat, retour à l'écran
-d'origine, combat repris au round près — AC1 mesurée : case 1,-1 · cycle 2 · fuel 19
-identiques avant/après). Le carnet ouvre désormais l'escale et la fiche du vaisseau,
-qui n'étaient joignables par aucun chemin.
+**A10 est livré** (vérifié : 473/473 tests EditMode, dont 4 neufs). Les journaux
+locaux (log de combat au sol, log spatial, journal d'événements) sont unifiés en
+un fil unique, daté et situé (cycle + case). Les **jets du livre** y entrent
+verbatim (`JournalKind.Roll`) : initiative d10+GRA, ✕ROLL d'attaque, ✕ROLL de
+fuite, tirage des Action Dice, d6 d'exploration — écrits une seule fois, aucun
+doublon au second passage. Gate visuel : capture 1080×1920 du fil après un vrai
+parcours (combat gagné → retour carte → bouton JOURNAL).
 
-## Reste : 8 jalons (A10 → A17)
+Projet versionné : dépôt privé `astroprisma-unity` créé et poussé (commit `f6a4cf3`,
+1 044 fichiers ; `.gitignore` Unity — Library/Temp/Builds/journaux exclus).
+
+## Reste : 7 jalons (A11 → A17)
 
 | Jalon | Objet | Risque |
 |---|---|---|
-| **A10** | Journal de bord (entrées datées, unification des journaux locaux) | **Hi** |
 | **A11** | Réputation & sidequests (5 factions, 5 tables d6 p.60) | Low |
 | **A12** | Équipage (crew.json : embauche, rôles, skills, salaires) | Mid |
 | **A13** | Vaisseau (fiche, modules, achat/installation) | Mid |
