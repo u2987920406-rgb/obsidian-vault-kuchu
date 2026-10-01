@@ -76,5 +76,6 @@ Résumé : WoL fonctionnel depuis **veille** (10-11 s) **et depuis arrêt comple
 (49 s).
 
 ## Voir aussi
+- [[11 Ressources/raf-dell — Capacités et évolutions]] — compte-rendu matériel, modèles locaux, évolutions
 - [[11 Ressources/raf-bmax — Fiche opérationnelle]]
 - [[30 Journal/2026-09-30]]
